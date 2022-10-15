@@ -5,15 +5,23 @@ auth = Blueprint('auth', __name__)
 @auth.route('/Welcome')
 def land():
     return render_template("landingPage.html")
+
 @auth.route('/Login', methods=['GET', 'POST'])
 def login():
     return render_template("login.html")
+
 @auth.route('/Home')
 def home():
     return render_template("home.html")
+
 @auth.route('/Manager')
 def manager():
     return render_template("manager.html")
+
+@auth.route('/Quiz')
+def quiz():
+    return render_template("quiz.html")
+    
 @auth.route('/SignUp', methods=['GET', 'POST'])
 #This is the post method to store information to database
 def signUp():
