@@ -5,23 +5,30 @@
 
 .container{
     width: 600px;
-    max-width: 600px;
     height: auto;
     margin: center;
-    padding: 2em;
+    padding: 3em;
     box-shadow: 0 0 40px rgba(0, 0, 0, 0.2);
-    border-radius: var(--border-radius);
+    border-radius: 1em;
     background: white;
 }
 
-.dropdown{
-
-  margin-left: 50em;
-
+.float-child{
+  width: 50%;
+  float: left;
+  padding: 20px;
+  box-shadow: 0 0 40px rgba(0, 0, 0, 0.1);
+  border-radius:1em;
+  background: white;
 }
+
 nav{
 background-color: rgba(255, 255, 255, 0.5);
 height:auto;
+}
+
+h1{
+text-align: center;
 }
 
 .navbar-nav{
@@ -104,7 +111,7 @@ width: 40em;
 
 .table{
   width: 90%;
-  margin: 3em auto;
+  margin: 1em auto;
 }
 
 th, td{
