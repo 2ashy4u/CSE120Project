@@ -19,7 +19,10 @@ def login():
             if user.password == password:
                 flash('Logged in successfully', category = 'success')
                 login_user(user, remember=True)
-                return redirect(url_for('auth.manager'))
+                if user.isManager == 'N':
+                    return redirect(url_for('auth.home'))
+                else:
+                    return redirect(url_for('auth.manager'))
             else:
                 flash('Wrong password', category = 'error')
         else:
