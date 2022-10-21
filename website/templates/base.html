@@ -29,10 +29,14 @@
           <div class="navbar-nav">
             <!-- Add icons -->
             {% if user.is_authenticated %}
-            <a class="nav-iten nav-link" id="manager" href="/Manager">Manager View</a>
+              {% if user.isManager == 'Y' %}
+                <a class="nav-iten nav-link" id="manager" href="/Manager">Manager View</a>
+              {% endif %}
             <a class="nav-iten nav-link" id="home" href="/Home">Home</a>
             <a class="nav-iten nav-link" id="quiz" href="/Quiz">Quiz</a>
-            <a class="nav-iten nav-link" id="add_quiz" href="/AddQuiz">AddQuiz</a>
+              {% if user.isManager == 'Y' %}
+                <a class="nav-iten nav-link" id="add_quiz" href="/AddQuiz">AddQuiz</a>
+              {% endif %}
             <a class="nav-item nav-link" id="logout" href="/logout">Logout</a>
             {% else %}
             <a class="nav-iten nav-link" id="login" href="/Login">Login</a>
