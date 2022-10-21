@@ -1,0 +1,255 @@
+*{
+  padding:0;
+  margin: 0;
+}
+
+.container{
+    width: 600px;
+    height: auto;
+    margin: center;
+    padding: 3em;
+    box-shadow: 0 0 40px rgba(0, 0, 0, 0.2);
+    border-radius: 1em;
+    background: white;
+}
+
+.float-child{
+  width: 50%;
+  float: left;
+  padding: 20px;
+  box-shadow: 0 0 40px rgba(0, 0, 0, 0.1);
+  border-radius:1em;
+  background: white;
+}
+
+nav{
+background-color: rgba(255, 255, 255, 0.5);
+height:auto;
+}
+
+h1{
+text-align: center;
+}
+
+.navbar-nav{
+  margin-left: 40em;
+}
+
+.navbar-nav .nav-item .nav-link{
+color: #fff;
+font-size: 1.5em;
+margin-left: 40em;
+}
+
+header{
+  background:linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),  url('https://images.pexels.com/photos/772803/pexels-photo-772803.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260')no-repeat;
+  background-position-y:-45em;
+  height: 34em;
+}
+
+.header-heading{
+  font-size: 3.5em;
+}
+
+.sub-heading{
+  font-size: 1.5em;
+  width: 80vw;
+}
+
+.text-section{
+  margin: 13em 7em;
+  color: white;
+}
+
+.description-text-container{
+  padding-top: 8em;
+}
+
+.trial-btn{
+  background-color:transparent;
+  border: 1px solid rgb(152, 42, 255);
+  padding: 0.5em 1em;
+  border-radius: 0.35em;
+  color: rgb(255, 255, 255);
+  font-size: 1.2em;
+  display: flex;
+  margin: 1em 0;
+  float: left;
+  align-items: center;
+  align-content: center;
+}
+
+.plan-btn{
+  background-color: transparent;
+  padding: 0.5em 1em;
+  border-radius: 0.35em;
+  border: 1px solid rgb(41, 45, 246);;
+  color: rgb(255, 255, 255);
+  font-size: 1.2em;
+  display: flex;
+  align-items: center;
+  align-content: center;
+  margin: 1.4em 9em;
+}
+
+.bi-bag-check,.bi-cart-plus-fill{
+  padding-left: 0.2em;
+  font-size: 1.3em;
+}
+
+/*Description section*/
+img {
+  width: 15%;
+  height: auto;
+}
+img[alt="description-pic"]{
+height:25em ;
+width: 40em;
+}
+
+/*Plan section*/
+
+.table{
+  width: 90%;
+  margin: 1em auto;
+}
+
+th, td{
+  text-align: left;
+} 
+
+th{
+  color: black;
+}
+
+td ul li{
+  list-style: none;
+  line-height: 2.5em;
+}
+
+.free{
+  margin:2.9em 0
+}
+
+.btn{
+  font-size: 1.3em;
+  padding: 0.35em 1.5em;
+  margin: center;
+}
+
+.standard, .premium{
+  margin:2.9em 0;
+}
+
+footer{
+  background-color: rgb(44, 44, 44);
+  color: white;
+  text-align: center;
+  font-size: 1.4em;
+  padding: 1em 1em;
+}
+
+@media only screen and (max-width: 993px){
+ nav{
+    position: absolute;
+    height:3.5em;
+ }
+
+ nav ul{
+     position: absolute;
+     background-color: rgba(255, 255, 255, 0.5);
+     width: 100%;
+     left: -4em;
+     top: 3.5em;
+ }
+}
+
+@media only screen and (max-width: 420px){
+  header{
+      height: 41em;
+  }
+
+  .header-heading{
+      font-size: 3.3em;
+  }
+  
+  .sub-heading{
+      padding-top: 1em;
+      font-size: 1.2em;
+      width: 80vw;
+  }
+  
+  .text-section{
+      margin: 10em 2em;
+  }
+
+  .trial-btn{
+      padding: 0.4em 0.9em;
+      font-size: 1.1em;
+      margin: 1em 0;
+      float: left;
+      align-items: center;
+      align-content: center;
+  }
+  
+  .plan-btn{
+      background-color: transparent;
+      padding: 0.4em 0em 0.4em 2em;
+      font-size:1.1em;
+      width: 10em;
+      display: flex;
+      align-items: center;
+      align-content: center;
+      margin: 1.4em 9em;
+
+  }
+
+  img[alt="description-pic"]{
+      height:15em ;
+      width: 22em;
+      }
+      
+  .description-text-container{
+          padding-top: 3em;
+      }
+
+      .table{
+          width: 70%;
+          margin: 3em auto;
+      }
+      
+      th, td{
+          text-align: center;
+      }
+      
+      th{
+          color: white;
+          font-size: 0.7em;
+      }
+      
+      td ul li{
+          list-style: none;
+          line-height: 2.5em;
+          font-size: 0.7em;
+      }
+      
+      .free{
+          margin:10em 0;
+            font-size: 0.4em;
+      }
+      
+      .btn{
+          font-size: 0.4em;
+          padding: 0.35em 0;
+          width: 7em;
+      }
+      
+      .standard, .premium{
+          margin:2.9em 0;
+      }
+      
+}
+
+body {
+  background-color: hsl(0, 0%, 94%)
+}

@@ -1,0 +1,116 @@
+{% extends "base.html" %} {% block title %}Landing Page{% endblock %}
+
+{% block content %}
+
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Cloud Lion</title>
+  </head>
+  <body>
+  <header>
+    <nav class="navbar navbar-expand-lg navbar-light">
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">About</a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="#">Contact</a>
+              </li>
+          </ul>
+        </div>
+      </nav>
+
+      <section class="text-section created by Strahinja Babic">
+          <h1  class="header-heading">WDC</h1>
+          <h2 class="sub-heading">Keep your files and data private with our safe Cloud website, get 200GB of data in our free trial</h2>
+          <button class="trial-btn">Free Trial<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-bag-check" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" d="M8 1a2.5 2.5 0 0 0-2.5 2.5V4h5v-.5A2.5 2.5 0 0 0 8 1zm3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4h-3.5zM2 5v9a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V5H2z"/>
+            <!--created by Strahinja Babic-->
+            <path fill-rule="evenodd" d="M10.854 8.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 0 1 .708-.708L7.5 10.793l2.646-2.647a.5.5 0 0 1 .708 0z"/>
+          </svg></button> 
+          <button class="plan-btn">Select plan <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-cart-plus-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1H.5zM4 14a1 1 0 1 1 2 0 1 1 0 0 1-2 0zm7 0a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM9 5.5a.5.5 0 0 0-1 0V7H6.5a.5.5 0 0 0 0 1H8v1.5a.5.5 0 0 0 1 0V8h1.5a.5.5 0 0 0 0-1H9V5.5z"/>
+          </svg></button>
+      </section>
+  </header>
+    
+  <div class="container">
+    <div class="row">
+      <div class="col-sm">
+        <img src="https://i.ibb.co/r7ZGsym/undraw-Data-points-re-vkpq.png" alt="description-pic">
+      </div>
+      <div class="col-sm description-text-container">
+        <h2>Why choose Cloud Lion</h2>
+        <p class="description-text">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Tenetur odit optio, vero illo neque et quidem inventore libero quod minima reiciendis laudantium non laborum accusantium rerum nisi officiis numquam praesentium.</p>
+      </div>
+    </div>
+  </div>
+
+    <div>
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th  class="bg-primary" scope="col">Free Package</th>
+            <th  class="bg-success" scope="col">Standard Package</th>
+            <th  class="bg-warning" scope="col">Gold Package</th>
+          </tr>
+        </thead>
+        <tbody>
+          <td>
+            <ul>
+              <li>200GB of Storage</li>
+              <li>1 Month Duration</li>
+              <li>Desktop Only</li>
+              <li>Refer to a friend and get 2 weeks free</li>
+              <li class="free"> <button class="btn btn-primary">Free Trial</button></li>
+            </ul>
+        </td>
+          <td>
+            <ul>
+              <li>500GB of Storage</li>
+              <li> 1 Year Duration</li>
+              <li>Access to our app on App and Play Store</li>
+              <li>Refer to a friend and get 200GB</li>
+              <li class="standard"> <button class="btn btn-success">15$ Standard</button></li>
+            </ul>
+          </td>
+          <td>
+            <ul>
+              <li>1tb of Storage</li>
+              <li> 2 Year Duration</li>
+              <li>Access to our app on App and Play Store</li>
+              <li>Refer to a friend and get 2TB</li>
+              <li class="premium"> <button class="btn btn-warning">50$ Premium</button></li>
+            </ul>
+
+          </td>
+        </tbody>
+      </table>
+
+    </div>
+
+
+  <footer>
+   Created by <a href="https://www.linkedin.com/in/straleb/">Strahinja Babic</a>
+  </footer>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+  </body>
+
+
+
+{% endblock %}
