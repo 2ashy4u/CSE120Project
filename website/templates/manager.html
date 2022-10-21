@@ -1,6 +1,10 @@
 {% extends "base.html" %} {% block title %}Manager{% endblock %}
 {% block content %}
 <!DOCTYPE html>
+<!-- If/else statement is a placeholder -->
+{% if user.isManager == "N" %}
+    <h1>You don't have access to this page.</h1>
+{% else %}
 <html>
     <head>
         <title>ManagerView</title>
@@ -60,5 +64,5 @@
             </div>    
     </body>
 </html>
-
+{% endif %}
 {% endblock %}
