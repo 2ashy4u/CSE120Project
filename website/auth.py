@@ -1,6 +1,7 @@
 from flask import Blueprint, render_template, request, flash, redirect, url_for
 from .models import User
 from flask_login import login_user, logout_user, login_required, current_user
+#from flask_security import roles_required
 
 auth = Blueprint('auth', __name__)
 #routes to different pages
@@ -36,11 +37,13 @@ def logout():
     return redirect(url_for('auth.login'))
 
 @auth.route('/Home')
+@login_required
 def home():
     return render_template("home.html", user=current_user)
 
 @auth.route('/Manager')
 @login_required
+#@roles_required("Manager")
 def manager():
     return render_template("manager.html", user=current_user)
 
