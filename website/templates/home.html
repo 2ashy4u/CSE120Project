@@ -1,4 +1,14 @@
 {% extends "base.html" %} {% block title %}Landing Page{% endblock %}
 {% block content %}
-<h1> This is the Home </h1>
+<h1> Welcome, {% print(user.firstname) %} {% print(user.lastname) %}! </h1>
+<h2> Your ID number is {% print(user.id) %}. </h2>
+{% if user.isManager == 'Y' %}
+    {% if user.isSupManager == 'Y' %}
+        <h3> You are a SUPER Manager! </h3>
+    {% else %}
+        <h3> You are a Manager. </h3>
+    {% endif %}
+{% else %}
+    <h3> You are an Employee. </h3>
+{% endif %}
 {% endblock %}
