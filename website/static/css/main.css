@@ -3,6 +3,11 @@
   margin: 0;
 }
 
+div{
+  resize: both;
+  overflow: auto;
+}
+
 .container{
     width: 600px;
     height: auto;
@@ -32,7 +37,7 @@ text-align: center;
 }
 
 .navbar-nav{
-  margin-left: 40em;
+  margin-left:auto;
 }
 
 .navbar-nav .nav-item .nav-link{
@@ -44,7 +49,8 @@ margin-left: 40em;
 header{
   background:linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),  url('https://images.pexels.com/photos/772803/pexels-photo-772803.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260')no-repeat;
   background-position-y:-45em;
-  height: 34em;
+  height: auto;
+  resize: both;
 }
 
 .header-heading{
@@ -102,13 +108,13 @@ img {
   width: 15%;
   height: auto;
 }
+
 img[alt="description-pic"]{
 height:25em ;
 width: 40em;
 }
 
 /*Plan section*/
-
 .table{
   width: 90%;
   margin: 1em auto;

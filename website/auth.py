@@ -21,6 +21,10 @@ def manager():
 @auth.route('/Quiz')
 def quiz():
     return render_template("quiz.html")
+
+@auth.route('/AddQuiz')
+def addQuiz():
+    return render_template("addQuiz.html")
     
 @auth.route('/SignUp', methods=['GET', 'POST'])
 #This is the post method to store information to database
