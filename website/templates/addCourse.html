@@ -1,4 +1,5 @@
-{% extends "base.html" %} {% block title %}Landing Page{% endblock %} {%block
+{% extends "base.html" %} {% block title %}Quiz{% endblock %}
+{%block
 navbar%}
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -33,7 +34,8 @@ navbar%}
     </div>
   </div>
 </nav>
-{%endblock%} {% block content %} 
+{%endblock%}
+{% block content %}
 
 <!DOCTYPE html>
 <html>
@@ -56,7 +58,7 @@ navbar%}
             <table class="table align-middle mb-0 bg-white">
                 <thead class="bg-light">
                     <tr>
-                        <th>Courses</th>
+                        <th>Quizes</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -99,4 +101,5 @@ navbar%}
         </div>    
 </body>
 </html>
+
 {% endblock %}
