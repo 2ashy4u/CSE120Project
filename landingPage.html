@@ -1,0 +1,68 @@
+{% extends "base.html" %} {% block title %}Landing Page{% endblock %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="main.css">
+  <title>Product Landing Page</title>
+</head>
+<body>
+ <nav>
+  
+   <div class="logo">Western Digital</div>
+   <!-- toggle menu button -->
+   <span class="menubtn" onclick="openNav()">&#9776;</span>
+   
+   <!-- Header content with banner image -->
+   <div class="row">
+     <div class="column1">
+       <h1>Training Monitoring App</h1>
+       <p>We've got you covered!</p>
+     </div>
+     <div class="column2">
+       <img src="https://www.hmablogs.com/wp-content/uploads/2022/06/banner-img.png" alt="banner" width="500px">
+     </div>
+   </div>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-toggler="collapse"
+          data-target="#navbar"
+        >
+        </button>
+    
+          <div class="navbar-nav">
+            <!-- Add icons -->
+            {% if user.is_authenticated %} {% if user.isManager == 'Y' %}
+            <a class="nav-iten nav-link" id="manager" href="/Manager">Manager View</a>
+            {% endif %}
+            <a class="nav-iten nav-link" id="home" href="/Home">Home</a>
+            <a class="nav-iten nav-link" id="quiz" href="/Quiz">Quiz</a>
+            {% if user.isManager == 'Y' %}
+            <a class="nav-iten nav-link" id="add_quiz" href="/AddQuiz">AddQuiz</a>
+            {% endif %}
+            <a class="nav-item nav-link" id="logout" href="/logout">Logout</a>
+            {% else %}
+            <a class="nav-iten nav-link" id="login" href="/Login">Login</a>
+            {% endif %}
+          </div>
+        </div>
+      </nav>
+   
+   <!-- javascript to make side menu appear -->
+ <script>
+   function openNav() {
+     document.getElementById("sidenav").style.width = "50%";
+   }
+   function closeNav() {
+     document.getElementById("sidenav").style.width = "0%";
+   }
+ </script>
+ 
+</body>
+</html>
+
+{% endblock %}
