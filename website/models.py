@@ -3,6 +3,8 @@ from flask_login import UserMixin
 
 # create database model here
 
+# models the users table
+
 
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
@@ -14,4 +16,13 @@ class User(db.Model, UserMixin):
     isManager = db.Column(db.String(1))
     isSupManager = db.Column(db.String(1))
 
-    # additions: manager attribute
+# models the courses model
+
+
+class Course(db.Model, UserMixin):
+    idcourses = db.Column(db.String(150), primary_key=True)
+    courseTitle = db.Column(db.String(25))
+    courseQues = db.Column(db.String(150))
+    courseLink = db.Column(db.String(150))
+    courseFeedback = db.Column(db.String(150))
+    courseTime = db.Column(db.String(25))

@@ -14,10 +14,10 @@ def land():
 
 @auth.route('/Login', methods=['GET', 'POST'])
 def login():
+    # recieves GET and POST data
     if request.method == 'POST':
         email = request.form.get('email')
         password = request.form.get('password')
-
         user = User.query.filter_by(email=email).first()
         if user:
             if user.password == password:
@@ -44,7 +44,8 @@ def logout():
 @auth.route('/Home')
 @login_required
 def home():
-    return render_template("home.html", user=current_user)
+    courseLink = request.form.get('courseLink')
+    return render_template("home.html", user=current_user, courseLink=courseLink)
 
 
 @auth.route('/Manager')
