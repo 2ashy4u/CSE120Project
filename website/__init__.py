@@ -1,21 +1,21 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
-import mysql.connector
+#import mysql.connector
 # initializes Database
 db = SQLAlchemy()
-DB_NAME = "userdb"
+DB_NAME = "user"
 # initializes Flask
 
 # init database for cursor
-conn = mysql.connector.connect(
-    user='root',
-    password='12345678',
-    host='127.0.0.1',
-    database='userdb'
-)
+# conn = mysql.connector.connect(
+#    user='root',
+#    password='',
+#    host='127.0.0.1',
+#    database='users'
+# )
 # inits cursor
-cursor = conn.cursor()
+#cursor = conn.cursor()
 
 # checks to see if all tables from database is conected
 #cursor.execute("DESCRIBE userdb.courses")
