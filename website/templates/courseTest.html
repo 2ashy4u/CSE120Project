@@ -1,0 +1,45 @@
+{% extends "base.html" %} {% block title %}Landing Page{% endblock %} {%block
+navbar%}
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <button
+    class="navbar-toggler"
+    type="button"
+    data-toggler="collapse"
+    data-target="#navbar"
+  >
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <img src="../static/img/WesternDigital.png" alt="avatar" />
+
+  <div class="collapse navbar-collapse" id="navbar">
+    <!-- Navbar Buttons -->
+    <div class="navbar-nav">
+      <!-- Add icons -->
+      {% if user.is_authenticated %} {% if user.isManager == 'Y' %}
+      <a class="nav-iten nav-link" id="manager" href="/Manager">Manager View</a>
+      {% endif %}
+      <a class="nav-iten nav-link" id="home" href="/Home">Home</a>
+      <a class="nav-iten nav-link" id="quiz" href="/CoursesOverview">Courses</a>
+      {% if user.isManager == 'Y' %}
+      <a class="nav-iten nav-link" id="add_quiz" href="/AddCourses"
+        >Add Courses</a
+      >
+      {% endif %}
+      <a class="nav-item nav-link" id="logout" href="/logout">Logout</a>
+      {% else %}
+      <a class="nav-iten nav-link" id="login" href="/Login">Login</a>
+      {% endif %}
+    </div>
+  </div>
+</nav>
+{%endblock%} {% block content %}
+<h1>Welcome, {% print(user.firstname) %} {% print(user.lastname) %}!</h1>
+<h2>Your ID number is {% print(user.id) %}.</h2>
+{% if user.isManager == 'Y' %} {% if user.isSupManager == 'Y' %}
+<h3>You are a SUPER Manager!</h3>
+{% else %}
+<h3>You are a Manager.</h3>
+{% endif %} {% else %}
+<h3>You are an Employee.</h3>
+{% endif %} {% endblock %}
