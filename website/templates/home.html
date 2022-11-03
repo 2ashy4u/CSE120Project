@@ -1,6 +1,5 @@
 {% extends "base.html" %} {% block title %}Landing Page{% endblock %} {%block
 navbar%}
-
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <button
     class="navbar-toggler"
@@ -10,8 +9,9 @@ navbar%}
   >
     <span class="navbar-toggler-icon"></span>
   </button>
-  <img src="../static/img/WesternDigital.png" alt="avatar" />
-
+  <a href="/Home">
+  <img src="../static/img/WesternDigital.png" alt="avatar"/>
+  </a>
   <div class="collapse navbar-collapse" id="navbar">
     <!-- Navbar Buttons -->
     <div class="navbar-nav">
@@ -35,13 +35,6 @@ navbar%}
 </nav>
 {%endblock%} {% block content %} 
 
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Quiz Page</title>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"> 
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
 <body>
     <h1 class="welcomeHeader">Welcome {{current_user.firstname}}!</h1>
@@ -52,7 +45,7 @@ navbar%}
           <li><a href="#">Incompleted</a></li>
         </ul>
     </div>
-        <div class="float-child">
+        <div class="courses-box">
             <table class="table align-middle mb-0 bg-white">
                 <thead class="bg-light">
                     <tr>
@@ -62,13 +55,15 @@ navbar%}
                 <tbody>
                     <tr>
                         <td>
-                            <a href="google.com">Visit W3Schools.com!</a>
+                                  {%for course in user.courses %}
+        <li class = "list-group-item"><a href="#">{{ course.courseQues }}</li>
+        {% endfor %}
                         </td>
                     </tr>
                 </tbody>
             </table>
         </div>
-        <div class="float-child">
+        <div class="piechartDiv">
             <div id="piechart"></div>
             <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
             <script type="text/javascript">
@@ -98,5 +93,4 @@ navbar%}
             </script>
         </div>    
 </body>
-</html>
 {% endblock %}
