@@ -1,6 +1,10 @@
 {% extends "base.html" %} {% block title %}Landing Page{% endblock %} {%block
 navbar%}
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand" href="/Home">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Western_Digital_brand_mark.svg" width="50" height="25" class="d-inline-block align-top">
+    Western Digital
+  </a>
   <button
     class="navbar-toggler"
     type="button"
@@ -9,9 +13,6 @@ navbar%}
   >
     <span class="navbar-toggler-icon"></span>
   </button>
-  <a href="/Home">
-  <img src="../static/img/WesternDigital.png" alt="avatar"/>
-  </a>
   <div class="collapse navbar-collapse" id="navbar">
     <!-- Navbar Buttons -->
     <div class="navbar-nav">

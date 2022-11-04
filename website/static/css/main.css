@@ -9,7 +9,7 @@
 .container-login{
     width: 1250x;
     height: auto;
-    margin: center;
+    margin: 0 auto;
     padding: 3em;
     box-shadow: 0 0 40px rgba(0, 0, 0, 0.2);
     border-radius: 1em;
@@ -29,10 +29,10 @@
 
 /* Courses Box CSS */
 .courses-box{
-  width: 50%;
+  width: 100%;
   height:auto;
-  float: left;
-  padding: 10px;
+  margin-top: 2%;
+  padding: 20px;
   box-shadow: 0 0 40px rgba(0, 0, 0, 0.1);
   border-radius:1em;
   background: white;
@@ -53,9 +53,9 @@
 }
 
 .piechartDiv{
-  width: 50%;
+  width: 100%;
   height:auto;
-  float: right;
+  margin-top: 5%;
   padding: 10px;
   box-shadow: 0 0 40px rgba(0, 0, 0, 0.1);
   border-radius:1em;
@@ -69,9 +69,6 @@ background-color: rgba(255, 255, 255, 0.5);
 height:auto;
 }
 
-h1{
-text-align: center;
-}
 
 .navbar-nav{
   height: fit-content;
@@ -117,10 +114,6 @@ header{
 }
 
 /*Description section*/
-img {
-  width: 15%;
-  height: auto;
-}
 img[alt="description-pic"]{
 height:25em ;
 width: 40em;
@@ -241,7 +234,7 @@ body {
   background-color: hsl(0, 0%, 94%)
 }
 .welcomeHeader{
-  width: fit-content;
+  margin: auto;
   color: rgb(0, 0, 0);
   animation: fadeIn 2s forwards;
   opacity: 0;
