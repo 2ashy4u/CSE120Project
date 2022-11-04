@@ -1,7 +1,10 @@
 {% extends "base.html" %} {% block title %}Manager{% endblock %} {%block
 navbar%}
-
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand" href="/Home">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Western_Digital_brand_mark.svg" width="50" height="25" class="d-inline-block align-top">
+    Western Digital
+  </a>
   <button
     class="navbar-toggler"
     type="button"
@@ -10,8 +13,6 @@ navbar%}
   >
     <span class="navbar-toggler-icon"></span>
   </button>
-  <img src="../static/img/WesternDigital.png" alt="avatar" />
-
   <div class="collapse navbar-collapse" id="navbar">
     <!-- Navbar Buttons -->
     <div class="navbar-nav">
@@ -34,21 +35,14 @@ navbar%}
   </div>
 </nav>
 {%endblock%} {% block content %}
-<!DOCTYPE html>
 <!-- If/else statement is a placeholder -->
 {% if user.isManager == "N" %}
 <h1>You don't have access to this page.</h1>
 {% else %}
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Quiz Page</title>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"> 
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
 </head>
 <body>
-    <h1>Welcome</h1>
+    <h1 class="welcomeHeader">Welcome {{current_user.firstname}}!</h1>
     <div class="dropdown">
         <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Sort By
         <ul class="dropdown-menu">
@@ -56,7 +50,7 @@ navbar%}
           <li><a href="#">Incompleted</a></li>
         </ul>
     </div>
-        <div class="float-child">
+        <div class="courses-box">
             <table class="table align-middle mb-0 bg-white">
                 <thead class="bg-light">
                     <tr>
@@ -66,13 +60,15 @@ navbar%}
                 <tbody>
                     <tr>
                         <td>
-                            <a href="https://www.w3schools.com">Visit W3Schools.com!</a>
+                                  {%for course in user.courses %}
+        <li class = "list-group-item"><a href="#">{{ course.courseQues }}</li>
+        {% endfor %}
                         </td>
                     </tr>
                 </tbody>
             </table>
         </div>
-        <div class="float-child">
+        <div class="piechartDiv">
             <div id="piechart"></div>
             <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
             <script type="text/javascript">
@@ -102,5 +98,4 @@ navbar%}
             </script>
         </div>    
 </body>
-</html>
 {% endif %} {% endblock %}

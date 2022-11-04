@@ -1,5 +1,5 @@
 // This is where you make custom javascript
-// Button to add multiple questions
+// Button to delete questions
 $(function () {
     $("#btnAdd").bind("click", function () {
         var div = $("<tr />");
