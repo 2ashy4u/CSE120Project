@@ -28,9 +28,7 @@ navbar%}
       <a class="nav-iten nav-link" id="home" href="/Home">Home</a>
       <a class="nav-iten nav-link" id="quiz" href="/CoursesOverview">Courses</a>
       {% if user.isManager == 'Y' %}
-      <a class="nav-iten nav-link" id="add_quiz" href="/AddCourses"
-        >Add Courses</a
-      >
+      <a class="nav-iten nav-link" id="add_quiz" href="/AddCourses">Add Courses</a>
       {% endif %}
       <a class="nav-item nav-link" id="logout" href="/logout">Logout</a>
       {% else %}
@@ -41,35 +39,73 @@ navbar%}
 </nav>
 {%endblock%} {% block content %}
 <body>
+   {% with message = get_flashed_messages(category_filter=["error"]) %}
+    {%if message %}
+     {% for message in get_flashed_messages() %}
+      <div class="alert alert-danger" role="alert">
+        {{ message }}
+        <button
+          type="button"
+          class="close"
+          data-dismiss="alert"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      {% endfor %} {% endif%} {% endwith %}
+       {% with message = get_flashed_messages(category_filter=["success"]) %}
+    {%if message %}
+     {% for message in get_flashed_messages() %}
+      <div class="alert alert-success" role="alert">
+        {{ message }}
+        <button
+          type="button"
+          class="close"
+          data-dismiss="alert"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      {% endfor %} {% endif%} {% endwith %}
 <div class="addCourses">
   <div class="addCourseTitle">
   <form action="#" method="POST">
     <label for="addCourseTitle">Enter Course title:</label>
-    <input
+    <textarea
       type="text"
       class="form-control"
       name="courseTitle"
       id="courseTitle"
       aria-describedby="courseTitle"
-      placeholder="Enter Course Title"
-    />
+      rows="3"
+      placeholder="Enter Course Title Here..."></textarea>
   </div>
+  
   <div class="addCourseQuestion">
     <label for="courseQues">Enter Course Question:</label>
+    <textarea
+    type="text"
+    class="form-control"
+    name="courseQues"
+    id="courseQues"
+    rows="3"
+    placeholder="Enter Course Question Here..."></textarea>
+
+  </div>
+  <div class="addCourseLink">
+    <label for="courseLink">Enter Course Link:</label>
     <input
       type="text"
       class="form-control"
-      name="courseQues"
-      id="courseQues"
-      placeholder="Enter Course Question"
+      name="courseLink"
+      id="courseLink"
+      placeholder="Enter Course Link Here..."
     />
-  </div>
-  <div class="addCourseLink">
-    <label for="courseQues">Enter Course Link:</label>
-    <textarea class="form-control" name="courseLink" id="courseLink" rows="3"></textarea>
-    <input type="submit" id = "submitButtonCourse" class="btn btn-primary">Submit</button>
+    </div>
+    <input type="submit" id = "submitButtonCourse" class="btn btn-primary"></button>
   </form>
-</div>
 </div>
 </body>
 {% endblock %}
