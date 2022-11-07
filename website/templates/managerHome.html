@@ -1,0 +1,50 @@
+{% extends "base.html" %} {% block title %}Manager Home Page{% endblock %} {%block
+navbar%}
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <button
+    class="navbar-toggler"
+    type="button"
+    data-toggler="collapse"
+    data-target="#navbar"
+  >
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <img src="../static/img/WesternDigital.png" alt="avatar" />
+
+  <div class="collapse navbar-collapse" id="navbar">
+    <!-- Navbar Buttons -->
+    <div class="navbar-nav">
+      <!-- Add icons -->
+      {% if user.is_authenticated %} {% if user.isManager == 'Y' %}
+      <a class="nav-iten nav-link" id="manager" href="/Manager">Manager View</a>
+      {% endif %}
+      <a class="nav-iten nav-link" id="home" href="/Home">Home</a>
+      <a class="nav-iten nav-link" id="quiz" href="/CoursesOverview">Courses</a>
+      {% if user.isManager == 'Y' %}
+      <a class="nav-iten nav-link" id="add_quiz" href="/AddCourses"
+        >Add Courses</a
+      >
+      {% endif %}
+      <a class="nav-item nav-link" id="logout" href="/logout">Logout</a>
+      {% else %}
+      <a class="nav-iten nav-link" id="login" href="/Login">Login</a>
+      {% endif %}
+    </div>
+  </div>
+</nav>
+{%endblock%} {% block content %} 
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>ManagerHome Page</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"> 
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <h1>Welcome</h1>
+</body>
+</html>
+{% endblock %}
