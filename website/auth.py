@@ -1,3 +1,5 @@
+from crypt import methods
+from operator import methodcaller
 from flask import Blueprint, render_template, request, flash, redirect, url_for
 from .models import User, Course
 from . import db
@@ -13,6 +15,7 @@ auth = Blueprint('auth', __name__)
 
 @auth.route('/Welcome')
 def land():
+    print("Welcome")
     return render_template("landingPage.html")
 
 
@@ -48,21 +51,20 @@ def logout():
 @auth.route('/Home')
 @login_required
 def home():
-    return render_template("home.html", user=current_user)
+    return render_template("managerHome.html", user=current_user)
 
 
 @auth.route('/Manager')
 @login_required
 # @roles_required("Manager")
 def manager():
-    return render_template("manager.html", user=current_user)
+    return render_template("managerView.html", user=current_user)
 
 
 @auth.route('/CoursesOverview')
 @login_required
 def coursesOverview():
     return render_template("coursesOverview.html", user=current_user)
-
 
 @auth.route('/AddCourses', methods=['GET', 'POST'])
 @login_required
@@ -78,4 +80,11 @@ def addCourse():
             db.session.add(new_course)
             db.session.commit()
             flash('Question added.', category='success')
+
+    # ******************* search bar *******************
+        searchFirstname = request.form.get('searchFirstname')
+        # print(search)
+        print(searchFirstname)
+     
+
     return render_template("addCourse.html", user=current_user)
