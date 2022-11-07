@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, request, flash, redirect, url_for
-from .models import User, Course, employeeCourse
+from .models import User, Course
 from . import db
 from flask_login import login_user, logout_user, login_required, current_user
 from datetime import datetime
@@ -25,17 +25,16 @@ def login():
         user = User.query.filter_by(email=email).first()
         if user:
             if user.password == password:
+                flash('Logged in successfully', category='success')
                 login_user(user, remember=True)
                 if user.isManager == 'N':
                     return redirect(url_for('auth.home'))
                 else:
                     return redirect(url_for('auth.manager'))
             else:
-                flash('Wrong password!', category='error')
-                return render_template('login.html')
+                flash('Wrong password', category='error')
         else:
-            flash('Wrong email!', category='error')
-            return render_template('login.html')
+            flash('Wrong email', category='error')
     return render_template("login.html", user=current_user)
 
 
@@ -49,7 +48,7 @@ def logout():
 @auth.route('/Home')
 @login_required
 def home():
-    return render_template("home.html", user=current_user, _course = Course)
+    return render_template("home.html", user=current_user)
 
 
 @auth.route('/Manager')
@@ -59,10 +58,10 @@ def manager():
     return render_template("manager.html", user=current_user)
 
 
-@auth.route('/Employees')
+@auth.route('/CoursesOverview')
 @login_required
 def coursesOverview():
-    return render_template("employees.html", user=current_user, _course = Course)
+    return render_template("coursesOverview.html", user=current_user)
 
 
 @auth.route('/AddCourses', methods=['GET', 'POST'])
@@ -71,44 +70,14 @@ def addCourse():
     if request.method == 'POST':
         courseQues = request.form.get('courseQues')
         courseLink = request.form.get('courseLink')
-        # First gets all the checkboxes for employees
-        employeeAssigned = request.form.getlist('employee')
-        # Converts the check boxes from string to integers with a for loop
-        convertListToInt = [eval(i) for i in employeeAssigned]
-
         courseTitle = request.form.get('courseTitle')
         if len(courseTitle) < 1:
-            flash("Course Title was not entered!", category='error')
+            flash("Course Title was not entered!")
         elif len(courseQues) < 1:
-            flash("Course Question was not entered!", category='error')
+            flash("Course Question was not entered!")
         else:
-            newcourse = Course(courseQues=courseQues, courseTime=now,
-                               user_id=current_user.id, courseLink=courseLink, courseTitle=courseTitle)
-            # adds the course and flush keeps the value
-            db.session.add(newcourse)
-            # retains newCourse.id
-            db.session.flush()
-            # for loop to add employee ids assigned
-            for x in convertListToInt:
-                newEC = employeeCourse(
-                    employee_id=x, course_id=newcourse.idcourses, manager_id=current_user.id)
-                db.session.add(newEC)
-            db.session.commit()  # <---- commits to the database
-        flash("Course was added successfully!", category="success")
+            new_course = Course(courseQues=courseQues, courseTime=now,
+                                user_id=current_user.id, courseLink=courseLink, courseTitle=courseTitle)
+            db.session.add(new_course)
+            db.session.commit()
     return render_template("addCourse.html", user=current_user)
-
-
-@auth.route('/CourseTest', methods=['GET', 'POST'])
-@login_required
-def courseTest():
-    if request.method == 'POST':
-        answer = request.form.get("answerText")
-        if len(answer) < 1:
-            flash("Answer was not entered!", category='error')
-        # else:
-        #     addAnswer = employeeCourse(course_id=Course.idcourses, employee_id = current_user, answer = answer, manager_id=current_user.id)
-        #     db.session.add(addAnswer)
-        #     db.session.flush()
-        #     db.session.commit() 
-        #     flash("Answer was submited successfully!", category="success")  
-    return render_template("courseTest.html", user=current_user, _course=Course)
