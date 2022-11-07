@@ -7,9 +7,9 @@
 }
 /* Log in css */
 .container-login{
-    width: 1250px;
+    width: auto;
     height: auto;
-    margin: 0 auto;
+    margin: auto;
     padding: 3em;
     box-shadow: 0 0 40px rgba(0, 0, 0, 0.2);
     border-radius: 1em;
@@ -45,8 +45,6 @@
 .addCourses{
   width: auto;
   height:auto;
-  margin-top: 10%;
-  padding: 3%;
   box-shadow: 0 0 40px rgba(0, 0, 0, 0.1);
   border-radius:1em;
   background: white;
@@ -55,13 +53,13 @@
 }
 
 .addCourseTitle{
-  padding: 5%;
+  padding: 2%;
 }
 .addCourseQuestion{
-  padding: 5%;
+  padding: 2%;
 }
 .addCourseLink{
-  padding: 5%;
+  padding: 2%;
 }
 .piechartDiv{
   width: 100%;
