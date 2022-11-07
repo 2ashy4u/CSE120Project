@@ -1,0 +1,263 @@
+/* Overall CSS */
+*{
+  padding:0;
+  margin: 0;
+  font-size: 100%;
+  font-family: Arial;
+}
+/* Log in css */
+.container-login{
+    width: auto;
+    height: auto;
+    margin: auto;
+    padding: 3em;
+    box-shadow: 0 0 40px rgba(0, 0, 0, 0.2);
+    border-radius: 1em;
+    background: white;
+    animation: fadeIn 2s forwards;
+    animation-delay: 1s;
+    opacity: 0;
+}
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
+}
+.navbar {
+  height: auto;
+  width: auto;
+}
+
+/* Courses Box CSS */
+.courses-box{
+  width: 100%;
+  height:auto;
+  margin-top: 2%;
+  padding: 20px;
+  box-shadow: 0 0 40px rgba(0, 0, 0, 0.1);
+  border-radius:1em;
+  background: white;
+  animation: fadeIn 2s forwards;
+  opacity: 0;
+}
+
+/* Add Courses CSS */
+.addCourses{
+  width: auto;
+  height:auto;
+  box-shadow: 0 0 40px rgba(0, 0, 0, 0.1);
+  border-radius:1em;
+  background: white;
+  animation: fadeIn 2s forwards;
+  opacity: 0;
+}
+
+.addCourseTitle{
+  padding: 2%;
+}
+.addCourseQuestion{
+  padding: 2%;
+}
+.addCourseLink{
+  padding: 2%;
+}
+.piechartDiv{
+  width: 100%;
+  height:auto;
+  margin-top: 5%;
+  padding: 10px;
+  box-shadow: 0 0 40px rgba(0, 0, 0, 0.1);
+  border-radius:1em;
+  background: white;
+  animation: fadeIn 2s forwards;
+  opacity: 0;
+}
+
+nav{
+background-color: rgba(255, 255, 255, 0.5);
+height:auto;
+}
+
+
+.navbar-nav{
+  height: fit-content;
+  width: fit-content;
+  float: right;
+}
+
+
+.navbar-nav .nav-item .nav-link{
+color: #fff;
+font-size: 1.5em;
+margin-left: 40em;
+}
+
+header{
+  background:linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),  url('https://images.pexels.com/photos/772803/pexels-photo-772803.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260')no-repeat;
+  background-position-y:-45em;
+  height: 34em;
+}
+
+.header-heading{
+  font-size: 3.5em;
+}
+
+.sub-heading{
+  font-size: 1.5em;
+  width: 80vw;
+}
+
+.text-section{
+  margin: 13em 7em;
+  color: white;
+}
+
+.description-text-container{
+  padding-top: 8em;
+}
+
+
+.bi-bag-check,.bi-cart-plus-fill{
+  padding-left: 0.2em;
+  font-size: 1.3em;
+}
+
+/*Description section*/
+img[alt="description-pic"]{
+height:25em ;
+width: 40em;
+}
+
+/*Plan section*/
+
+.table{
+  width: 90%;
+  margin: 1em auto;
+}
+
+th, td{
+  text-align: left;
+} 
+
+th{
+  color: black;
+}
+
+td ul li{
+  list-style: none;
+  line-height: 2.5em;
+}
+
+.free{
+  margin:2.9em 0
+}
+
+.standard, .premium{
+  margin:2.9em 0;
+}
+
+footer{
+  background-color: rgb(44, 44, 44);
+  color: white;
+  text-align: center;
+  font-size: 1.4em;
+  padding: 1em 1em;
+}
+
+@media only screen and (max-width: 993px){
+ nav{
+    position: absolute;
+    height:3.5em;
+ }
+
+ nav ul{
+     position: absolute;
+     background-color: rgba(255, 255, 255, 0.5);
+     width: 100%;
+     left: -4em;
+     top: 3.5em;
+ }
+}
+
+@media only screen and (max-width: 420px){
+  header{
+      height: 41em;
+  }
+
+  .header-heading{
+      font-size: 3.3em;
+  }
+  
+  .sub-heading{
+      padding-top: 1em;
+      font-size: 1.2em;
+      width: 80vw;
+  }
+  
+  .text-section{
+      margin: 10em 2em;
+  }
+
+  img[alt="description-pic"]{
+      height:15em ;
+      width: 22em;
+      }
+      
+  .description-text-container{
+          padding-top: 3em;
+      }
+
+      .table{
+          width: 70%;
+          margin: 3em auto;
+      }
+      
+      th, td{
+          text-align: center;
+      }
+      
+      th{
+          color: white;
+          font-size: 0.7em;
+      }
+      
+      td ul li{
+          list-style: none;
+          line-height: 2.5em;
+          font-size: 0.7em;
+      }
+      
+      .free{
+          margin:10em 0;
+            font-size: 0.4em;
+      }
+      
+
+      .standard, .premium{
+          margin:2.9em 0;
+      }
+      
+}
+
+body {
+  background-color: hsl(0, 0%, 94%)
+}
+.welcomeHeader{
+  margin: auto;
+  color: rgb(0, 0, 0);
+  animation: fadeIn 2s forwards;
+  opacity: 0;
+}
+.dropdown{
+  animation: fadeIn 2s forwards;
+  opacity: 0;
+}
+.navbar-brand{
+  margin-right: 50%;
+}
+.titleLog{
+  padding: 10%;
+  text-align: center;
+  animation: fadeIn 2s forwards;
+  opacity: 0;
+}
