@@ -25,16 +25,17 @@ def login():
         user = User.query.filter_by(email=email).first()
         if user:
             if user.password == password:
-                flash('Logged in successfully', category='success')
                 login_user(user, remember=True)
                 if user.isManager == 'N':
                     return redirect(url_for('auth.home'))
                 else:
                     return redirect(url_for('auth.manager'))
             else:
-                flash('Wrong password', category='error')
+                flash('Wrong password!', category='error')
+                return render_template('login.html')
         else:
-            flash('Wrong email', category='error')
+            flash('Wrong email!', category='error')
+            return render_template('login.html')
     return render_template("login.html", user=current_user)
 
 
@@ -68,14 +69,17 @@ def coursesOverview():
 @login_required
 def addCourse():
     if request.method == 'POST':
-        course = request.form.get('course')
-
-        if len(course) < 1:
-            flash('question too short!', category='error')
+        courseQues = request.form.get('courseQues')
+        courseLink = request.form.get('courseLink')
+        courseTitle = request.form.get('courseTitle')
+        if len(courseTitle) < 1:
+            flash("Course Title was not entered!", category='error')
+        elif len(courseQues) < 1:
+            flash("Course Question was not entered!", category='error')
         else:
-            new_course = Course(courseQues=course,
-                                courseTime=now, user_id=current_user.id)
+            new_course = Course(courseQues=courseQues, courseTime=now,
+                                user_id=current_user.id, courseLink=courseLink, courseTitle=courseTitle)
             db.session.add(new_course)
             db.session.commit()
-            flash('Question added.', category='success')
+            flash("Course was added successfully!", category="success")
     return render_template("addCourse.html", user=current_user)

@@ -5,11 +5,25 @@
     <img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Western_Digital_brand_mark.svg" width="50" height="25" class="d-inline-block align-top">
     Western Digital
   </a>
-    <h1 style="text-align:center">WDC Training</h1>
+    <h1 class="titleLog" style="text-align:center">Western Digital Training</h1>
+    {% with message = get_flashed_messages(category_filter=["error"]) %}
+    {%if message %}
+     {% for message in get_flashed_messages() %}
+      <div class="alert alert-danger" role="alert">
+        {{ message }}
+        <button
+          type="button"
+          class="close"
+          data-dismiss="alert"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      {% endfor %} {% endif%} {% endwith %}
     <form method="POST">
         <!-- email is the attribute to send to backend -->
         <div class="container-login">
-
               <div class="form-group">
     <label for="email">Email Address</label>
     <input

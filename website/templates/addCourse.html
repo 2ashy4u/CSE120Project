@@ -2,7 +2,12 @@
 navbar%}
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <a class="navbar-brand" href="/Home">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Western_Digital_brand_mark.svg" width="50" height="25" class="d-inline-block align-top">
+    <img
+      src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Western_Digital_brand_mark.svg"
+      width="50"
+      height="25"
+      class="d-inline-block align-top"
+    />
     Western Digital
   </a>
   <button
@@ -23,9 +28,7 @@ navbar%}
       <a class="nav-iten nav-link" id="home" href="/Home">Home</a>
       <a class="nav-iten nav-link" id="quiz" href="/CoursesOverview">Courses</a>
       {% if user.isManager == 'Y' %}
-      <a class="nav-iten nav-link" id="add_quiz" href="/AddCourses"
-        >Add Courses</a
-      >
+      <a class="nav-iten nav-link" id="add_quiz" href="/AddCourses">Add Courses</a>
       {% endif %}
       <a class="nav-item nav-link" id="logout" href="/logout">Logout</a>
       {% else %}
@@ -35,20 +38,74 @@ navbar%}
   </div>
 </nav>
 {%endblock%} {% block content %}
-  <body>
-    <div class="addCourseBox">
-    <form method="POST">
-      <h1 align="center">Courses</h1>
-      <u1 class="list-group list-group-flush" id="course">
-        {%for course in user.courses %}
-        <li class = "list-group-item"><a href="#">{{ course.courseQues }}</a><button>delete</button></li>
-        {% endfor %}
-      <textarea name = "course" id = "course" class = "for-control"></textarea>
-      <div align="center">
-        <button type = "submit" class = "btn btn-primary">Add Course Question</button>
+<body>
+   {% with message = get_flashed_messages(category_filter=["error"]) %}
+    {%if message %}
+     {% for message in get_flashed_messages() %}
+      <div class="alert alert-danger" role="alert">
+        {{ message }}
+        <button
+          type="button"
+          class="close"
+          data-dismiss="alert"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
       </div>
+      {% endfor %} {% endif%} {% endwith %}
+       {% with message = get_flashed_messages(category_filter=["success"]) %}
+    {%if message %}
+     {% for message in get_flashed_messages() %}
+      <div class="alert alert-success" role="alert">
+        {{ message }}
+        <button
+          type="button"
+          class="close"
+          data-dismiss="alert"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      {% endfor %} {% endif%} {% endwith %}
+<div class="addCourses">
+  <div class="addCourseTitle">
+  <form action="#" method="POST">
+    <label for="addCourseTitle">Enter Course title:</label>
+    <textarea
+      type="text"
+      class="form-control"
+      name="courseTitle"
+      id="courseTitle"
+      aria-describedby="courseTitle"
+      rows="3"
+      placeholder="Enter Course Title Here..."></textarea>
+  </div>
+  
+  <div class="addCourseQuestion">
+    <label for="courseQues">Enter Course Question:</label>
+    <textarea
+    type="text"
+    class="form-control"
+    name="courseQues"
+    id="courseQues"
+    rows="3"
+    placeholder="Enter Course Question Here..."></textarea>
+
+  </div>
+  <div class="addCourseLink">
+    <label for="courseLink">Enter Course Link:</label>
+    <input
+      type="text"
+      class="form-control"
+      name="courseLink"
+      id="courseLink"
+      placeholder="Enter Course Link Here..."
+    />
     </div>
-    </form>
-    <p>&nbsp;</p>
-  </body>
+    <input type="submit" id = "submitButtonCourse" class="btn btn-primary"></button>
+  </form>
+</div>
+</body>
 {% endblock %}
