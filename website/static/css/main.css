@@ -7,14 +7,15 @@
 }
 /* Log in css */
 .container-login{
-    width: 1250x;
+    width: auto;
     height: auto;
-    margin: 0 auto;
+    margin: auto;
     padding: 3em;
     box-shadow: 0 0 40px rgba(0, 0, 0, 0.2);
     border-radius: 1em;
     background: white;
     animation: fadeIn 2s forwards;
+    animation-delay: 1s;
     opacity: 0;
 }
 @keyframes fadeIn {
@@ -40,11 +41,10 @@
   opacity: 0;
 }
 
-/* Add Courses Box CSS */
-.addCourseBox{
+/* Add Courses CSS */
+.addCourses{
   width: auto;
   height:auto;
-  padding: 10px;
   box-shadow: 0 0 40px rgba(0, 0, 0, 0.1);
   border-radius:1em;
   background: white;
@@ -52,6 +52,15 @@
   opacity: 0;
 }
 
+.addCourseTitle{
+  padding: 2%;
+}
+.addCourseQuestion{
+  padding: 2%;
+}
+.addCourseLink{
+  padding: 2%;
+}
 .piechartDiv{
   width: 100%;
   height:auto;
@@ -120,6 +129,7 @@ width: 40em;
 }
 
 /*Plan section*/
+
 .table{
   width: 90%;
   margin: 1em auto;
@@ -239,6 +249,15 @@ body {
   opacity: 0;
 }
 .dropdown{
+  animation: fadeIn 2s forwards;
+  opacity: 0;
+}
+.navbar-brand{
+  margin-right: 50%;
+}
+.titleLog{
+  padding: 10%;
+  text-align: center;
   animation: fadeIn 2s forwards;
   opacity: 0;
 }
