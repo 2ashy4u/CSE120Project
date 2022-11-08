@@ -68,6 +68,7 @@ def coursesOverview():
 @auth.route('/AddCourses', methods=['GET', 'POST'])
 @login_required
 def addCourse():
+    employees = User.query.filter().all()
     if request.method == 'POST':
         courseQues = request.form.get('courseQues')
         courseLink = request.form.get('courseLink')
@@ -82,4 +83,13 @@ def addCourse():
             db.session.add(new_course)
             db.session.commit()
             flash("Course was added successfully!", category="success")
-    return render_template("addCourse.html", user=current_user)
+    return render_template("addCourse.html", user=current_user, employees=employees)
+
+@auth.route('/EmployeeList',  methods=['GET', 'POST'])
+@login_required 
+def searchEmployee():
+    employees = User.query.filter().all()
+    if request.method == 'POST':
+        search = request.form.get('search')
+        print(search)
+    return render_template("employeeList.html",user = current_user, employees = employees)
