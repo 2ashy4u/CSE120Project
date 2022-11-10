@@ -20,6 +20,19 @@ CREATE TABLE `user` (
   Constraint pk_idcustomer Primary key (id)   -- 'idcustomer' changed to 'id'
 ) ;
 
+
+CREATE TABLE `users`.`courses` (
+  `idcourses` int PRIMARY KEY NOT NULL auto_increment,
+  `courseTitle` varchar(25)  NULL,
+  `courseQues` varchar(150)  NULL,
+  `courseLink` varchar(50) DEFAULT NULL,
+  `courseFeedback` varchar(150) DEFAULT NULL,
+  `courseTime` varchar(25) NOT NULL,
+  `user_id` int,
+  FOREIGN KEY (user_id) REFERENCES user(id)
+  );
+
+
 insert into user
 (firstname,lastname,email,employeeID,isManager,isSupManager,password)   -- 'pass' changed to 'password'
 -- Super Managers

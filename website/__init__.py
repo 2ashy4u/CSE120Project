@@ -8,12 +8,12 @@ DB_NAME = "users"
 # initializes Flask
 
 # init database for cursor
-#conn = mysql.connector.connect(
+# conn = mysql.connector.connect(
 #    user='root',
 #    password='',
 #    host='127.0.0.1',
 #    database='users'
-#)
+# )
 # inits cursor
 #cursor = conn.cursor()
 

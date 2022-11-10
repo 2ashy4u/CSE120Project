@@ -1,13 +1,29 @@
 {% extends "base.html" %} {% block title %}Login{% endblock %}
 {% block content %}
 <body>
-    <img src="https://upload.wikimedia.org/wikipedia/commons/2/2b/Western_Digital_logo.svg" alt="logo" style = "padding: 15px;"/>
-
-    <h1>WDC Training</h1>
+<a class="navbar-brand" href="/Home">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Western_Digital_brand_mark.svg" width="50" height="25" class="d-inline-block align-top">
+    Western Digital
+  </a>
+    <h1 class="titleLog" style="text-align:center">Western Digital Training</h1>
+    {% with message = get_flashed_messages(category_filter=["error"]) %}
+    {%if message %}
+     {% for message in get_flashed_messages() %}
+      <div class="alert alert-danger" role="alert">
+        {{ message }}
+        <button
+          type="button"
+          class="close"
+          data-dismiss="alert"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      {% endfor %} {% endif%} {% endwith %}
     <form method="POST">
         <!-- email is the attribute to send to backend -->
-        <div class="container">
-
+        <div class="container-login">
               <div class="form-group">
     <label for="email">Email Address</label>
     <input
