@@ -1,4 +1,4 @@
-{% extends "base.html" %} {% block title %}Quiz{% endblock %}
+{% extends "base.html" %} {% block title %}Employees{% endblock %}
 {%block
 navbar%}
 
@@ -40,15 +40,11 @@ navbar%}
 <!DOCTYPE html>
 <html>
 <form method="POST">
-  <h1 align="center">Questions</h1>
-  <u1 class="list-group list-group-flush" id="question">
-    {%for question in user.questions %}
-    <li class = "list-group-item">{{ question.data }}</li>
+  <h1 align="center">Employees</h1>
+  <u1 class="list-group list-group-flush" id="user">
+    {%for user in user.employees %}
+      <li class = "list-group-item"><a href="#">{{ user.firstname }}</li>
     {% endfor %}
-  <textarea name = "question" id = "question" class = "for-control"></textarea>
-  <div align="center">
-    <button type = "submit" class = "btn btn-primary">Add Question</button>
-  </div>
 
 </html>
 
