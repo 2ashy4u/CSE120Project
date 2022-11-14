@@ -6,4 +6,8 @@ views = Blueprint('views', __name__)
 @views.route('/')
 def home():
     return render_template("landingPage.html", user=current_user)
+
+@views.route('/Employees')
+def employees():
+    return render_template("employees.html", user=current_user)
     
