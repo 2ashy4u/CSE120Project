@@ -261,3 +261,15 @@ body {
   animation: fadeIn 2s forwards;
   opacity: 0;
 }
+
+.submitButtonCourse{
+  padding: 1%;
+}
+
+.employeesTable{
+  padding: 2%;
+}
+
+.check{
+  float: left;
+}

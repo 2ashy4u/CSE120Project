@@ -1,6 +1,5 @@
 {% extends "base.html" %} {% block title %}Add Courses{% endblock %} {%block
 navbar%}
-<!-- Navbar elements -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <a class="navbar-brand" href="/Home">
     <img
@@ -38,11 +37,8 @@ navbar%}
     </div>
   </div>
 </nav>
-<!-- End Navbar! -->
 {%endblock%} {% block content %}
 <body>
-  <!-- This allows flashes from the backend to be displayed -->
-  <!-- Filters only error category! -->
    {% with message = get_flashed_messages(category_filter=["error"]) %}
     {%if message %}
      {% for message in get_flashed_messages() %}
@@ -58,8 +54,6 @@ navbar%}
         </button>
       </div>
       {% endfor %} {% endif%} {% endwith %}
-      <!-- End of Error Filter-->
-      <!-- Filters only success category! -->
        {% with message = get_flashed_messages(category_filter=["success"]) %}
     {%if message %}
      {% for message in get_flashed_messages() %}
@@ -75,11 +69,6 @@ navbar%}
         </button>
       </div>
       {% endfor %} {% endif%} {% endwith %}
-      <!-- End of Error Filter-->
-      <!-- Flash End! -->
-
-      
-      <!-- Text boxes for add course page -->
 <div class="addCourses">
   <div class="addCourseTitle">
   <form action="#" method="POST">
@@ -114,10 +103,50 @@ navbar%}
       id="courseLink"
       placeholder="Enter Course Link Here..."
     />
+    <div class = "employeesTable">
+      <div class = "row">
+        <div class = "col md-12">
+          <div class = "jumbotron p-3">
+            <h2> <b>Employees<b> <button type ="button" class = "btn btn-success float-right" data-toggler="modal" data-target="#mymodal">Select All</button></h2>
+            <table class = "table table-hover">
+              <tr>
+                <th>FirstName</th>
+                <th>LastName</th>
+                <th>Email</th>
+                <th>EmployeeID</th>
+                <th>Action</th>
+              </tr>
+              {% for user in user.employees%}
+              <tr>
+                <td>{{user.firstname}}</td>
+                <td>{{user.lastname}}</td>
+                <td>{{user.email}}</td>
+                <td>{{user.id}}</td>
+                <td>
+                <div class="form-check form-check-inline">
+                  <input 
+                  class="form-check-input" 
+                  type="checkbox" 
+                  id="employee" 
+                  value={{user.id}}
+                  name="employee"
+                  >
+                </div>
+                <a href=" " class = "btn btn-danger btn-xs" onclick="return confirm('Are you sure to delete?')">Delete</a>
+                </td>
+              </tr>
+              {% endfor %}
+            </table>
+          </div>
+        </div>
+      </div> 
+
     </div>
+  
+    <!-- Employee Table list -->
+
     <input type="submit" id = "submitButtonCourse" class="btn btn-primary"></button>
   </form>
 </div>
 </body>
-<!-- End textbox! -->
 {% endblock %}

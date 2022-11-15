@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, request, flash, redirect, url_for
-from .models import User, Course
+from .models import User, Course, employeeCourse
 from . import db
 from flask_login import login_user, logout_user, login_required, current_user
 from datetime import datetime
@@ -20,7 +20,6 @@ def land():
 def login():
     # recieves GET and POST data
     if request.method == 'POST':
-        # This gets information from html
         email = request.form.get('email')
         password = request.form.get('password')
         user = User.query.filter_by(email=email).first()
@@ -70,20 +69,23 @@ def coursesOverview():
 @login_required
 def addCourse():
     if request.method == 'POST':
-        # This is how to get information from html doc
         courseQues = request.form.get('courseQues')
         courseLink = request.form.get('courseLink')
         courseTitle = request.form.get('courseTitle')
-        # checks if any course is added
+        employeeAssigned = request.form.get('employee')
         if len(courseTitle) < 1:
             flash("Course Title was not entered!", category='error')
         elif len(courseQues) < 1:
             flash("Course Question was not entered!", category='error')
         else:
-            # this adds the information from html doc to database and commits it
-            new_course = Course(courseQues=courseQues, courseTime=now,
-                                user_id=current_user.id, courseLink=courseLink, courseTitle=courseTitle)
-            db.session.add(new_course)
+            newcourse = Course(courseQues=courseQues, courseTime=now,
+                               user_id=current_user.id, courseLink=courseLink, courseTitle=courseTitle)
+            db.session.add(newcourse)
             db.session.commit()
             flash("Course was added successfully!", category="success")
+            # area where data is added:
+            newAssignment = employeeCourse(
+                employee_id=employeeAssigned, course_id='1', manager_id=current_user.id)
+            db.session.add(newAssignment)
+            db.session.commit()
     return render_template("addCourse.html", user=current_user)

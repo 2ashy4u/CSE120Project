@@ -72,7 +72,7 @@ navbar%}
                     <tr>
                         <td>
                                   {%for course in user.courses %}
-        <li class = "list-group-item"><a href="#">{{ course.courseQues }}</li>
+        <li class = "list-group-item list-group-item-action"><a href="#">{{ course.courseQues }}, Course ID: {{ course.idcourses }}</li>
         {% endfor %}
                         </td>
                     </tr>
