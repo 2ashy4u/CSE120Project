@@ -81,11 +81,11 @@ def addCourse():
             newcourse = Course(courseQues=courseQues, courseTime=now,
                                user_id=current_user.id, courseLink=courseLink, courseTitle=courseTitle)
             db.session.add(newcourse)
+            db.session.flush()  # retains newCourse.id
+            newEC = employeeCourse(
+                employee_id=employeeAssigned, course_id=newcourse.idcourses, manager_id=current_user.id)
+            db.session.add(newEC)
+            db.session.flush()
             db.session.commit()
             flash("Course was added successfully!", category="success")
-            # area where data is added:
-            newAssignment = employeeCourse(
-                employee_id=employeeAssigned, course_id='1', manager_id=current_user.id)
-            db.session.add(newAssignment)
-            db.session.commit()
     return render_template("addCourse.html", user=current_user)
