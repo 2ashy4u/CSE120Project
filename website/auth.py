@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, request, flash, redirect, url_for
-from .models import User, Course
+from .models import User, Course, employeeCourse
 from . import db
 from flask_login import login_user, logout_user, login_required, current_user
 from datetime import datetime
@@ -49,7 +49,7 @@ def logout():
 @auth.route('/Home')
 @login_required
 def home():
-    return render_template("home.html", user=current_user)
+    return render_template("home.html", user=current_user, _course = Course)
 
 
 @auth.route('/Manager')
@@ -62,34 +62,43 @@ def manager():
 @auth.route('/CoursesOverview')
 @login_required
 def coursesOverview():
-    return render_template("coursesOverview.html", user=current_user)
+    return render_template("coursesOverview.html", user=current_user, _course = Course)
 
 
 @auth.route('/AddCourses', methods=['GET', 'POST'])
 @login_required
 def addCourse():
-    employees = User.query.filter().all()
     if request.method == 'POST':
         courseQues = request.form.get('courseQues')
         courseLink = request.form.get('courseLink')
+        # First gets all the checkboxes for employees
+        employeeAssigned = request.form.getlist('employee')
+        # Converts the check boxes from string to integers with a for loop
+        convertListToInt = [eval(i) for i in employeeAssigned]
+
         courseTitle = request.form.get('courseTitle')
         if len(courseTitle) < 1:
             flash("Course Title was not entered!", category='error')
         elif len(courseQues) < 1:
             flash("Course Question was not entered!", category='error')
         else:
-            new_course = Course(courseQues=courseQues, courseTime=now,
-                                user_id=current_user.id, courseLink=courseLink, courseTitle=courseTitle)
-            db.session.add(new_course)
-            db.session.commit()
-            flash("Course was added successfully!", category="success")
-    return render_template("addCourse.html", user=current_user, employees=employees)
+            newcourse = Course(courseQues=courseQues, courseTime=now,
+                               user_id=current_user.id, courseLink=courseLink, courseTitle=courseTitle)
+            # adds the course and flush keeps the value
+            db.session.add(newcourse)
+            # retains newCourse.id
+            db.session.flush()
+            # for loop to add employee ids assigned
+            for x in convertListToInt:
+                newEC = employeeCourse(
+                    employee_id=x, course_id=newcourse.idcourses, manager_id=current_user.id)
+                db.session.add(newEC)
+            db.session.commit()  # <---- commits to the database
+        flash("Course was added successfully!", category="success")
+    return render_template("addCourse.html", user=current_user)
 
-@auth.route('/EmployeeList',  methods=['GET', 'POST'])
-@login_required 
-def searchEmployee():
-    employees = User.query.filter().all()
-    if request.method == 'POST':
-        search = request.form.get('search')
-        print(search)
-    return render_template("employeeList.html",user = current_user, employees = employees)
+
+@auth.route('/CourseTest')
+@login_required
+def courseTest():
+    return render_template("courseTest.html", user=current_user)
