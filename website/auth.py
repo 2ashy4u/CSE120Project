@@ -94,7 +94,7 @@ def addCourse():
                     employee_id=x, course_id=newcourse.idcourses, manager_id=current_user.id)
                 db.session.add(newEC)
             db.session.commit()  # <---- commits to the database
-        flash("Course was added successfully!", category="success")
+            flash("Course was added successfully!", category="success")
     return render_template("addCourse.html", user=current_user)
 
 
