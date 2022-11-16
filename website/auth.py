@@ -49,7 +49,7 @@ def logout():
 @auth.route('/Home')
 @login_required
 def home():
-    return render_template("home.html", user=current_user, _course = Course)
+    return render_template("coursesOverview.html", user=current_user, _course = Course)
 
 
 @auth.route('/Manager')
