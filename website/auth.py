@@ -71,8 +71,10 @@ def addCourse():
     if request.method == 'POST':
         courseQues = request.form.get('courseQues')
         courseLink = request.form.get('courseLink')
+        employeeAssigned = request.form.getlist('employee')
+        convertListToInt = [eval(i) for i in employeeAssigned]
+
         courseTitle = request.form.get('courseTitle')
-        employeeAssigned = request.form.get('employee')
         if len(courseTitle) < 1:
             flash("Course Title was not entered!", category='error')
         elif len(courseQues) < 1:
@@ -82,10 +84,16 @@ def addCourse():
                                user_id=current_user.id, courseLink=courseLink, courseTitle=courseTitle)
             db.session.add(newcourse)
             db.session.flush()  # retains newCourse.id
-            newEC = employeeCourse(
-                employee_id=employeeAssigned, course_id=newcourse.idcourses, manager_id=current_user.id)
-            db.session.add(newEC)
-            db.session.flush()
+            for x in convertListToInt:
+                newEC = employeeCourse(
+                    employee_id=x, course_id=newcourse.idcourses, manager_id=current_user.id)
+                db.session.add(newEC)
             db.session.commit()
-            flash("Course was added successfully!", category="success")
+        flash("Course was added successfully!", category="success")
     return render_template("addCourse.html", user=current_user)
+
+
+@auth.route('/CourseTest')
+@login_required
+def courseTest():
+    return render_template("courseTest.html", user=current_user)
