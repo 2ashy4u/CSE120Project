@@ -249,8 +249,8 @@ body {
   opacity: 0;
 }
 .dropdown{
-  animation: fadeIn 2s forwards;
-  opacity: 0;
+  position: relative;
+  display: inline-block;
 }
 .navbar-brand{
   margin-right: 50%;
@@ -260,4 +260,16 @@ body {
   text-align: center;
   animation: fadeIn 2s forwards;
   opacity: 0;
+}
+
+.submitButtonCourse{
+  padding: 1%;
+}
+
+.employeesTable{
+  padding: 2%;
+}
+
+.check{
+  float: left;
 }

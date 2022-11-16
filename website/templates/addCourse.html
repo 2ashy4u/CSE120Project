@@ -103,14 +103,11 @@ navbar%}
       id="courseLink"
       placeholder="Enter Course Link Here..."
     />
-    </div>
-  
-    <!-- Employee Table list -->
-    <div class = employeeListcontainer>
+    <div class = "employeesTable">
       <div class = "row">
         <div class = "col md-12">
           <div class = "jumbotron p-3">
-            <h2> Assign <b>Courses</b> <button type ="button" class = "btn btn-success float-right" data-toggler="modal" data-target="#mymodal">Add all employee</button></h2>
+            <h2> <b>Employees<b> <button type ="button" class = "btn btn-success float-right" data-toggler="modal" data-target="#mymodal">Select All</button></h2>
             <table class = "table table-hover">
               <tr>
                 <th>FirstName</th>
@@ -119,15 +116,23 @@ navbar%}
                 <th>EmployeeID</th>
                 <th>Action</th>
               </tr>
-              {% for employee in employees%}
+              {% for user in user.employees %}
               <tr>
-                <td>{{employee.firstname}}</td>
-                <td>{{employee.lastname}}</td>
-                <td>{{employee.email}}</td>
-                <td>{{employee.employeeID}}</td>
+                <td>{{user.firstname}}</td>
+                <td>{{user.lastname}}</td>
+                <td>{{user.email}}</td>
+                <td>{{user.id}}</td>
                 <td>
-                  <a href=" " class = "btn btn-warning btn-xs" data-toggler="model" data-target="#modaledit">Add</a>
-                  <a href=" " class = "btn btn-danger btn-xs" onclick="return confirm('Are you sure to delete?')">Delete</a>
+                <div class="form-check form-check-inline">
+                  <input 
+                  class="form-check-input" 
+                  type="checkbox" 
+                  id="employee" 
+                  value={{user.id}}
+                  name="employee"
+                  >
+                </div>
+                <a href=" " class = "btn btn-danger btn-xs" onclick="return confirm('Are you sure to delete?')">Delete</a>
                 </td>
               </tr>
               {% endfor %}
@@ -135,6 +140,10 @@ navbar%}
           </div>
         </div>
       </div> 
+
+    </div>
+  
+    <!-- Employee Table list -->
 
     <input type="submit" id = "submitButtonCourse" class="btn btn-primary"></button>
   </form>
