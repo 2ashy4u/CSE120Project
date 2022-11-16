@@ -114,7 +114,7 @@ navbar%}
                 <th>LastName</th>
                 <th>Email</th>
                 <th>EmployeeID</th>
-                <th>Action</th>
+                <th>Add Employees</th>
               </tr>
               {% for user in user.employees %}
               <tr>
@@ -123,7 +123,7 @@ navbar%}
                 <td>{{user.email}}</td>
                 <td>{{user.id}}</td>
                 <td>
-                <div class="form-check form-check-inline">
+                <div class="form-check">
                   <input 
                   class="form-check-input" 
                   type="checkbox" 
@@ -132,7 +132,6 @@ navbar%}
                   name="employee"
                   >
                 </div>
-                <a href=" " class = "btn btn-danger btn-xs" onclick="return confirm('Are you sure to delete?')">Delete</a>
                 </td>
               </tr>
               {% endfor %}
