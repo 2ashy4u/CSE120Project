@@ -29,8 +29,7 @@ navbar%}
       <a class="nav-iten nav-link" id="quiz" href="/CoursesOverview">Courses</a>
       {% if user.isManager == 'Y' %}
       <a class="nav-iten nav-link" id="add_quiz" href="/AddCourses"
-        >Add Courses</a
-      >
+        >Add Courses</a>
       {% endif %}
       <a class="nav-item nav-link" id="logout" href="/logout">Logout</a>
       {% else %}
@@ -40,24 +39,61 @@ navbar%}
   </div>
 </nav>
 {%endblock%} {% block content %}
-<div class="mb-3">
-  <label for="exampleFormControlInput1" class="form-label">Email address</label>
-  <input
-    type="email"
-    class="form-control"
-    id="exampleFormControlInput1"
-    placeholder="name@example.com"
-  />
-</div>
-<div class="mb-3">
-  <label for="exampleFormControlTextarea1" class="form-label"
-    >Example textarea</label
-  >
-  <textarea
-    class="form-control"
-    id="exampleFormControlTextarea1"
-    rows="3"
-  ></textarea>
-</div>
 
+<body>
+  {% with message = get_flashed_messages(category_filter=["error"]) %}
+    {%if message %}
+      {% for message in get_flashed_messages() %}
+        <div class="alert alert-danger" role="alert">
+        {{ message }}
+          <button
+            type="button"
+            class="close"
+            data-dismiss="alert"
+            aria-label="Close"
+          >
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+      {% endfor %} {% endif%} {% endwith %}
+  {% with message = get_flashed_messages(category_filter=["success"]) %}
+    {%if message %}
+      {% for message in get_flashed_messages() %}
+      <div class="alert alert-success" role="alert">
+        {{ message }}
+        <button
+          type="button"
+          class="close"
+          data-dismiss="alert"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+  {% endfor %} {% endif%} {% endwith %}
+
+  <div class="addAnswer">
+    <div class="question">
+      <label for="question" class="form-label">Question</label>
+      {% for employee_course in user.employee_courses %}
+        <li>{{_course.query.filter_by(idcourses=employee_course.course_id).first().courseQues}}</li>
+      {% endfor %}
+    </div>
+
+    <div class = "addAnswerTheQuestion"> 
+      <form action="#" method="POST">
+        <label for="addAnswerText">Answer:</label>
+        <textarea
+          type = "text"
+          class="form-control"
+          name = "answerText"
+          id="answerText"
+          rows="3"
+          placeholder="Enter the answer here ..."></textarea>
+    </div>
+    <br>
+    <input type="submit" id = "submitButtonCourse" class="btn btn-primary"></button>
+    </form>
+  </div>
+</body>
 {% endblock %}
