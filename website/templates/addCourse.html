@@ -2,12 +2,7 @@
 navbar%}
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <a class="navbar-brand" href="/Home">
-    <img
-      src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Western_Digital_brand_mark.svg"
-      width="50"
-      height="25"
-      class="d-inline-block align-top"
-    />
+    <img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Western_Digital_brand_mark.svg" width="50" height="25" class="d-inline-block align-top">
     Western Digital
   </a>
   <button
@@ -26,9 +21,11 @@ navbar%}
       <a class="nav-iten nav-link" id="manager" href="/Manager">Manager View</a>
       {% endif %}
       <a class="nav-iten nav-link" id="home" href="/Home">Home</a>
-      <a class="nav-iten nav-link" id="quiz" href="/CoursesOverview">Courses</a>
       {% if user.isManager == 'Y' %}
-      <a class="nav-iten nav-link" id="add_quiz" href="/AddCourses">Add Courses</a>
+      <a class="nav-iten nav-link" id="quiz" href="/Employees">Employees</a>
+      <a class="nav-iten nav-link" id="add_quiz" href="/AddCourses"
+        >Add Courses</a
+      >
       {% endif %}
       <a class="nav-item nav-link" id="logout" href="/logout">Logout</a>
       {% else %}
