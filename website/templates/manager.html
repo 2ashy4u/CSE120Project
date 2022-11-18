@@ -21,8 +21,8 @@ navbar%}
       <a class="nav-iten nav-link" id="manager" href="/Manager">Manager View</a>
       {% endif %}
       <a class="nav-iten nav-link" id="home" href="/Home">Home</a>
-      <a class="nav-iten nav-link" id="quiz" href="/CoursesOverview">Courses</a>
       {% if user.isManager == 'Y' %}
+      <a class="nav-iten nav-link" id="quiz" href="/Employees">Employees</a>
       <a class="nav-iten nav-link" id="add_quiz" href="/AddCourses"
         >Add Courses</a
       >
@@ -54,7 +54,7 @@ navbar%}
             <table class="table align-middle mb-0 bg-white">
                 <thead class="bg-light">
                     <tr>
-                        <th>Courses</th>
+                        <th>Active Courses</th>
                     </tr>
                 </thead>
                 <tbody>
