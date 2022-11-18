@@ -98,7 +98,17 @@ def addCourse():
     return render_template("addCourse.html", user=current_user)
 
 
-@auth.route('/CourseTest')
+@auth.route('/CourseTest', methods=['GET', 'POST'])
 @login_required
 def courseTest():
-    return render_template("courseTest.html", user=current_user)
+    if request.method == 'POST':
+        answer = request.form.get("answerText")
+        if len(answer) < 1:
+            flash("Answer was not entered!", category='error')
+        # else:
+        #     addAnswer = employeeCourse(course_id=Course.idcourses, employee_id = current_user, answer = answer, manager_id=current_user.id)
+        #     db.session.add(addAnswer)
+        #     db.session.flush()
+        #     db.session.commit() 
+        #     flash("Answer was submited successfully!", category="success")  
+    return render_template("courseTest.html", user=current_user, _course=Course)

@@ -39,20 +39,20 @@ navbar%}
 </nav>
 {%endblock%} {% block content %}
 <body>
-   {% with message = get_flashed_messages(category_filter=["error"]) %}
+  {% with message = get_flashed_messages(category_filter=["error"]) %}
     {%if message %}
-     {% for message in get_flashed_messages() %}
-      <div class="alert alert-danger" role="alert">
-        {{ message }}
-        <button
-          type="button"
-          class="close"
-          data-dismiss="alert"
-          aria-label="Close"
-        >
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
+      {% for message in get_flashed_messages() %}
+        <div class="alert alert-danger" role="alert">
+          {{ message }}
+          <button
+            type="button"
+            class="close"
+            data-dismiss="alert"
+            aria-label="Close"
+          >
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
       {% endfor %} {% endif%} {% endwith %}
        {% with message = get_flashed_messages(category_filter=["success"]) %}
     {%if message %}
@@ -92,8 +92,8 @@ navbar%}
     id="courseQues"
     rows="3"
     placeholder="Enter Course Question Here..."></textarea>
-
   </div>
+
   <div class="addCourseLink">
     <label for="courseLink">Enter Course Link:</label>
     <input
