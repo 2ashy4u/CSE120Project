@@ -59,10 +59,10 @@ def manager():
     return render_template("manager.html", user=current_user)
 
 
-@auth.route('/CoursesOverview')
+@auth.route('/Employees')
 @login_required
-def coursesOverview():
-    return render_template("coursesOverview.html", user=current_user)
+def Employees():
+    return render_template("employees.html", user=current_user)
 
 
 @auth.route('/AddCourses', methods=['GET', 'POST'])
@@ -75,7 +75,6 @@ def addCourse():
         employeeAssigned = request.form.getlist('employee')
         # Converts the check boxes from string to integers with a for loop
         convertListToInt = [eval(i) for i in employeeAssigned]
-
         courseTitle = request.form.get('courseTitle')
         if len(courseTitle) < 1:
             flash("Course Title was not entered!", category='error')
