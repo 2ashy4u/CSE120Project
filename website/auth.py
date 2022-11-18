@@ -49,7 +49,7 @@ def logout():
 @auth.route('/Home')
 @login_required
 def home():
-    return render_template("coursesOverview.html", user=current_user, _course = Course)
+    return render_template("home.html", user=current_user, _course = Course)
 
 
 @auth.route('/Manager')
@@ -59,10 +59,10 @@ def manager():
     return render_template("manager.html", user=current_user)
 
 
-@auth.route('/CoursesOverview')
+@auth.route('/Employees')
 @login_required
 def coursesOverview():
-    return render_template("coursesOverview.html", user=current_user, _course = Course)
+    return render_template("employees.html", user=current_user, _course = Course)
 
 
 @auth.route('/AddCourses', methods=['GET', 'POST'])
