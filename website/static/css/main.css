@@ -61,21 +61,6 @@
 .addCourseLink{
   padding: 2%;
 }
-.addAnswer{
-  width: auto;
-  height:auto;
-  box-shadow: 0 0 40px rgba(0, 0, 0, 0.1);
-  border-radius:1em;
-  background: white;
-  animation: fadeIn 2s forwards;
-  opacity: 0;
-}
-.question{
-  padding: 2%;
-}
-.addAnswerTheQuestion{
-  padding: 2%;
-}
 
 .piechartDiv{
   width: 100%;
@@ -289,3 +274,4 @@ body {
 .check{
   float: left;
 }
+
