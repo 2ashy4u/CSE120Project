@@ -56,7 +56,7 @@ def home():
 @login_required
 # @roles_required("Manager")
 def manager():
-    return render_template("manager.html", user=current_user)
+    return render_template("manager.html", user=current_user,  _employee_course=employeeCourse)
 
 
 @auth.route('/Employees')
@@ -113,3 +113,20 @@ def courseTest(id):
             db.session.commit() 
             flash("Answer was submited successfully!", category="success")  
     return render_template("courseTest.html", user=current_user, _course=Course, id=id)
+
+
+@auth.route('/Feedback/e_id=<idForEmp>,c_id=<idForCourse>', methods=['GET', 'POST'])
+@login_required
+def feedback(idForEmp,idForCourse):
+    if request.method == 'POST':
+        feedback = request.form.get("feedbackText")
+        print(feedback)
+        if len(feedback) < 1:
+            flash("Feedback was not entered!", category='error')
+        else:
+            EC = employeeCourse.query.filter_by(course_id=idForCourse, employee_id=idForEmp,manager_id= current_user).first()
+            EC.feedback = feedback
+            #db.session.flush()
+            db.session.commit() 
+            flash("Feedback was submited successfully!", category="success")  
+    return render_template("feedback.html", user=current_user, _employee_course=employeeCourse, idForCourse=idForCourse, idForEmp=idForEmp)

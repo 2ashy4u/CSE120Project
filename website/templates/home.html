@@ -54,6 +54,7 @@
             <tr>
               <th>CourseID</th>
               <th>CourseTitle</th>
+              <th>Feedback</th>
             </tr>
           </thead>
           <tbody>
@@ -61,6 +62,7 @@
             <tr>
               <td><a href="#">{{employee_course.course_id}}</td>
               <td><a href="/CourseTest/id={{employee_course.course_id}}">{{_course.query.filter_by(idcourses=employee_course.course_id).first().courseTitle}}</td>
+              <td><a href="#">{{employee_course.feedback}}</td>
             </tr>
           {% endfor %}
           </tbody>
