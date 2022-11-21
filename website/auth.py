@@ -124,8 +124,8 @@ def feedback(idForEmp,idForCourse):
         if len(feedback) < 1:
             flash("Feedback was not entered!", category='error')
         else:
-            EC = employeeCourse.query.filter_by(course_id=idForCourse, employee_id=idForEmp,manager_id= current_user).first()
-            EC.feedback = feedback
+            EC_feedback = employeeCourse.query.filter_by(course_id=idForCourse, employee_id=idForEmp).first()
+            EC_feedback.feedback = feedback
             #db.session.flush()
             db.session.commit() 
             flash("Feedback was submited successfully!", category="success")  
