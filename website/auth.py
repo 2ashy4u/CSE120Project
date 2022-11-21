@@ -129,4 +129,9 @@ def feedback(idForEmp,idForCourse):
             #db.session.flush()
             db.session.commit() 
             flash("Feedback was submited successfully!", category="success")  
-    return render_template("feedback.html", user=current_user, _employee_course=employeeCourse, idForCourse=idForCourse, idForEmp=idForEmp)
+    return render_template("manager_feedback.html", user=current_user, _employee_course=employeeCourse, idForCourse=idForCourse, idForEmp=idForEmp)
+
+@auth.route('/ViewFeedback/c_id=<idForCourse>')
+@login_required
+def viewFeedback(idForCourse):
+    return render_template("viewFeedback.html", user=current_user, idForCourse=idForCourse, _employee_course=employeeCourse)
