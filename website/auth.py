@@ -49,20 +49,20 @@ def logout():
 @auth.route('/Home')
 @login_required
 def home():
-    return render_template("home.html", user=current_user)
+    return render_template("home.html", user=current_user, _course = Course)
 
 
 @auth.route('/Manager')
 @login_required
 # @roles_required("Manager")
 def manager():
-    return render_template("manager.html", user=current_user)
+    return render_template("manager.html", user=current_user,  _employee_course=employeeCourse)
 
 
 @auth.route('/Employees')
 @login_required
-def Employees():
-    return render_template("employees.html", user=current_user)
+def coursesOverview():
+    return render_template("employees.html", user=current_user, _course = Course)
 
 
 @auth.route('/AddCourses', methods=['GET', 'POST'])
@@ -75,6 +75,7 @@ def addCourse():
         employeeAssigned = request.form.getlist('employee')
         # Converts the check boxes from string to integers with a for loop
         convertListToInt = [eval(i) for i in employeeAssigned]
+
         courseTitle = request.form.get('courseTitle')
         if len(courseTitle) < 1:
             flash("Course Title was not entered!", category='error')
@@ -93,11 +94,44 @@ def addCourse():
                     employee_id=x, course_id=newcourse.idcourses, manager_id=current_user.id)
                 db.session.add(newEC)
             db.session.commit()  # <---- commits to the database
-            flash("Course was added successfully!", category="success")
+        flash("Course was added successfully!", category="success")
     return render_template("addCourse.html", user=current_user)
 
 
-@auth.route('/CourseTest')
+@auth.route('/CourseTest/id=<id>', methods=['GET', 'POST'])
 @login_required
-def courseTest():
-    return render_template("courseTest.html", user=current_user)
+def courseTest(id):
+    if request.method == 'POST':
+        answer = request.form.get("answerText")
+        print(answer)
+        if len(answer) < 1:
+            flash("Answer was not entered!", category='error')
+        else:
+            EC = employeeCourse.query.filter_by(course_id=id, employee_id=current_user.id).first()
+            EC.answer = answer
+            #db.session.flush()
+            db.session.commit() 
+            flash("Answer was submited successfully!", category="success")  
+    return render_template("courseTest.html", user=current_user, _course=Course, id=id)
+
+
+@auth.route('/Feedback/e_id=<idForEmp>,c_id=<idForCourse>', methods=['GET', 'POST'])
+@login_required
+def feedback(idForEmp,idForCourse):
+    if request.method == 'POST':
+        feedback = request.form.get("feedbackText")
+        print(feedback)
+        if len(feedback) < 1:
+            flash("Feedback was not entered!", category='error')
+        else:
+            EC_feedback = employeeCourse.query.filter_by(course_id=idForCourse, employee_id=idForEmp).first()
+            EC_feedback.feedback = feedback
+            #db.session.flush()
+            db.session.commit() 
+            flash("Feedback was submited successfully!", category="success")  
+    return render_template("manager_feedback.html", user=current_user, _employee_course=employeeCourse, idForCourse=idForCourse, idForEmp=idForEmp)
+
+@auth.route('/ViewFeedback/c_id=<idForCourse>')
+@login_required
+def viewFeedback(idForCourse):
+    return render_template("viewFeedback.html", user=current_user, idForCourse=idForCourse, _employee_course=employeeCourse)
