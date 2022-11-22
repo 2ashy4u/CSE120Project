@@ -1,148 +1,150 @@
 {% extends "base.html" %} {% block title %}Add Courses{% endblock %} {%block
-navbar%}
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <a class="navbar-brand" href="/Home">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Western_Digital_brand_mark.svg" width="50" height="25" class="d-inline-block align-top">
-    Western Digital
-  </a>
-  <button
-    class="navbar-toggler"
-    type="button"
-    data-toggler="collapse"
-    data-target="#navbar"
-  >
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="navbar">
-    <!-- Navbar Buttons -->
-    <div class="navbar-nav">
-      <!-- Add icons -->
-      {% if user.is_authenticated %} {% if user.isManager == 'Y' %}
-      <a class="nav-iten nav-link" id="manager" href="/Manager">Manager View</a>
-      {% endif %}
-      <a class="nav-iten nav-link" id="home" href="/Home">Home</a>
-      {% if user.isManager == 'Y' %}
-      <a class="nav-iten nav-link" id="quiz" href="/Employees">Employees</a>
-      <a class="nav-iten nav-link" id="add_quiz" href="/AddCourses"
-        >Add Courses</a
-      >
-      {% endif %}
-      <a class="nav-item nav-link" id="logout" href="/logout">Logout</a>
-      {% else %}
-      <a class="nav-iten nav-link" id="login" href="/Login">Login</a>
-      {% endif %}
+  navbar%}
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="/Home">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Western_Digital_brand_mark.svg" width="50" height="25" class="d-inline-block align-top">
+      Western Digital
+    </a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-toggler="collapse"
+      data-target="#navbar"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbar">
+      <!-- Navbar Buttons -->
+      <div class="navbar-nav">
+        <!-- Add icons -->
+        {% if user.is_authenticated %} {% if user.isManager == 'Y' %}
+        <a class="nav-iten nav-link" id="manager" href="/Manager">Manager View</a>
+        {% endif %}
+        <a class="nav-iten nav-link" id="home" href="/Home">Home</a>
+        {% if user.isManager == 'Y' %}
+        <a class="nav-iten nav-link" id="quiz" href="/Employees">Employees</a>
+        <a class="nav-iten nav-link" id="add_quiz" href="/AddCourses"
+          >Add Courses</a
+        >
+        {% endif %}
+        <a class="nav-item nav-link" id="logout" href="/logout">Logout</a>
+        {% else %}
+        <a class="nav-iten nav-link" id="login" href="/Login">Login</a>
+        {% endif %}
+      </div>
     </div>
-  </div>
-</nav>
-{%endblock%} {% block content %}
-<body>
-   {% with message = get_flashed_messages(category_filter=["error"]) %}
-    {%if message %}
-     {% for message in get_flashed_messages() %}
-      <div class="alert alert-danger" role="alert">
-        {{ message }}
-        <button
-          type="button"
-          class="close"
-          data-dismiss="alert"
-          aria-label="Close"
-        >
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      {% endfor %} {% endif%} {% endwith %}
-       {% with message = get_flashed_messages(category_filter=["success"]) %}
-    {%if message %}
-     {% for message in get_flashed_messages() %}
-      <div class="alert alert-success" role="alert">
-        {{ message }}
-        <button
-          type="button"
-          class="close"
-          data-dismiss="alert"
-          aria-label="Close"
-        >
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      {% endfor %} {% endif%} {% endwith %}
-<div class="addCourses">
-  <div class="addCourseTitle">
-  <form action="#" method="POST">
-    <label for="addCourseTitle">Enter Course title:</label>
-    <textarea
-      type="text"
-      class="form-control"
-      name="courseTitle"
-      id="courseTitle"
-      aria-describedby="courseTitle"
-      rows="3"
-      placeholder="Enter Course Title Here..."></textarea>
-  </div>
-  
-  <div class="addCourseQuestion">
-    <label for="courseQues">Enter Course Question:</label>
-    <textarea
-    type="text"
-    class="form-control"
-    name="courseQues"
-    id="courseQues"
-    rows="3"
-    placeholder="Enter Course Question Here..."></textarea>
-
-  </div>
-  <div class="addCourseLink">
-    <label for="courseLink">Enter Course Link:</label>
-    <input
-      type="text"
-      class="form-control"
-      name="courseLink"
-      id="courseLink"
-      placeholder="Enter Course Link Here..."
-    />
-    <div class = "employeesTable">
-      <div class = "row">
-        <div class = "col md-12">
-          <div class = "jumbotron p-3">
-            <h2> <b>Employees<b> <button type ="button" class = "btn btn-success float-right" data-toggler="modal" data-target="#mymodal">Select All</button></h2>
-            <table class = "table table-hover">
-              <tr>
-                <th>FirstName</th>
-                <th>LastName</th>
-                <th>Email</th>
-                <th>EmployeeID</th>
-                <th>Add Employees</th>
-              </tr>
-              {% for user in user.employees %}
-              <tr>
-                <td>{{user.firstname}}</td>
-                <td>{{user.lastname}}</td>
-                <td>{{user.email}}</td>
-                <td>{{user.id}}</td>
-                <td>
-                <div class="form-check">
-                  <input 
-                  class="form-check-input" 
-                  type="checkbox" 
-                  id="employee" 
-                  value={{user.id}}
-                  name="employee"
-                  >
-                </div>
-                </td>
-              </tr>
-              {% endfor %}
-            </table>
-          </div>
+  </nav>
+  {%endblock%} {% block content %}
+  <body>
+     {% with message = get_flashed_messages(category_filter=["error"]) %}
+      {%if message %}
+       {% for message in get_flashed_messages() %}
+        <div class="alert alert-danger" role="alert">
+          {{ message }}
+          <button
+            type="button"
+            class="close"
+            data-dismiss="alert"
+            aria-label="Close"
+          >
+            <span aria-hidden="true">&times;</span>
+          </button>
         </div>
-      </div> 
-
+        {% endfor %} {% endif%} {% endwith %}
+         {% with message = get_flashed_messages(category_filter=["success"]) %}
+      {%if message %}
+       {% for message in get_flashed_messages() %}
+        <div class="alert alert-success" role="alert">
+          {{ message }}
+          <button
+            type="button"
+            class="close"
+            data-dismiss="alert"
+            aria-label="Close"
+          >
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        {% endfor %} {% endif%} {% endwith %}
+  <div class="addCourses">
+    <div class="addCourseTitle">
+    <form action="#" method="POST">
+      <label for="addCourseTitle">Enter Course title:</label>
+      <textarea
+        type="text"
+        class="form-control"
+        name="courseTitle"
+        id="courseTitle"
+        aria-describedby="courseTitle"
+        rows="3"
+        placeholder="Enter Course Title Here..."></textarea>
     </div>
+    
+    <div class="addCourseQuestion">
+      <label for="courseQues">Enter Course Question:</label>
+      <textarea
+      type="text"
+      class="form-control"
+      name="courseQues"
+      id="courseQues"
+      rows="3"
+      placeholder="Enter Course Question Here..."></textarea>
   
-    <!-- Employee Table list -->
-
-    <input type="submit" id = "submitButtonCourse" class="btn btn-primary"></button>
-  </form>
-</div>
-</body>
-{% endblock %}
+    </div>
+    <div class="addCourseLink">
+      <label for="courseLink">Enter Course Link:</label>
+      <input
+        type="text"
+        class="form-control"
+        name="courseLink"
+        id="courseLink"
+        placeholder="Enter Course Link Here..."
+      />
+      </div>
+      
+      <div class = "employeesTable">
+        <div class = "row">
+          <div class = "col md-12">
+            <div class = "jumbotron p-3">
+              <h2> <b>Employees<b> <button type ="button" class = "btn btn-success float-right" data-toggler="modal" data-target="#mymodal">Select All</button></h2>
+              <table class = "table table-hover">
+                <tr>
+                  <th>FirstName</th>
+                  <th>LastName</th>
+                  <th>Email</th>
+                  <th>EmployeeID</th>
+                  <th>Add Employees</th>
+                </tr>
+                {% for user in user.employees %}
+                <tr>
+                  <td>{{user.firstname}}</td>
+                  <td>{{user.lastname}}</td>
+                  <td>{{user.email}}</td>
+                  <td>{{user.id}}</td>
+                  <td>
+                  <div class="form-check">
+                    <input 
+                    class="form-check-input" 
+                    type="checkbox" 
+                    id="employee" 
+                    value={{user.id}}
+                    name="employee"
+                    >
+                  </div>
+                  </td>
+                </tr>
+                {% endfor %}
+              </table>
+            </div>
+          </div>
+        </div> 
+  
+      </div>
+    
+      <!-- Employee Table list -->
+  
+      <input type="submit" id = "submitButtonCourse" class="btn btn-primary"></button>
+    </form>
+  </div>
+  </body>
+  {% endblock %}
