@@ -68,7 +68,7 @@
           {% endfor %} {% endif%} {% endwith %}
     <div class="updateCourses">
         <div class="updateCourseTitle">
-        <form action="/UpdateCourse/m_id={{user.id}},c_id={{_course_update.idcourses}}" method="POST">
+        <form action="/UpdateCourse/c_id={{_course_update.idcourses}}" method="POST">
             <label for="updateCourseTitle">Update Course title:</label>
             <textarea
             type="text"
@@ -125,9 +125,9 @@
                       class="form-check-input" 
                       type="checkbox" 
                       id="employee" 
-                      value={{_course_update.id}}
-                      name="employee"
-                      >
+                      value={{user.id}}
+                      name="updateEmployee"
+                      />
                     </div>
                     </td>
                   </tr>

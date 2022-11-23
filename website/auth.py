@@ -137,15 +137,20 @@ def viewFeedback(idForCourse):
     return render_template("viewFeedback.html", user=current_user, idForCourse=idForCourse, _employee_course=employeeCourse)
 
 
-@auth.route('/UpdateCourse/m_id=<idForM>,c_id=<idForCourse>', methods=['GET', 'POST'])
+@auth.route('/UpdateCourse/c_id=<idForCourse>', methods=['GET', 'POST'])
 @login_required
-def update(idForM,idForCourse):
-    course_update = Course.query.filter_by(user_id=idForM, idcourses=idForCourse).first()
-    # employee_update = employeeCourse.query.filter_by(employee_id=idForEmp, course_id=idForCourse, manager_id=idForM)
+def update(idForCourse):
+    course_update = Course.query.filter_by(user_id=current_user.id,idcourses=idForCourse).first()
+    employee_update = employeeCourse.query.filter_by(course_id=idForCourse, manager_id=current_user.id)
     if request.method == "POST":
         course_update.courseTitle = request.form.get("updateCourseTitle")
         course_update.courseQues = request.form.get("updateCourseQues")
-        course_update.courseLink = request.form.get("updateCourseLink")    
+        course_update.courseLink = request.form.get("updateCourseLink")
+        updateEmployeeAssigned = request.form.getlist('updateEmployee')
+        convertListToInt = [eval(i) for i in updateEmployeeAssigned]
+        for x in convertListToInt:
+            newEC = employeeCourse(employee_id=x, course_id=idForCourse, manager_id=current_user.id)
+            db.session.add(newEC)
         db.session.commit()
         flash("Update was submited successfully!", category="success")          
-    return render_template("update_course.html", user=current_user, idForCourse=idForCourse, idForM=idForM, _course_update=course_update)
+    return render_template("update_course.html", user=current_user, idForCourse=idForCourse, _course_update=course_update, _employee_update=employee_update)
