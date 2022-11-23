@@ -74,7 +74,7 @@ navbar%}
               </td>
               <td>
                 <a href="/UpdateCourse/c_id={{course.idcourses}}" class="btn btn-warning btn-xs">Edit</a>
-                <a href="" class="btn btn-danger btn-xs" onclick="return confirm('Are you sure to delete?')">Delete</a>
+                <a href="/Delete/c_id={{course.idcourses}}" class="btn btn-danger btn-xs" onclick="return confirm('Are you sure to delete?')">Delete</a>
               </td>
             </tr>
             {% endfor %}

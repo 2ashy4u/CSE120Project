@@ -154,3 +154,13 @@ def update(idForCourse):
         db.session.commit()
         flash("Update was submited successfully!", category="success")          
     return render_template("update_course.html", user=current_user, idForCourse=idForCourse, _course_update=course_update, _employee_update=employee_update)
+
+
+@auth.route('/Delete/c_id=<idForCourse>', methods=['GET', 'POST'])
+@login_required
+def delete(idForCourse):
+    employeeCourse.query.filter_by(manager_id=current_user.id, course_id=idForCourse).delete()
+    Course.query.filter_by(user_id=current_user.id, idcourses=idForCourse).delete()
+    db.session.commit()
+    flash("Successfully delete course")
+    return render_template("manager.html",user=current_user,idForCourse=idForCourse,_employee_course=employeeCourse)
