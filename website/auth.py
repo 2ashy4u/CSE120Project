@@ -98,6 +98,7 @@ def addCourse():
     return render_template("addCourse.html", user=current_user)
 
 
+# the route has id parameter because will create a unique page to each employee by their id with the same courseTest.html 
 @auth.route('/CourseTest/id=<id>', methods=['GET', 'POST'])
 @login_required
 def courseTest(id):
@@ -107,11 +108,16 @@ def courseTest(id):
         if len(answer) < 1:
             flash("Answer was not entered!", category='error')
         else:
+            # store the employee answer in the employeeCourse table of the database
+            # put in the row that matches to the course_id, and employee_id
             EC = employeeCourse.query.filter_by(course_id=id, employee_id=current_user.id).first()
+            # put the column answer in the EC table to the answer from the user input 
             EC.answer = answer
             #db.session.flush()
             db.session.commit() 
             flash("Answer was submited successfully!", category="success")  
+    # _course in render_templete in order to use Course table in the courseTest.html 
+    # we also need the id since we have to pass this id to each employee page 
     return render_template("courseTest.html", user=current_user, _course=Course, id=id)
 
 
@@ -140,13 +146,16 @@ def viewFeedback(idForCourse):
 @auth.route('/UpdateCourse/c_id=<idForCourse>', methods=['GET', 'POST'])
 @login_required
 def update(idForCourse):
+    # assigned a var to the Course table in the database so that we can update or replace the old data
     course_update = Course.query.filter_by(user_id=current_user.id,idcourses=idForCourse).first()
+    # assigned a var to the employeeCourse table in the database so that we can update the assigned employee 
     employee_update = employeeCourse.query.filter_by(course_id=idForCourse, manager_id=current_user.id)
     if request.method == "POST":
         course_update.courseTitle = request.form.get("updateCourseTitle")
         course_update.courseQues = request.form.get("updateCourseQues")
         course_update.courseLink = request.form.get("updateCourseLink")
         updateEmployeeAssigned = request.form.getlist('updateEmployee')
+        # same as the AddCourse functionality, add additional employee to the employeeCourse with a interger list 
         convertListToInt = [eval(i) for i in updateEmployeeAssigned]
         for x in convertListToInt:
             newEC = employeeCourse(employee_id=x, course_id=idForCourse, manager_id=current_user.id)
@@ -159,6 +168,7 @@ def update(idForCourse):
 @auth.route('/Delete/c_id=<idForCourse>', methods=['GET', 'POST'])
 @login_required
 def delete(idForCourse):
+    # delete all the row that matches with the manager_id and course_id in the employeeCourse and Course table in the database 
     employeeCourse.query.filter_by(manager_id=current_user.id, course_id=idForCourse).delete()
     Course.query.filter_by(user_id=current_user.id, idcourses=idForCourse).delete()
     db.session.commit()

@@ -1,14 +1,15 @@
-{% extends "base.html" %} {% block title %}Update Courses{% endblock %} {%block navbar%}
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" href="/Home">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Western_Digital_brand_mark.svg" width="50" height="25" class="d-inline-block align-top">
-      Western Digital
-    </a>
-    <button
-      class="navbar-toggler"
-      type="button"
-      data-toggler="collapse"
-      data-target="#navbar">
+{% extends "base.html" %} {% block title %}Quiz{% endblock %} {%block navbar%}
+  <head>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <a class="navbar-brand" href="/Home">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Western_Digital_brand_mark.svg" width="50" height="25" class="d-inline-block align-top">
+        Western Digital
+      </a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggler="collapse"
+        data-target="#navbar">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbar">
@@ -21,7 +22,9 @@
         <a class="nav-iten nav-link" id="home" href="/Home">Home</a>
         {% if user.isManager == 'Y' %}
         <a class="nav-iten nav-link" id="quiz" href="/Employees">Employees</a>
-        <a class="nav-iten nav-link" id="add_quiz" href="/AddCourses">Add Courses</a>
+        <a class="nav-iten nav-link" id="add_quiz" href="/AddCourses"
+          >Add Courses</a
+        >
         {% endif %}
         <a class="nav-item nav-link" id="logout" href="/logout">Logout</a>
         {% else %}
@@ -29,8 +32,9 @@
         {% endif %}
       </div>
     </div>
-  </nav>
-  {%endblock%} {% block content %}
+    </nav>
+  {%endblock%} {% block content %} 
+  </head>
   <body>
       {% with message = get_flashed_messages(category_filter=["error"]) %}
       {%if message %}
