@@ -124,6 +124,7 @@ def courseTest(id):
 @auth.route('/Feedback/e_id=<idForEmp>,c_id=<idForCourse>', methods=['GET', 'POST'])
 @login_required
 def feedback(idForEmp,idForCourse):
+    EC = employeeCourse.query.filter_by(course_id=idForCourse, employee_id=idForEmp).first()
     if request.method == 'POST':
         feedback = request.form.get("feedbackText")
         print(feedback)
@@ -135,12 +136,13 @@ def feedback(idForEmp,idForCourse):
             #db.session.flush()
             db.session.commit() 
             flash("Feedback was submited successfully!", category="success")  
-    return render_template("manager_feedback.html", user=current_user, _employee_course=employeeCourse, idForCourse=idForCourse, idForEmp=idForEmp)
+    return render_template("manager_feedback.html", user=current_user, idForCourse=idForCourse, idForEmp=idForEmp, EC=EC)
 
 @auth.route('/ViewFeedback/c_id=<idForCourse>')
 @login_required
 def viewFeedback(idForCourse):
-    return render_template("viewFeedback.html", user=current_user, idForCourse=idForCourse, _employee_course=employeeCourse)
+    EC = employeeCourse.query.filter_by(course_id=idForCourse).first()
+    return render_template("viewFeedback.html", user=current_user, idForCourse=idForCourse, EC=EC)
 
 
 @auth.route('/UpdateCourse/c_id=<idForCourse>', methods=['GET', 'POST'])

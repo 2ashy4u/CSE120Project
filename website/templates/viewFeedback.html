@@ -42,6 +42,6 @@ navbar%}
 <html>
     <h1> Welcome {{user.firstname}}!</h1>
     <h2> Feedback </h2>
-        <p>{{_employee_course.query.filter_by(course_id=idForCourse).first().feedback}}</p>
+        <p>{{EC.feedback}}</p>
 </html>
 {% endblock %}
