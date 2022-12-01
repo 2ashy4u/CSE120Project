@@ -67,9 +67,9 @@
           </div>
       {% endfor %} {% endif %} {% endwith %}
     
-      <div class="addAnswer">
-        <!-- display the question  -->
-        <div class="question">
+      <div class="addFeebackForEmployee">
+        <!-- display the answer  -->
+        <div class="answer">
           <h1>Answer</h1>
             <p>{{EC.answer}}</p>
         </div>
@@ -86,9 +86,25 @@
               placeholder="Enter the answer here ..."
             ></textarea>
         </div>
+        <br>
+        <!-- input the grade  -->
+        <div class = "addGrade"> 
+          <label for="addGradeText">Grading:</label>
+          <input
+          type = "number"
+          name = "gradeNumber"
+          id="gradeText"
+          min="0"
+          max="10"
+          >
+        </div>
+        <br>
         <input type="submit" id = "submitButtonCourse" class="btn btn-primary"></button>
         </form>
       </div>
     </body>
     {% endblock %}
     
+
+  
+   

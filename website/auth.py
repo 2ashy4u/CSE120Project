@@ -130,12 +130,15 @@ def feedback(idForEmp,idForCourse):
     if request.method == 'POST':
         feedback = request.form.get("feedbackText")
         print(feedback)
+        grade = request.form.get("gradeNumber")
+        print(grade)
         if len(feedback) < 1:
             flash("Feedback was not entered!", category='error')
         else:
             EC_feedback = employeeCourse.query.filter_by(course_id=idForCourse, employee_id=idForEmp).first()
             EC_feedback.feedback = feedback
-            #db.session.flush()
+            EC_feedback.grade = grade
+            db.session.flush()
             db.session.commit() 
             flash("Feedback was submited successfully!", category="success")  
     return render_template("manager_feedback.html", user=current_user, idForCourse=idForCourse, idForEmp=idForEmp, EC=EC)
@@ -163,9 +166,9 @@ def update(idForCourse):
         convertListToInt = [eval(i) for i in employee_update.updateEmployeeAssigned]
         print(convertListToInt)
         for x in convertListToInt:
+            print("x",x)
             newEC = employeeCourse(employee_id=x, course_id=idForCourse, manager_id=current_user.id)
             db.session.merge(newEC)
-            
         db.session.commit()
         flash("Update was submited successfully!", category="success")          
     return render_template("update_course.html", eC=employeeCourse, user=current_user, idForCourse=idForCourse, _course_update=course_update)
