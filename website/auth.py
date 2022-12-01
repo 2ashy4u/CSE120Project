@@ -161,14 +161,28 @@ def update(idForCourse):
         course_update.courseTitle = request.form.get("updateCourseTitle")
         course_update.courseQues = request.form.get("updateCourseQues")
         course_update.courseLink = request.form.get("updateCourseLink")
-        employee_update.updateEmployeeAssigned = request.form.getlist('updateEmployee')
+        updateEmployeeAssigned = request.form.getlist('updateEmployee')
+        # print( employee_update.updateEmployeeAssigned )
         # same as the AddCourse functionality, add additional employee to the employeeCourse with a interger list 
-        convertListToInt = [eval(i) for i in employee_update.updateEmployeeAssigned]
+        convertListToInt = [eval(i) for i in updateEmployeeAssigned]
         print(convertListToInt)
         for x in convertListToInt:
-            print("x",x)
             newEC = employeeCourse(employee_id=x, course_id=idForCourse, manager_id=current_user.id)
+            # merge is use to add the same employee again without any error
             db.session.merge(newEC)
+        # current_user.employees is access the employee in that manager 
+        for employee in current_user.employees:
+            # initialize to set user does not exist 
+            y = 0
+            for x in convertListToInt:
+                # if the employee exist in the list 
+                if employee.id == x:
+                    # then user is set to 1 
+                    y = 1
+            # this will not run if the employee is in the list 
+            # and statement is to make sure it delete the row that exist in the database 
+            if y == 0 and employeeCourse.query.filter_by(course_id=idForCourse, employee_id=employee.id).first():
+                employeeCourse.query.filter_by(course_id=idForCourse, employee_id=employee.id).delete()
         db.session.commit()
         flash("Update was submited successfully!", category="success")          
     return render_template("update_course.html", eC=employeeCourse, user=current_user, idForCourse=idForCourse, _course_update=course_update)
