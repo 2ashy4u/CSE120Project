@@ -1,4 +1,4 @@
-{% extends "base.html" %} {% block title %}Landing Page{% endblock %} {%block
+{% extends "base.html" %} {% block title %}Course Test{% endblock %} {%block
 navbar%}
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <a class="navbar-brand" href="/Home">
@@ -26,11 +26,10 @@ navbar%}
       <a class="nav-iten nav-link" id="manager" href="/Manager">Manager View</a>
       {% endif %}
       <a class="nav-iten nav-link" id="home" href="/Home">Home</a>
-      <a class="nav-iten nav-link" id="quiz" href="/CoursesOverview">Courses</a>
       {% if user.isManager == 'Y' %}
+      <a class="nav-iten nav-link" id="quiz" href="/Employees">Employees</a>
       <a class="nav-iten nav-link" id="add_quiz" href="/AddCourses"
-        >Add Courses</a
-      >
+        >Add Courses</a>
       {% endif %}
       <a class="nav-item nav-link" id="logout" href="/logout">Logout</a>
       {% else %}
@@ -40,12 +39,66 @@ navbar%}
   </div>
 </nav>
 {%endblock%} {% block content %}
-<h1>Welcome, {% print(user.firstname) %} {% print(user.lastname) %}!</h1>
-<h2>Your ID number is {% print(user.id) %}.</h2>
-{% if user.isManager == 'Y' %} {% if user.isSupManager == 'Y' %}
-<h3>You are a SUPER Manager!</h3>
-{% else %}
-<h3>You are a Manager.</h3>
-{% endif %} {% else %}
-<h3>You are an Employee.</h3>
-{% endif %} {% endblock %}
+
+<body>
+  {% with message = get_flashed_messages(category_filter=["error"]) %}
+    {%if message %}
+      {% for message in get_flashed_messages() %}
+        <div class="alert alert-danger" role="alert">
+        {{ message }}
+          <button
+            type="button"
+            class="close"
+            data-dismiss="alert"
+            aria-label="Close"
+          >
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+      {% endfor %} {% endif%} {% endwith %}
+  {% with message = get_flashed_messages(category_filter=["success"]) %}
+    {%if message %}
+      {% for message in get_flashed_messages() %}
+      <div class="alert alert-success" role="alert">
+        {{ message }}
+        <button
+          type="button"
+          class="close"
+          data-dismiss="alert"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+  {% endfor %} {% endif%} {% endwith %}
+  <h1>{{see}}</h1>
+  <div class="addAnswer">
+    {% for _question in mCourse.questions %}
+    <div class="question">
+      <h1>Question</h1>
+        <p>{{_question.data}}</p>
+    </div>
+
+    {% if ans.query.filter_by(employee_id=user.id, question_id=_question.questionId).first().answer %}
+      <h1>Your Answer</h1>
+      <p>{{ ans.query.filter_by(employee_id=user.id, question_id=_question.questionId).first().answer }}</p>
+    {% endif %}
+
+    <div class = "addAnswerTheQuestion"> 
+      <form action="#" method="POST">
+        <label for="addAnswerText">Answer:</label>
+        <textarea
+          type = "text"
+          class="form-control"
+          name = "answerText"
+          id="answerText"
+          rows="3"
+          placeholder="Enter the answer here ..."></textarea>
+    </div>
+    {% endfor %}
+    <input type="submit" id = "submitButtonCourse" class="btn btn-primary"></button>
+    </form>
+  </div>
+  
+</body>
+{% endblock %}
