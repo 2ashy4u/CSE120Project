@@ -1,21 +1,18 @@
-{% extends "base.html" %} {% block title %}Manager Feedback{% endblock %} {%block
-    navbar%}
+{% extends "base.html" %} {% block title %}Manager Feedback{% endblock %} {%block navbar%}
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <a class="navbar-brand" href="/Home">
         <img
           src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Western_Digital_brand_mark.svg"
           width="50"
           height="25"
-          class="d-inline-block align-top"
-        />
+          class="d-inline-block align-top"/>
         Western Digital
       </a>
       <button
         class="navbar-toggler"
         type="button"
         data-toggler="collapse"
-        data-target="#navbar"
-      >
+        data-target="#navbar">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbar">
@@ -28,8 +25,7 @@
           <a class="nav-iten nav-link" id="home" href="/Home">Home</a>
           {% if user.isManager == 'Y' %}
           <a class="nav-iten nav-link" id="quiz" href="/Employees">Employees</a>
-          <a class="nav-iten nav-link" id="add_quiz" href="/AddCourses"
-            >Add Courses</a>
+          <a class="nav-iten nav-link" id="add_quiz" href="/AddCourses">Add Courses</a>
           {% endif %}
           <a class="nav-item nav-link" id="logout" href="/logout">Logout</a>
           {% else %}
@@ -50,8 +46,7 @@
                 type="button"
                 class="close"
                 data-dismiss="alert"
-                aria-label="Close"
-              >
+                aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
@@ -66,19 +61,20 @@
               class="close"
               data-dismiss="alert"
               aria-label="Close"
-            >
+              >
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
       {% endfor %} {% endif %} {% endwith %}
     
-      <div class="addAnswer">
-        <div class="question">
+      <div class="addFeebackForEmployee">
+        <!-- display the answer  -->
+        <div class="answer">
           <h1>Answer</h1>
-            <p>{{_employee_course.query.filter_by(course_id=idForCourse, employee_id=idForEmp).first().answer}}</p>
+            <p>{{EC.answer}}</p>
         </div>
-    
-        <div class = "addAnswerTheQuestion"> 
+        <!-- input the feedback  -->
+        <div class = "addFeedback"> 
           <form action="#" method="POST">
             <label for="addAnswerText">Feedback:</label>
             <textarea
@@ -87,11 +83,28 @@
               name = "feedbackText"
               id="answerText"
               rows="3"
-              placeholder="Enter the answer here ..."></textarea>
+              placeholder="Enter the answer here ..."
+            ></textarea>
         </div>
+        <br>
+        <!-- input the grade  -->
+        <div class = "addGrade"> 
+          <label for="addGradeText">Grading:</label>
+          <input
+          type = "number"
+          name = "gradeNumber"
+          id="gradeText"
+          min="0"
+          max="10"
+          >
+        </div>
+        <br>
         <input type="submit" id = "submitButtonCourse" class="btn btn-primary"></button>
         </form>
       </div>
     </body>
     {% endblock %}
     
+
+  
+   

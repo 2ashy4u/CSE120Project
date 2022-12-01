@@ -9,8 +9,7 @@ navbar%}
     class="navbar-toggler"
     type="button"
     data-toggler="collapse"
-    data-target="#navbar"
-  >
+    data-target="#navbar">
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="navbar">
@@ -23,9 +22,7 @@ navbar%}
       <a class="nav-iten nav-link" id="home" href="/Home">Home</a>
       {% if user.isManager == 'Y' %}
       <a class="nav-iten nav-link" id="quiz" href="/Employees">Employees</a>
-      <a class="nav-iten nav-link" id="add_quiz" href="/AddCourses"
-        >Add Courses</a
-      >
+      <a class="nav-iten nav-link" id="add_quiz" href="/AddCourses">Add Courses</a>
       {% endif %}
       <a class="nav-item nav-link" id="logout" href="/logout">Logout</a>
       {% else %}
@@ -51,30 +48,42 @@ navbar%}
         </ul>
     </div>
     <div class="courses-box">
-      <table class="table align-middle mb-0 bg-white">
-        <thead class="bg-light">
+      <form action="" method="POST">
+        <table class="table align-middle mb-0 bg-white">
+          <thead class="bg-light">
+              <tr>
+                  <th>Courses</th>
+                  <th>Action</th>
+              </tr>
+          </thead>
+          <tbody>
+            {% for course in user.courses %}
             <tr>
-                <th>Courses</th>
+              <td>
+                <ul>
+                  <p>{{ course.courseTitle }}</p>
+                  <!-- n_user instead of user because if we use user then it is a manager not the employee  -->
+                  {% for n_user in user.employees %}
+                    <ul>
+                      <!-- since the route have two parameter, we have to passed the right paramater to access each individual employee correctly -->
+                      <li class = "list-group-item"><a href="/Feedback/e_id={{n_user.id}},c_id={{course.idcourses}}">{{_employee_course.query.filter_by(employee_id = n_user.id, course_id = course.idcourses).first().employee_id}}</li>
+                    </ul>
+                  </ul>      
+                  {% endfor %}
+              </td>
+              <td>
+                <!-- once the user click on the edit button it will lead them to the UpdateCourse of each employee with their unique id -->
+                <a href="/UpdateCourse/c_id={{course.idcourses}}" class="btn btn-warning btn-xs">Edit</a>
+                <!-- the delete button will ask you the alert messsage before you click to delete -->
+                <a href="/Delete/c_id={{course.idcourses}}" class="btn btn-danger btn-xs" onclick="return confirm('Are you sure to delete?')">Delete</a>
+              </td>
             </tr>
-        </thead>
-        <tbody>
-          {% for course in user.courses %}
-          <tr>
-            <td>
-              <ul>
-                <p>{{ course.courseQues }}</p>
-                {% for n_user in user.employees %}
-                  <ul>
-                    <li class = "list-group-item"><a href="/Feedback/e_id={{n_user.id}},c_id={{course.idcourses}}">{{_employee_course.query.filter_by(employee_id = n_user.id, course_id = course.idcourses).first().employee_id}} </li>
-                  </ul>
-                </ul>      
-                {% endfor %}
-            </td>
-          </tr>
-          {% endfor %}
-        </tbody>
-      </table>
+            {% endfor %}
+          </tbody>
+        </table>
+      </form>
     </div>
+
     <div class="piechartDiv">
       <div id="piechart"></div>
       <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>

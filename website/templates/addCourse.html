@@ -1,5 +1,4 @@
-{% extends "base.html" %} {% block title %}Add Courses{% endblock %} {%block
-  navbar%}
+{% extends "base.html" %} {% block title %}Add Courses{% endblock %} {%block navbar%}
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <a class="navbar-brand" href="/Home">
       <img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Western_Digital_brand_mark.svg" width="50" height="25" class="d-inline-block align-top">
@@ -23,9 +22,7 @@
         <a class="nav-iten nav-link" id="home" href="/Home">Home</a>
         {% if user.isManager == 'Y' %}
         <a class="nav-iten nav-link" id="quiz" href="/Employees">Employees</a>
-        <a class="nav-iten nav-link" id="add_quiz" href="/AddCourses"
-          >Add Courses</a
-        >
+        <a class="nav-iten nav-link" id="add_quiz" href="/AddCourses">Add Courses</a>
         {% endif %}
         <a class="nav-item nav-link" id="logout" href="/logout">Logout</a>
         {% else %}
@@ -46,7 +43,7 @@
             class="close"
             data-dismiss="alert"
             aria-label="Close"
-          >
+            >
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
@@ -61,7 +58,7 @@
             class="close"
             data-dismiss="alert"
             aria-label="Close"
-          >
+            >
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
@@ -77,7 +74,8 @@
         id="courseTitle"
         aria-describedby="courseTitle"
         rows="3"
-        placeholder="Enter Course Title Here..."></textarea>
+        placeholder="Enter Course Title Here..."
+        ></textarea>
     </div>
     
     <div class="addCourseQuestion">
@@ -88,8 +86,8 @@
       name="courseQues"
       id="courseQues"
       rows="3"
-      placeholder="Enter Course Question Here..."></textarea>
-  
+      placeholder="Enter Course Question Here..."
+      ></textarea>
     </div>
     <div class="addCourseLink">
       <label for="courseLink">Enter Course Link:</label>
