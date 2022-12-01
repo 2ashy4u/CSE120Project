@@ -161,19 +161,21 @@ def update(idForCourse):
         employee_update.updateEmployeeAssigned = request.form.getlist('updateEmployee')
         # same as the AddCourse functionality, add additional employee to the employeeCourse with a interger list 
         convertListToInt = [eval(i) for i in employee_update.updateEmployeeAssigned]
+        print(convertListToInt)
         for x in convertListToInt:
             newEC = employeeCourse(employee_id=x, course_id=idForCourse, manager_id=current_user.id)
             db.session.merge(newEC)
+            
         db.session.commit()
         flash("Update was submited successfully!", category="success")          
-    return render_template("update_course.html", eC=employeeCourse, user=current_user, idForCourse=idForCourse, _course_update=course_update, _employee_update=employee_update)
+    return render_template("update_course.html", eC=employeeCourse, user=current_user, idForCourse=idForCourse, _course_update=course_update)
 
 
 @auth.route('/Delete/c_id=<idForCourse>', methods=['GET', 'POST'])
 @login_required
 def delete(idForCourse):
     # delete all the row that matches with the manager_id and course_id in the employeeCourse and Course table in the database 
-    employeeCourse.query.filter_by(manager_id=current_user.id, course_id=idForCourse).delete()
+    employeeCourse.query.filter_by(course_id=idForCourse).delete()
     Course.query.filter_by(user_id=current_user.id, idcourses=idForCourse).delete()
     db.session.commit()
     flash("Successfully delete course")

@@ -28,6 +28,7 @@ class employeeCourse(db.Model, UserMixin):
         'user.id', name='fk_course1'), primary_key=True)
     answer = db.Column(db.String(150))
     feedback = db.Column(db.String(150))
+    grade = db.Column(db.Integer)
 
 # models the users table
 
