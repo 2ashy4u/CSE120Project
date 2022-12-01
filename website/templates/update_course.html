@@ -22,9 +22,7 @@
         <a class="nav-iten nav-link" id="home" href="/Home">Home</a>
         {% if user.isManager == 'Y' %}
         <a class="nav-iten nav-link" id="quiz" href="/Employees">Employees</a>
-        <a class="nav-iten nav-link" id="add_quiz" href="/AddCourses"
-          >Add Courses</a
-        >
+        <a class="nav-iten nav-link" id="add_quiz" href="/AddCourses">Add Courses</a>
         {% endif %}
         <a class="nav-item nav-link" id="logout" href="/logout">Logout</a>
         {% else %}
@@ -73,8 +71,7 @@
           class="form-control"
           name="updateCourseTitle"
           id="updateCourseTitle"
-          aria-describedby="updatecourseTitle"
-          rows="3">{{_course_update.courseTitle}}
+          aria-describedby="updatecourseTitle">{{_course_update.courseTitle}}
           </textarea>
     </div>
     
@@ -84,7 +81,7 @@
         type="text"
         class="form-control"
         name="updateCourseQues"
-        id="updateCourseQues">{{_course_update.courseQues}}
+        id="updateCourseQues">{{_course_update.courseQues}} 
         </textarea>
     </div>
 
@@ -95,7 +92,8 @@
         class="form-control"
         name="updateCourseLink"
         id="updateCourseLink"
-        value = {{_course_update.courseLink}}>
+        value = {{_course_update.courseLink}}
+        >
     </div>
     
     <div class = "employeesTable">
@@ -110,24 +108,29 @@
                 <th>Email</th>
                 <th>EmployeeID</th>
                 <th>Add Employees</th>
+                
               </tr>
-              {% for user in user.employees %}
+              {% for n_user in user.employees %}
               <tr>
                 <td>{{user.firstname}}</td>
                 <td>{{user.lastname}}</td>
                 <td>{{user.email}}</td>
-                <td>{{user.id}}</td>
+                <td>{{user.id}}</td> 
+             
                 <td>
-                <div class="form-check">
-                  <input 
-                  class="form-check-input" 
-                  type="checkbox" 
-                  id="employee" 
-                  value={{user.id}}
-                  name="updateEmployee"
-                  />
-                </div>
+                  <div class="form-check">
+                    <input 
+                    class="form-check-input" 
+                    type="checkbox" 
+                    id="employee" 
+                    value={{user.id}}
+                    name="updateEmployee"
+                    {{user.id}} 
+                    {% if  eC.query.filter_by(course_id=idForCourse,employee_id=n_user.id).first() %} checked {% else %} unchecked {% endif %} 
+                    />
+                  </div>
                 </td>
+               
               </tr>
               {% endfor %}
             </table>

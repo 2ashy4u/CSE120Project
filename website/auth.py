@@ -73,9 +73,10 @@ def addCourse():
         courseLink = request.form.get('courseLink')
         # First gets all the checkboxes for employees
         employeeAssigned = request.form.getlist('employee')
+        print(employeeAssigned)
         # Converts the check boxes from string to integers with a for loop
         convertListToInt = [eval(i) for i in employeeAssigned]
-
+        print(convertListToInt)
         courseTitle = request.form.get('courseTitle')
         if len(courseTitle) < 1:
             flash("Course Title was not entered!", category='error')
@@ -90,11 +91,12 @@ def addCourse():
             db.session.flush()
             # for loop to add employee ids assigned
             for x in convertListToInt:
+                print("x",x)
                 newEC = employeeCourse(
                     employee_id=x, course_id=newcourse.idcourses, manager_id=current_user.id)
                 db.session.add(newEC)
             db.session.commit()  # <---- commits to the database
-        flash("Course was added successfully!", category="success")
+            flash("Course was added successfully!", category="success")
     return render_template("addCourse.html", user=current_user)
 
 
@@ -151,20 +153,20 @@ def update(idForCourse):
     # assigned a var to the Course table in the database so that we can update or replace the old data
     course_update = Course.query.filter_by(user_id=current_user.id,idcourses=idForCourse).first()
     # assigned a var to the employeeCourse table in the database so that we can update the assigned employee 
-    employee_update = employeeCourse.query.filter_by(course_id=idForCourse, manager_id=current_user.id)
+    employee_update = employeeCourse.query.filter_by(course_id=idForCourse).first()
     if request.method == "POST":
         course_update.courseTitle = request.form.get("updateCourseTitle")
         course_update.courseQues = request.form.get("updateCourseQues")
         course_update.courseLink = request.form.get("updateCourseLink")
-        updateEmployeeAssigned = request.form.getlist('updateEmployee')
+        employee_update.updateEmployeeAssigned = request.form.getlist('updateEmployee')
         # same as the AddCourse functionality, add additional employee to the employeeCourse with a interger list 
-        convertListToInt = [eval(i) for i in updateEmployeeAssigned]
+        convertListToInt = [eval(i) for i in employee_update.updateEmployeeAssigned]
         for x in convertListToInt:
             newEC = employeeCourse(employee_id=x, course_id=idForCourse, manager_id=current_user.id)
-            db.session.add(newEC)
+            db.session.merge(newEC)
         db.session.commit()
         flash("Update was submited successfully!", category="success")          
-    return render_template("update_course.html", user=current_user, idForCourse=idForCourse, _course_update=course_update, _employee_update=employee_update)
+    return render_template("update_course.html", eC=employeeCourse, user=current_user, idForCourse=idForCourse, _course_update=course_update, _employee_update=employee_update)
 
 
 @auth.route('/Delete/c_id=<idForCourse>', methods=['GET', 'POST'])
