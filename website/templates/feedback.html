@@ -71,15 +71,17 @@
             </button>
           </div>
       {% endfor %} {% endif %} {% endwith %}
-    
+      {% for question in course.questions %}
       <div class="addAnswer">
         <div class="question">
+          <h1>Question</h1>
+            <p>{{ question.data }}
           <h1>Answer</h1>
-            <p>{{_employee_course.query.filter_by(course_id=idForCourse, employee_id=idForEmp).first().answer}}</p>
+            <p>{{ _answer.query.filter_by(question_id=question.questionId).first().answer }}</p>
         </div>
-        {% if not _employee_course.query.filter_by(course_id=idForCourse, employee_id=idForEmp).first().feedback == NULL %}
+        {% if not _answer.query.filter_by(question_id=question.questionId).first().feedback == NULL %}
           <h2>Current Feedback</h2>
-           <p>{{_employee_course.query.filter_by(course_id=idForCourse, employee_id=idForEmp).first().feedback}}</p>
+           <p>{{_answer.query.filter_by(question_id=question.questionId).first().feedback}}</p>
         {% endif %}
         <div class = "addFeedback"> 
           <form action="#" method="POST">
@@ -95,6 +97,7 @@
         <input type="submit" id = "submitButtonCourse" class="btn btn-primary"></button>
         </form>
       </div>
+      {% endfor %}
     </body>
     {% endblock %}
     

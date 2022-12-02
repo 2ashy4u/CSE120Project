@@ -40,8 +40,19 @@ navbar%}
 
 <!DOCTYPE html>
 <html>
-    <h1> Welcome {{user.firstname}}!</h1>
-    <h2> Feedback </h2>
-        <p>{{EC.feedback}}</p>
+    <h1> {{course.courseTitle}}</h1>
+    <h1> Your Progress: {{EC.progress}}%</h1><br>
+    {% for q in course.questions %}
+      <h2> {{q.data}} </h2>
+      <h3> Your Answer </h3>
+          <p>{{_answer.query.filter_by(question_id=q.questionId,employee_id=user.id).first().answer}}</p>
+      <h3> Points </h3>
+          <p>{{_answer.query.filter_by(question_id=q.questionId,employee_id=user.id).first().points}} out of {{q.maxPoints}}</p>
+      {% if _answer.query.filter_by(question_id=q.questionId,employee_id=user.id).first().feedback %}
+      <h3> Feedback </h3>
+          <p>{{_answer.query.filter_by(question_id=q.questionId,employee_id=user.id).first().feedback}}</p>
+      {%endif%}
+      <br>
+    {%endfor%}
 </html>
 {% endblock %}

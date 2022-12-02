@@ -67,27 +67,53 @@
           </div>
       {% endfor %} {% endif %} {% endwith %}
     
+      
       <div class="addAnswer">
-        <!-- display the question  -->
+        <h1>{{ course.courseTitle }}</h1>
+        <h3>{{employee.firstname}} {{employee.lastname}}'s Progress: {{ EC.progress }}%</h3>
+        <br>
+        {% for question in course.questions %}
         <div class="question">
-          <h1>Answer</h1>
-            <p>{{EC.answer}}</p>
+          <h2>Question</h2>
+            <p>{{ question.data }}</p>
+          <h2>Answer</h2>
+            <p>{{ _answer.query.filter_by(question_id=question.questionId, employee_id=idForEmp).first().answer }}</p>
         </div>
-        <!-- input the feedback  -->
+        {% if _answer.query.filter_by(question_id=question.questionId, employee_id=idForEmp).first().feedback %}
+          <h2>Current Feedback</h2>
+           <p>{{_answer.query.filter_by(question_id=question.questionId, employee_id=idForEmp).first().feedback}}</p>
+        {% endif %}
+        {% if _answer.query.filter_by(question_id=question.questionId, employee_id=idForEmp).first().points %}
+           <p>Points given: {{_answer.query.filter_by(question_id=question.questionId, employee_id=idForEmp).first().points}}</p>
+        {% endif %}
         <div class = "addFeedback"> 
           <form action="#" method="POST">
-            <label for="addAnswerText">Feedback:</label>
+            <label for="addFeedback">Feedback:</label>
             <textarea
               type = "text"
               class="form-control"
               name = "feedbackText"
-              id="answerText"
+              id="feedbackText"
               rows="3"
-              placeholder="Enter the answer here ..."></textarea>
+              placeholder="Enter your feedback here ..."></textarea>
         </div>
+        <div class = "addPoints"> 
+          <form action="#" method="POST">
+            <label for="addPoints">Points out of {{question.maxPoints}}:</label>
+            <textarea
+              type = "text"
+              class="form-control"
+              name = "pointText"
+              id="pointText"
+              rows="1"
+              placeholder="Enter the points here ..."></textarea>
+        </div>
+        {% endfor %}
+        <br>
         <input type="submit" id = "submitButtonCourse" class="btn btn-primary"></button>
         </form>
       </div>
+      <br><br><br>
     </body>
     {% endblock %}
     

@@ -36,19 +36,19 @@
   {%endblock%} {% block content %} 
   </head>
   <body>
-      {% with message = get_flashed_messages(category_filter=["error"]) %}
-      {%if message %}
-        {% for message in get_flashed_messages() %}
-        <div class="alert alert-danger" role="alert">
-          {{ message }}
-          <button
-            type="button"
-            class="close"
-            data-dismiss="alert"
-            aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
+    {% with message = get_flashed_messages(category_filter=["error"]) %}
+    {%if message %}
+      {% for message in get_flashed_messages() %}
+      <div class="alert alert-danger" role="alert">
+        {{ message }}
+        <button
+          type="button"
+          class="close"
+          data-dismiss="alert"
+          aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
       {% endfor %} {% endif%} {% endwith %}
       {% with message = get_flashed_messages(category_filter=["success"]) %}
       {%if message %}
@@ -78,13 +78,13 @@
           </textarea>
     </div>
     
-    <div class="updateCourseQuestion">
-        <label for="courseQues">Update Course Question:</label>
+    <div class="updateCourseDescription">
+        <label for="courseDes">Update Course Question:</label>
         <textarea
         type="text"
         class="form-control"
-        name="updateCourseQues"
-        id="updateCourseQues">{{_course_update.courseQues}}
+        name="updateCourseDes"
+        id="updateCourseDes">{{_course_update.courseDes}}
         </textarea>
     </div>
 
@@ -111,23 +111,25 @@
                 <th>EmployeeID</th>
                 <th>Add Employees</th>
               </tr>
-              {% for user in user.employees %}
+              {% for n_user in user.employees %}
               <tr>
-                <td>{{user.firstname}}</td>
-                <td>{{user.lastname}}</td>
-                <td>{{user.email}}</td>
-                <td>{{user.id}}</td>
+                <td>{{n_user.firstname}}</td>
+                <td>{{n_user.lastname}}</td>
+                <td>{{n_user.email}}</td>
+                <td>{{n_user.id}}</td> 
+             
                 <td>
-                <div class="form-check">
-                  <input 
-                  class="form-check-input" 
-                  type="checkbox" 
-                  id="employee" 
-                  value={{user.id}}
-                  name="updateEmployee"
-                  />
-                </div>
-                </td>
+                  <div class="form-check">
+                    <input 
+                    class="form-check-input" 
+                    type="checkbox" 
+                    id="employee" 
+                    value={{n_user.id}}
+                    name="updateEmployee"
+                    {% if eC.query.filter_by(course_id=idForCourse,employee_id=n_user.id).first() %} checked {% else %} unchecked {% endif %} 
+                    />
+                  </div>
+                </td>      
               </tr>
               {% endfor %}
             </table>

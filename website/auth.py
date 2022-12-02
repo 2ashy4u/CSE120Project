@@ -69,7 +69,7 @@ def coursesOverview():
 @login_required
 def addCourse():
     if request.method == 'POST':
-        courseQues = request.form.get('courseQues')
+        courseDes = request.form.get('courseDes')
         courseLink = request.form.get('courseLink')
         # First gets all the checkboxes for employees
         employeeAssigned = request.form.getlist('employee')
@@ -79,10 +79,10 @@ def addCourse():
         courseTitle = request.form.get('courseTitle')
         if len(courseTitle) < 1:
             flash("Course Title was not entered!", category='error')
-        elif len(courseQues) < 1:
+        elif len(courseDes) < 1:
             flash("Course Question was not entered!", category='error')
         else:
-            newcourse = Course(courseQues=courseQues, courseTime=now,
+            newcourse = Course(courseDes=courseDes, courseTime=now,
                                user_id=current_user.id, courseLink=courseLink, courseTitle=courseTitle)
             # adds the course and flush keeps the value
             db.session.add(newcourse)
@@ -104,15 +104,12 @@ def addCourse():
 def courseTest(id):
     mCourse = Course.query.filter_by(idcourses=id).first()
     if request.method == 'POST':
-        see = 'see'
         boo = 1
         answer = request.form.getlist("answerText")
         qid = []
         x = 0
         for j in mCourse.questions:
             qid.append(j.questionId)
-        if qid[0]:
-            see = qid[0]
         for i in answer:
             if len(i) < 1:
                 flash("Answer was not entered!", category='error')
@@ -125,7 +122,6 @@ def courseTest(id):
                 ans = Answer.query.filter_by(employee_id=current_user.id, course_id=id, question_id = qid[x]).first()
                 if not ans:
                     # check to see if the answer row exists (it theoretically should always exist)
-                    see = id
                     flash("Answer doesn't exist!", category='error')
                     boo = 0
                     break
@@ -147,24 +143,72 @@ def courseTest(id):
 @login_required
 def feedback(idForEmp,idForCourse):
     EC = employeeCourse.query.filter_by(course_id=idForCourse, employee_id=idForEmp).first()
+    employee = User.query.filter_by(id=idForEmp).first()
+    mCourse = Course.query.filter_by(idcourses=idForCourse).first()
     if request.method == 'POST':
-        feedback = request.form.get("feedbackText")
-        print(feedback)
-        if len(feedback) < 1:
-            flash("Feedback was not entered!", category='error')
-        else:
-            EC_feedback = employeeCourse.query.filter_by(course_id=idForCourse, employee_id=idForEmp).first()
-            EC_feedback.feedback = feedback
-            #db.session.flush()
-            db.session.commit() 
-            flash("Feedback was submited successfully!", category="success")  
-    return render_template("manager_feedback.html", user=current_user, idForCourse=idForCourse, idForEmp=idForEmp, EC=EC)
+        feedback = request.form.getlist("feedbackText")
+        points = request.form.getlist("pointText")
+        boo = 1
+        qid = []
+        x = 0
+        isInt = 1
+        for j in mCourse.questions:
+            qid.append(j.questionId)
+        for i in feedback:
+            if len(points[x]) < 1:
+                points[x] = 0
+            try:
+                points[x] = int(points[x])
+            except ValueError:
+                isInt = 0
+            if len(i) < 1:
+                boo = 0
+                flash("Feedback was not entered!", category='error')
+                break
+            elif isInt == 0:
+                boo = 0
+                flash("Points have to be integers!", category='error')
+                break
+            elif int(points[x]) < 0:
+                boo = 0
+                flash("Points can't be negative!", category='error')
+                break
+            else:
+                ans_feedback = Answer.query.filter_by(question_id=qid[x], employee_id=idForEmp).first()
+                ans_feedback.feedback = i
+                ans_feedback.points = points[x]
+                #db.session.flush()
+            x += 1
+        givenPoints = 0
+        totalPoints = 0
+        i = 0
+        if boo == 1:
+            db.session.commit()
+
+            # calculate total course progress for employee
+            for q in mCourse.questions:
+                totalPoints += int(q.maxPoints)
+                givenPoints += int(Answer.query.filter_by(question_id=q.questionId).first().points)
+            if not totalPoints == 0:
+                # max course progress should be 100%
+                if givenPoints > totalPoints:
+                    EC.progress = 100
+                else:
+                    EC.progress = (givenPoints/totalPoints)*100
+            # if the max points are 0, progress is automatically 100%
+            else:
+                EC.progress = 100
+            db.session.commit()
+            flash("Feedback submitted!", category="success")
+    return render_template("manager_feedback.html", user=current_user, idForCourse=idForCourse, idForEmp=idForEmp, EC=EC, 
+    course=Course.query.filter_by(idcourses=idForCourse).first(), _answer=Answer, employee=employee)
 
 @auth.route('/ViewFeedback/c_id=<idForCourse>')
 @login_required
 def viewFeedback(idForCourse):
     EC = employeeCourse.query.filter_by(course_id=idForCourse).first()
-    return render_template("viewFeedback.html", user=current_user, idForCourse=idForCourse, EC=EC)
+    course = Course.query.filter_by(idcourses=idForCourse).first()
+    return render_template("viewFeedback.html", user=current_user, idForCourse=idForCourse, EC=EC, course=course, _answer=Answer)
 
 
 @auth.route('/UpdateCourse/c_id=<idForCourse>', methods=['GET', 'POST'])
@@ -173,26 +217,57 @@ def update(idForCourse):
     # assigned a var to the Course table in the database so that we can update or replace the old data
     course_update = Course.query.filter_by(user_id=current_user.id,idcourses=idForCourse).first()
     # assigned a var to the employeeCourse table in the database so that we can update the assigned employee 
-    employee_update = employeeCourse.query.filter_by(course_id=idForCourse, manager_id=current_user.id)
+    employee_update = employeeCourse.query.filter_by(course_id=idForCourse).first()
     if request.method == "POST":
         course_update.courseTitle = request.form.get("updateCourseTitle")
-        course_update.courseQues = request.form.get("updateCourseQues")
+        course_update.courseDes = request.form.get("updateCourseDes")
         course_update.courseLink = request.form.get("updateCourseLink")
         updateEmployeeAssigned = request.form.getlist('updateEmployee')
+        # print( employee_update.updateEmployeeAssigned )
         # same as the AddCourse functionality, add additional employee to the employeeCourse with a interger list 
         convertListToInt = [eval(i) for i in updateEmployeeAssigned]
+        # if the manager does not add anyone flash the error alert
+        if convertListToInt == []:
+            print("error is here")
+            flash("Add the employee in the course!", category="error")  
+            return render_template("update_course.html", eC=employeeCourse, user=current_user, idForCourse=idForCourse, _course_update=course_update)
         for x in convertListToInt:
             newEC = employeeCourse(employee_id=x, course_id=idForCourse, manager_id=current_user.id)
-            db.session.add(newEC)
+            # merge is use to add the same employee again without any error
+            db.session.merge(newEC)
+        # current_user.employees is access the employee in that manager 
+        for employee in current_user.employees:
+            # initialize to set user does not exist 
+            y = 0
+            for x in convertListToInt:
+                # if the employee exist in the list 
+                if employee.id == x:
+                    # then user is set to 1 
+                    y = 1
+            # this will not run if the employee is in the list 
+            # and statement is to make sure it delete the row that exist in the database 
+            if y == 0 and employeeCourse.query.filter_by(course_id=idForCourse, employee_id=employee.id).first() and Answer.query.filter_by(course_id=idForCourse, employee_id=employee.id).first():
+                Answer.query.filter_by(course_id=idForCourse, employee_id=employee.id).delete()
+                employeeCourse.query.filter_by(course_id=idForCourse, employee_id=employee.id).delete()
+        # for each question in the course database that related to the questions database 
+        # we can call .questions because we set the relation in the models.py  
+        for question in Course.query.filter_by(idcourses=idForCourse).first().questions:
+            for employee in current_user.employees:
+                # if the answer is not in that employee yet 
+                if not Answer.query.filter_by(course_id=idForCourse, employee_id=employee.id, question_id = question.questionId).first() and employeeCourse.query.filter_by(employee_id=employee.id,course_id=idForCourse).first():
+                    # add the new row of that answer 
+                    initAnswer = Answer(employee_id=employee.id, course_id=idForCourse, question_id = question.questionId)
+                    db.session.add(initAnswer)
         db.session.commit()
         flash("Update was submited successfully!", category="success")          
-    return render_template("update_course.html", user=current_user, idForCourse=idForCourse, _course_update=course_update, _employee_update=employee_update)
+    return render_template("update_course.html", eC=employeeCourse, user=current_user, idForCourse=idForCourse, _course_update=course_update)
 
 
 @auth.route('/Delete/c_id=<idForCourse>', methods=['GET', 'POST'])
 @login_required
 def delete(idForCourse):
     # delete all the row that matches with the manager_id and course_id in the employeeCourse and Course table in the database 
+    Answer.query.filter_by(course_id=idForCourse).delete()
     Question.query.filter_by(course_id=idForCourse).delete()
     employeeCourse.query.filter_by(manager_id=current_user.id, course_id=idForCourse).delete()
     Course.query.filter_by(user_id=current_user.id, idcourses=idForCourse).delete()

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 01, 2022 at 08:47 AM
+-- Generation Time: Dec 02, 2022 at 11:10 AM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -41,13 +41,15 @@ CREATE TABLE `answer` (
 --
 
 INSERT INTO `answer` (`answer`, `points`, `feedback`, `employee_id`, `course_id`, `question_id`) VALUES
-('oiqoooo', NULL, NULL, 4, 12, 58),
-('not my answer', NULL, NULL, 4, 13, 60),
-('another one', NULL, NULL, 4, 13, 61),
-(NULL, NULL, NULL, 5, 12, 58),
-(NULL, NULL, NULL, 5, 13, 60),
-(NULL, NULL, NULL, 5, 13, 61),
-(NULL, NULL, NULL, 6, 12, 58);
+('sdvgbgdfn', 0, 'wcwec', 4, 14, 64),
+('asdce', 0, 'wefcwe', 4, 14, 65),
+('saww', 0, 'wacef', 4, 14, 66),
+(NULL, NULL, NULL, 5, 14, 64),
+(NULL, NULL, NULL, 5, 14, 65),
+(NULL, NULL, NULL, 5, 14, 66),
+(NULL, NULL, NULL, 6, 14, 64),
+(NULL, NULL, NULL, 6, 14, 65),
+(NULL, NULL, NULL, 6, 14, 66);
 
 -- --------------------------------------------------------
 
@@ -58,7 +60,7 @@ INSERT INTO `answer` (`answer`, `points`, `feedback`, `employee_id`, `course_id`
 CREATE TABLE `course` (
   `idcourses` int(11) NOT NULL,
   `courseTitle` varchar(25) DEFAULT NULL,
-  `courseQues` varchar(150) DEFAULT NULL,
+  `courseDes` varchar(150) DEFAULT NULL,
   `courseLink` varchar(50) DEFAULT NULL,
   `courseFeedback` varchar(150) DEFAULT NULL,
   `courseTime` varchar(30) DEFAULT NULL,
@@ -69,13 +71,13 @@ CREATE TABLE `course` (
 -- Dumping data for table `course`
 --
 
-INSERT INTO `course` (`idcourses`, `courseTitle`, `courseQues`, `courseLink`, `courseFeedback`, `courseTime`, `user_id`) VALUES
+INSERT INTO `course` (`idcourses`, `courseTitle`, `courseDes`, `courseLink`, `courseFeedback`, `courseTime`, `user_id`) VALUES
 (5, NULL, 'Is this a course?', NULL, NULL, 'now', 1),
 (6, NULL, 'hahahaha', NULL, NULL, 'now', 1),
 (7, 'asDqwd', '32e', 'dqwwddaSAd', NULL, '2022-11-07 15:09:38.97410', 1),
 (11, 'YL Curse Title', 'Does this work?', 'google.com', NULL, '2022-11-16 15:34:49.717901', 1),
-(12, 'my coursssse', 'nonya', 'google.com', NULL, '2022-11-30 19:57:41.962489', 2),
-(13, 'trghh', 'wwwww', 'sfewf', NULL, '2022-11-30 20:58:14.812862', 2);
+(14, 'saefwegv', '1', 'dsfvr', NULL, '2022-12-01 17:27:29.745754', 2),
+(15, 'fgrvri', 'svdv', 'dbtbymj', NULL, '2022-12-01 17:27:29.745754', 2);
 
 -- --------------------------------------------------------
 
@@ -88,19 +90,20 @@ CREATE TABLE `employee_course` (
   `course_id` int(11) NOT NULL,
   `manager_id` int(11) DEFAULT NULL,
   `answer` varchar(150) DEFAULT NULL,
-  `feedback` varchar(150) DEFAULT NULL
+  `feedback` varchar(150) DEFAULT NULL,
+  `progress` decimal(5,2) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `employee_course`
 --
 
-INSERT INTO `employee_course` (`employee_id`, `course_id`, `manager_id`, `answer`, `feedback`) VALUES
-(4, 12, 2, NULL, NULL),
-(4, 13, 2, NULL, NULL),
-(5, 12, 2, NULL, NULL),
-(5, 13, 2, NULL, NULL),
-(6, 12, 2, NULL, NULL);
+INSERT INTO `employee_course` (`employee_id`, `course_id`, `manager_id`, `answer`, `feedback`, `progress`) VALUES
+(4, 14, 2, NULL, NULL, '0.00'),
+(4, 15, 2, NULL, NULL, NULL),
+(5, 14, 2, NULL, NULL, NULL),
+(6, 14, 2, NULL, NULL, NULL),
+(6, 15, 2, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -121,9 +124,9 @@ CREATE TABLE `question` (
 --
 
 INSERT INTO `question` (`questionId`, `data`, `maxPoints`, `link`, `course_id`) VALUES
-(58, 'sfwervb', 245, 'dsvcewv', 12),
-(60, 'qwfv', 12, 'sdve', 13),
-(61, 'a new day', 69, 'a new life', 13);
+(64, 'sefcesiij', 1, 'svrsrth', 14),
+(65, 'wgrvftebt', 123, 'dfvbrb', 14),
+(66, 'wegfrb', 34, 'fvrb', 14);
 
 -- --------------------------------------------------------
 
@@ -206,13 +209,13 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `course`
 --
 ALTER TABLE `course`
-  MODIFY `idcourses` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `idcourses` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `question`
 --
 ALTER TABLE `question`
-  MODIFY `questionId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=62;
+  MODIFY `questionId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=67;
 
 --
 -- AUTO_INCREMENT for table `user`
@@ -228,7 +231,7 @@ ALTER TABLE `user`
 -- Constraints for table `answer`
 --
 ALTER TABLE `answer`
-  ADD CONSTRAINT `answer_ibfk_1` FOREIGN KEY (`employee_id`) REFERENCES `employee_course` (`employee_id`);
+  ADD CONSTRAINT `answer_ibfk_2` FOREIGN KEY (`employee_id`) REFERENCES `user` (`id`);
 
 --
 -- Constraints for table `course`

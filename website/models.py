@@ -8,7 +8,7 @@ from flask_login import UserMixin
 class Course(db.Model, UserMixin):
     idcourses = db.Column(db.Integer, primary_key=True)
     courseTitle = db.Column(db.String(25))
-    courseQues = db.Column(db.String(150))
+    courseDes = db.Column(db.String(150))
     courseLink = db.Column(db.String(150))
     courseFeedback = db.Column(db.String(150))
     courseTime = db.Column(db.String(30))
@@ -29,6 +29,7 @@ class employeeCourse(db.Model, UserMixin):
         'user.id', name='fk_course1'), primary_key=True)
     answer = db.Column(db.String(150))
     feedback = db.Column(db.String(150))
+    progress = db.Column(db.Float(11))
 
 # models the quesions table
 
