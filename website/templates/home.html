@@ -52,18 +52,14 @@
           <thead class="bg-light">
             <thead>Courses</thead>
             <tr>
-              <th>CourseID</th>
               <th>CourseTitle</th>
-              <th>CourseTest</th>
               <th>Feedback</th>
             </tr>
           </thead>
           <tbody>
           {% for employee_course in user.employee_courses %}
             <tr>
-              <td><a href="#">{{employee_course.course_id}}</td>
-              <td><a href="#">{{_course.query.filter_by(idcourses=employee_course.course_id).first().courseTitle}}</td>
-              <td><a href="/CourseTest/id={{employee_course.course_id}}">Test Link</td>
+              <td><a href="/CourseTest/id={{employee_course.course_id}}">{{_course.query.filter_by(idcourses=employee_course.course_id).first().courseTitle}}</td>
               <td><a href="/ViewFeedback/c_id={{employee_course.course_id}}">Feedback</td>
             </tr>
           {% endfor %}
