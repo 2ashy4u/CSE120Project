@@ -9,7 +9,8 @@ navbar%}
     class="navbar-toggler"
     type="button"
     data-toggler="collapse"
-    data-target="#navbar">
+    data-target="#navbar"
+  >
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="navbar">
@@ -22,7 +23,9 @@ navbar%}
       <a class="nav-iten nav-link" id="home" href="/Home">Home</a>
       {% if user.isManager == 'Y' %}
       <a class="nav-iten nav-link" id="quiz" href="/Employees">Employees</a>
-      <a class="nav-iten nav-link" id="add_quiz" href="/AddCourses">Add Courses</a>
+      <a class="nav-iten nav-link" id="add_quiz" href="/AddCourses"
+        >Add Courses</a
+      >
       {% endif %}
       <a class="nav-item nav-link" id="logout" href="/logout">Logout</a>
       {% else %}
@@ -57,7 +60,6 @@ navbar%}
               </tr>
           </thead>
           <tbody>
-            <!-- show the employee answer in each course -->
             {% for course in user.courses %}
             <tr>
               <td>
@@ -72,7 +74,6 @@ navbar%}
                   </ul>      
                   {% endfor %}
               </td>
-              <!-- button to edit and delete -->
               <td>
                 <!-- once the user click on the edit button it will lead them to the UpdateCourse of each employee with their unique id -->
                 <a href="/UpdateCourse/c_id={{course.idcourses}}" class="btn btn-warning btn-xs">Edit</a>

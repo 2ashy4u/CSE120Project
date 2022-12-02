@@ -22,7 +22,9 @@
         <a class="nav-iten nav-link" id="home" href="/Home">Home</a>
         {% if user.isManager == 'Y' %}
         <a class="nav-iten nav-link" id="quiz" href="/Employees">Employees</a>
-        <a class="nav-iten nav-link" id="add_quiz" href="/AddCourses">Add Courses</a>
+        <a class="nav-iten nav-link" id="add_quiz" href="/AddCourses"
+          >Add Courses</a
+        >
         {% endif %}
         <a class="nav-item nav-link" id="logout" href="/logout">Logout</a>
         {% else %}
@@ -43,7 +45,7 @@
             class="close"
             data-dismiss="alert"
             aria-label="Close"
-            >
+          >
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
@@ -58,7 +60,7 @@
             class="close"
             data-dismiss="alert"
             aria-label="Close"
-            >
+          >
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
@@ -74,20 +76,19 @@
         id="courseTitle"
         aria-describedby="courseTitle"
         rows="3"
-        placeholder="Enter Course Title Here..."
-        ></textarea>
+        placeholder="Enter Course Title Here..."></textarea>
     </div>
     
-    <div class="addCourseQuestion">
-      <label for="courseQues">Enter Course Question:</label>
+    <div class="addCourseDescription">
+      <label for="courseDes">Enter Course Description:</label>
       <textarea
       type="text"
       class="form-control"
-      name="courseQues"
-      id="courseQues"
+      name="courseDes"
+      id="courseDes"
       rows="3"
-      placeholder="Enter Course Question Here..."
-      ></textarea>
+      placeholder="Enter Course Description Here..."></textarea>
+  
     </div>
     <div class="addCourseLink">
       <label for="courseLink">Enter Course Link:</label>
