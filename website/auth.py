@@ -49,7 +49,7 @@ def logout():
 @auth.route('/Home')
 @login_required
 def home():
-    return render_template("home.html", user=current_user, _course = Course)
+    return render_template("home.html", user=current_user, _course = Course, _answer=Answer)
 
 
 @auth.route('/Manager')
@@ -147,24 +147,73 @@ def courseTest(id):
 @login_required
 def feedback(idForEmp,idForCourse):
     EC = employeeCourse.query.filter_by(course_id=idForCourse, employee_id=idForEmp).first()
+    employee = User.query.filter_by(id=idForEmp).first()
+    mCourse = Course.query.filter_by(idcourses=idForCourse).first()
     if request.method == 'POST':
-        feedback = request.form.get("feedbackText")
-        print(feedback)
-        if len(feedback) < 1:
-            flash("Feedback was not entered!", category='error')
-        else:
-            EC_feedback = employeeCourse.query.filter_by(course_id=idForCourse, employee_id=idForEmp).first()
-            EC_feedback.feedback = feedback
-            #db.session.flush()
-            db.session.commit() 
-            flash("Feedback was submited successfully!", category="success")  
-    return render_template("manager_feedback.html", user=current_user, idForCourse=idForCourse, idForEmp=idForEmp, EC=EC)
+        feedback = request.form.getlist("feedbackText")
+        points = request.form.getlist("pointText")
+        boo = 1
+        qid = []
+        x = 0
+        isInt = 1
+        for j in mCourse.questions:
+            qid.append(j.questionId)
+        for i in feedback:
+            if len(points[x]) < 1:
+                points[x] = 0
+            try:
+                points[x] = int(points[x])
+            except ValueError:
+                isInt = 0
+            if len(i) < 1:
+                boo = 0
+                flash("Feedback was not entered!", category='error')
+                break
+            elif isInt == 0:
+                boo = 0
+                flash("Points have to be integers!", category='error')
+                break
+            elif int(points[x]) < 0:
+                boo = 0
+                flash("Points can't be negative!", category='error')
+                break
+            else:
+                ans_feedback = Answer.query.filter_by(question_id=qid[x], employee_id=idForEmp).first()
+                ans_feedback.feedback = i
+                ans_feedback.points = points[x]
+                #db.session.flush()
+            x += 1
+        givenPoints = 0
+        totalPoints = 0
+        i = 0
+        if boo == 1:
+            db.session.commit()
+
+            # calculate total course progress for employee
+            for q in mCourse.questions:
+                totalPoints += int(q.maxPoints)
+                givenPoints += int(Answer.query.filter_by(question_id=q.questionId).first().points)
+            if not totalPoints == 0:
+                # max course progress should be 100%
+                if givenPoints > totalPoints:
+                    EC.progress = 100
+                else:
+                    EC.progress = (givenPoints/totalPoints)*100
+            # if the max points are 0, progress is automatically 100%
+            else:
+                EC.progress = 100
+            db.session.commit()
+            flash("Feedback submitted!", category="success")
+    return render_template("manager_feedback.html", user=current_user, idForCourse=idForCourse, idForEmp=idForEmp, EC=EC, 
+    course=Course.query.filter_by(idcourses=idForCourse).first(), _answer=Answer, employee=employee)
+
 
 @auth.route('/ViewFeedback/c_id=<idForCourse>')
 @login_required
 def viewFeedback(idForCourse):
     EC = employeeCourse.query.filter_by(course_id=idForCourse).first()
-    return render_template("viewFeedback.html", user=current_user, idForCourse=idForCourse, EC=EC)
+    course = Course.query.filter_by(idcourses=idForCourse).first()
+    return render_template("viewFeedback.html", user=current_user, idForCourse=idForCourse, EC=EC, course=course, _answer=Answer)
 
 
 @auth.route('/UpdateCourse/c_id=<idForCourse>', methods=['GET', 'POST'])
@@ -202,7 +251,7 @@ def update(idForCourse):
                     y = 1
             # this will not run if the employee is in the list 
             # and statement is to make sure it delete the row that exist in the database 
-            if y == 0 and employeeCourse.query.filter_by(course_id=idForCourse, employee_id=employee.id).first() and Answer.query.filter_by(course_id=idForCourse, employee_id=employee.id).first():
+            if y == 0 and employeeCourse.query.filter_by(course_id=idForCourse, employee_id=employee.id).first(): #and Answer.query.filter_by(course_id=idForCourse, employee_id=employee.id).first()
                 Answer.query.filter_by(course_id=idForCourse, employee_id=employee.id).delete()
                 employeeCourse.query.filter_by(course_id=idForCourse, employee_id=employee.id).delete()
         # for each question in the course database that related to the questions database 

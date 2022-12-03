@@ -29,7 +29,7 @@ class employeeCourse(db.Model, UserMixin):
         'user.id', name='fk_course1'), primary_key=True)
     answer = db.Column(db.String(150))
     feedback = db.Column(db.String(150))
-
+    progress = db.Column(db.Float(11))
 # models the quesions table
 
 class Question(db.Model, UserMixin):

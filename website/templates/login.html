@@ -1,5 +1,12 @@
-{% extends "base.html" %} {% block title %}Login{% endblock %}
-{% block content %}
+{% extends "base.html" %} {% block title %}Login{% endblock %} {% block content %}
+<style>
+  body {
+    background-image: url("static/img/company-careers.png.thumb.1280.1280.png");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+  }
+  </style>
 <body>
 <a class="navbar-brand" href="/Home">
     <img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Western_Digital_brand_mark.svg" width="50" height="25" class="d-inline-block align-top">
@@ -22,31 +29,32 @@
       </div>
       {% endfor %} {% endif%} {% endwith %}
     <form method="POST">
-        <!-- email is the attribute to send to backend -->
-        <div class="container-login">
-              <div class="form-group">
-    <label for="email">Email Address</label>
-    <input
-      type="email"
-      class="form-control"
-      id="email"
-      name="email"
-      placeholder="Enter Email Address"
-    />
-  </div>
-  <div class="form-group">
-    <label for="password">Password</label>
-    <input
-      type="password"
-      class="form-control"
-      id="password"
-      name="password"
-      placeholder="Enter Password"
-    />
-  </div>
-  <br />
-  <button type="submit" class="btn btn-primary">Login</button>
-        </div>        
+    <!-- email is the attribute to send to backend -->
+    <div class="container-login">
+      <div class="form-group">
+        <label for="email">Email Address</label>
+        <input
+          type="email"
+          class="form-control"
+          id="email"
+          name="email"
+          placeholder="Enter Email Address"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input
+          type="password"
+          class="form-control"
+          id="password"
+          name="password"
+          placeholder="Enter Password"
+        />
+      </div>
+
+      <button type="submit" class="btn btn-primary">Login</button>
+    </div>        
     </form>
 </body>
 </html>
