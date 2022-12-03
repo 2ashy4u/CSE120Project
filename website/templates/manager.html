@@ -78,7 +78,7 @@ navbar%}
                 <!-- once the user click on the edit button it will lead them to the UpdateCourse of each employee with their unique id -->
                 <a href="/UpdateCourse/c_id={{course.idcourses}}" class="btn btn-warning btn-xs">Edit</a>
                 <!-- the update questions button goes to the update questions page where users can add/delete questions per course -->
-                <a href="/UpdateCourse/id={{idForCourse}}/Questions" class="btn btn-secondary btn-xs">Update Questions</a>
+                <a href="/UpdateCourse/id={{course.idcourses}}/Questions" class="btn btn-secondary btn-xs">Update Questions</a>
                 <!-- the delete button will ask you the alert messsage before you click to delete -->
                 <a href="/Delete/c_id={{course.idcourses}}" class="btn btn-danger btn-xs" onclick="return confirm('Are you sure to delete?')">Delete</a>
                 
