@@ -93,7 +93,7 @@ navbar%}
           name = "answerText"
           id="answerText"
           rows="3"
-          placeholder="Enter the answer here ..."></textarea>
+          placeholder="Enter the answer here ...">{{ ans.query.filter_by(employee_id=user.id, question_id=_question.questionId).first().answer }}</textarea>
     </div>
     {% endfor %}
     <input type="submit" id = "submitButtonCourse" class="btn btn-primary"></button>
