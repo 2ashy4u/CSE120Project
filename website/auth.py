@@ -49,7 +49,7 @@ def logout():
 @auth.route('/Home')
 @login_required
 def home():
-    return render_template("home.html", user=current_user, _course = Course)
+    return render_template("home.html", user=current_user, _course = Course, _answer=Answer)
 
 
 @auth.route('/Manager')
@@ -246,7 +246,7 @@ def update(idForCourse):
                     y = 1
             # this will not run if the employee is in the list 
             # and statement is to make sure it delete the row that exist in the database 
-            if y == 0 and employeeCourse.query.filter_by(course_id=idForCourse, employee_id=employee.id).first() and Answer.query.filter_by(course_id=idForCourse, employee_id=employee.id).first():
+            if y == 0 and employeeCourse.query.filter_by(course_id=idForCourse, employee_id=employee.id).first(): #and Answer.query.filter_by(course_id=idForCourse, employee_id=employee.id).first()
                 Answer.query.filter_by(course_id=idForCourse, employee_id=employee.id).delete()
                 employeeCourse.query.filter_by(course_id=idForCourse, employee_id=employee.id).delete()
         # for each question in the course database that related to the questions database 

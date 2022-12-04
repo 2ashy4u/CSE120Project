@@ -34,6 +34,7 @@
     </div>
   </nav>
   {%endblock%} {% block content %}
+
   <body>
      {% with message = get_flashed_messages(category_filter=["error"]) %}
       {%if message %}
@@ -99,9 +100,9 @@
             id="points"
             rows="3"
             placeholder="Enter Maximum Points Here..."></textarea>
-        
           </div>
-          <div class="addLink">
+          <!-- not nessacry to have addLink since each course have only one link -->
+          <!-- <div class="addLink">
             <label for="link">Enter Course Link:</label>
             <input
               type="text"
@@ -110,8 +111,8 @@
               id="link"
               placeholder="Enter Link Here..."
             />
-          </div>
-    
+          </div> -->
+
       <input type="submit" id = "submitButtonQuestion" class="btn btn-primary"></button>
     </form>
   </div>

@@ -71,6 +71,11 @@ navbar%}
         </button>
       </div>
   {% endfor %} {% endif%} {% endwith %}
+  <div class="courseLink">
+    <h1> Course Link </h1>
+      <a href="{{mCourse.courseLink}}" target="_blank">{{mCourse.courseLink}}</a>
+  </div>
+
   <h1>{{see}}</h1>
   <div class="addAnswer">
     {% for _question in mCourse.questions %}
@@ -99,6 +104,5 @@ navbar%}
     <input type="submit" id = "submitButtonCourse" class="btn btn-primary"></button>
     </form>
   </div>
-  
 </body>
 {% endblock %}

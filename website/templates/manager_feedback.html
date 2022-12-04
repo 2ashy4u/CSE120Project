@@ -95,7 +95,7 @@
               name = "feedbackText"
               id="feedbackText"
               rows="3"
-              placeholder="Enter your feedback here ..."></textarea>
+              placeholder="Enter your feedback here ...">{{_answer.query.filter_by(question_id=question.questionId, employee_id=idForEmp).first().feedback}}</textarea>
         </div>
         <div class = "addPoints"> 
           <form action="#" method="POST">
@@ -106,7 +106,7 @@
               name = "pointText"
               id="pointText"
               rows="1"
-              placeholder="Enter the points here ..."></textarea>
+              placeholder="Enter the points here ...">{{_answer.query.filter_by(question_id=question.questionId, employee_id=idForEmp).first().points}}</textarea>
         </div>
         {% endfor %}
         <br>
