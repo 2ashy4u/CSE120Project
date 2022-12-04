@@ -1,6 +1,4 @@
-{% extends "base.html" %} {% block title %}Employees{% endblock %}
-{%block
-navbar%}
+{% extends "base.html" %} {% block title %}Employees{% endblock %}{%block navbar%}
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <a class="navbar-brand" href="/Home">
     <img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Western_Digital_brand_mark.svg" width="50" height="25" class="d-inline-block align-top">
@@ -10,8 +8,7 @@ navbar%}
     class="navbar-toggler"
     type="button"
     data-toggler="collapse"
-    data-target="#navbar"
-  >
+    data-target="#navbar">
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="navbar">
@@ -24,9 +21,7 @@ navbar%}
       <a class="nav-iten nav-link" id="home" href="/Home">Home</a>
       {% if user.isManager == 'Y' %}
       <a class="nav-iten nav-link" id="quiz" href="/Employees">Employees</a>
-      <a class="nav-iten nav-link" id="add_quiz" href="/AddCourses"
-        >Add Courses</a
-      >
+      <a class="nav-iten nav-link" id="add_quiz" href="/AddCourses">Add Courses</a>
       {% endif %}
       <a class="nav-item nav-link" id="logout" href="/logout">Logout</a>
       {% else %}
@@ -40,6 +35,7 @@ navbar%}
 
 <!DOCTYPE html>
 <html>
+<div class ="container-fluid">
 <form method="POST">
   <h1 align="center">Employees</h1>
   <div class="container">
@@ -61,18 +57,13 @@ navbar%}
                 <td>{{user.lastname}}</td>
                 <td>{{user.email}}</td>
                 <td>{{user.manager}}</td>
-                <td><a href="#">View Progress</td>
+                <td><a href="/Progress/p_id=<pid>">View Progress</td>
               </tr>
               {% endfor %}
               </tbody>
 </table>
-    {%for user in user.employees %}
-      <li class = "list-group-item">Name:{{user.firstname}}
-{{user.lastname}}
-{{user.email}}
-{{user.id}}</li>
-    {% endfor %}
     </div>
+  </div>
 
 </html>
 

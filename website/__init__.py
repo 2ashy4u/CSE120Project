@@ -4,7 +4,7 @@ from flask_login import LoginManager
 #import mysql.connector
 # initializes Database
 db = SQLAlchemy()
-DB_NAME = "users"
+DB_NAME = "usersdb"
 # initializes Flask
 
 # init database for cursor

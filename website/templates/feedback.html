@@ -1,0 +1,103 @@
+{% extends "base.html" %} {% block title %}Feedback{% endblock %} {%block
+  navbar%}
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="/Home">
+      <img
+        src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Western_Digital_brand_mark.svg"
+        width="50"
+        height="25"
+        class="d-inline-block align-top"
+      />
+      Western Digital
+    </a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-toggler="collapse"
+      data-target="#navbar"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbar">
+      <!-- Navbar Buttons -->
+      <div class="navbar-nav">
+        <!-- Add icons -->
+        {% if user.is_authenticated %} {% if user.isManager == 'Y' %}
+        <a class="nav-iten nav-link" id="manager" href="/Manager">Manager View</a>
+        {% endif %}
+        <a class="nav-iten nav-link" id="home" href="/Home">Home</a>
+        {% if user.isManager == 'Y' %}
+        <a class="nav-iten nav-link" id="quiz" href="/Employees">Employees</a>
+        <a class="nav-iten nav-link" id="add_quiz" href="/AddCourses"
+          >Add Courses</a>
+        {% endif %}
+        <a class="nav-item nav-link" id="logout" href="/logout">Logout</a>
+        {% else %}
+        <a class="nav-iten nav-link" id="login" href="/Login">Login</a>
+        {% endif %}
+      </div>
+    </div>
+  </nav>
+  {%endblock%} {% block content %}
+  
+  <body>
+    {% with message = get_flashed_messages(category_filter=["error"]) %}
+      {%if message %}
+        {% for message in get_flashed_messages() %}
+          <div class="alert alert-danger" role="alert">
+          {{ message }}
+            <button
+              type="button"
+              class="close"
+              data-dismiss="alert"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+        {% endfor %} {% endif%} {% endwith %}
+    {% with message = get_flashed_messages(category_filter=["success"]) %}
+      {%if message %}
+        {% for message in get_flashed_messages() %}
+        <div class="alert alert-success" role="alert">
+          {{ message }}
+          <button
+            type="button"
+            class="close"
+            data-dismiss="alert"
+            aria-label="Close"
+          >
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+    {% endfor %} {% endif %} {% endwith %}
+    {% for question in course.questions %}
+    <div class="addAnswer">
+      <div class="question">
+        <h1>Question</h1>
+          <p>{{ question.data }}
+        <h1>Answer</h1>
+          <p>{{ _answer.query.filter_by(question_id=question.questionId).first().answer }}</p>
+      </div>
+      {% if not _answer.query.filter_by(question_id=question.questionId).first().feedback == NULL %}
+        <h2>Current Feedback</h2>
+         <p>{{_answer.query.filter_by(question_id=question.questionId).first().feedback}}</p>
+      {% endif %}
+      <div class = "addFeedback"> 
+        <form action="#" method="POST">
+          <label for="addFeedback">Feedback:</label>
+          <textarea
+            type = "text"
+            class="form-control"
+            name = "feedbackText"
+            id="feedbackText"
+            rows="3"
+            placeholder="Enter your feedback here ..."></textarea>
+      </div>
+      <input type="submit" id = "submitButtonCourse" class="btn btn-primary"></button>
+      </form>
+    </div>
+    {% endfor %}
+  </body>
+  {% endblock %}
+  

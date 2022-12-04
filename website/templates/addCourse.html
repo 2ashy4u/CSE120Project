@@ -1,5 +1,4 @@
-{% extends "base.html" %} {% block title %}Add Courses{% endblock %} {%block
-  navbar%}
+{% extends "base.html" %} {% block title %}Add Courses{% endblock %} {%block navbar%}
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <a class="navbar-brand" href="/Home">
       <img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Western_Digital_brand_mark.svg" width="50" height="25" class="d-inline-block align-top">
@@ -80,15 +79,15 @@
         placeholder="Enter Course Title Here..."></textarea>
     </div>
     
-    <div class="addCourseQuestion">
-      <label for="courseQues">Enter Course Question:</label>
+    <div class="addCourseDescription">
+      <label for="courseDes">Enter Course Description:</label>
       <textarea
       type="text"
       class="form-control"
-      name="courseQues"
-      id="courseQues"
+      name="courseDes"
+      id="courseDes"
       rows="3"
-      placeholder="Enter Course Question Here..."></textarea>
+      placeholder="Enter Course Description Here..."></textarea>
   
     </div>
     <div class="addCourseLink">
@@ -101,7 +100,21 @@
         placeholder="Enter Course Link Here..."
       />
       </div>
-      
+
+<div class="startEndDate">
+  <label for="start">Start date:</label>
+    <input type="date" 
+    id="start" 
+    name="start">
+       
+          
+  <label for="end">End date:</label>
+    <input type="date" 
+    id="end" 
+    name="end">
+</div>
+      <!-- Employee Table list -->
+  
       <div class = "employeesTable">
         <div class = "row">
           <div class = "col md-12">
@@ -138,13 +151,10 @@
             </div>
           </div>
         </div> 
-  
       </div>
-    
-      <!-- Employee Table list -->
-  
       <input type="submit" id = "submitButtonCourse" class="btn btn-primary"></button>
     </form>
   </div>
+  
   </body>
   {% endblock %}
