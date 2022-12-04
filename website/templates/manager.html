@@ -50,6 +50,8 @@ navbar%}
             <tr>
                 <th>Employee Answer</th>
                 <th>Action</th>
+                <th>Start Date</th>
+                <th>End Date</th>
             </tr>
         </thead>
         
@@ -76,6 +78,12 @@ navbar%}
               <a href="/UpdateCourse/c_id={{course.idcourses}}" class="btn btn-warning btn-xs">Edit/Add Questions</a>
               <!-- the delete button will ask you the alert messsage before you click to delete -->
               <a href="/Delete/c_id={{course.idcourses}}" class="btn btn-danger btn-xs" onclick="return confirm('Are you sure to delete?')">Delete</a>
+            </td>
+            <td>
+              <p>{{course.startDate}}</p>
+            </td>
+            <td>
+              <p>{{course.endDate}}</p>
             </td>
           </tr>
           {% endfor %}
