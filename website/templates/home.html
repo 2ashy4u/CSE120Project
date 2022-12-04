@@ -46,18 +46,19 @@
               <thead><b> Incomplete Courses</b></thead>
               <tr>
                 <th>CourseTitle</th>
-                <th>Feedback</th>
+                <th> Deadline </th>
               </tr>
             </thead>
             <tbody>
               {% for employee_course in user.employee_courses %}
-              {% if not _answer.query.filter_by(course_id=employee_course.course_id).first().answer %}
+              {% if not _answer.query.filter_by(course_id=employee_course.course_id, employee_id=employee_course.employee_id).first().answer %}
+              {% if _course.query.filter_by(idcourses=employee_course.course_id).first().endDate >= todayDate %}
               <tr>
                 <td><a href="/CourseTest/id={{employee_course.course_id}}">{{_course.query.filter_by(idcourses=employee_course.course_id).first().courseTitle}}</td>
-                <td><a href="/ViewFeedback/c_id={{employee_course.course_id}}">Feedback</td>
+                <td>{{_course.query.filter_by(idcourses=employee_course.course_id).first().endDate}} </td>
               </tr>
               {% endif %}
-     
+              {% endif %}
             {% endfor %}
             </tbody>
           </table>
@@ -69,18 +70,23 @@
               <thead><b> Complete Courses</b></thead>
               <tr>
                 <th>CourseTitle</th>
+                <th>Deadline</th>
                 <th>Feedback</th>
               </tr>
             </thead>
             <tbody>
               {% for employee_course in user.employee_courses %}
-              {% if _answer.query.filter_by(course_id=employee_course.course_id).first().answer %}
+              {% if _answer.query.filter_by(course_id=employee_course.course_id, employee_id=employee_course.employee_id).first().answer %}
               <tr>
                 <td><a href="/CourseTest/id={{employee_course.course_id}}">{{_course.query.filter_by(idcourses=employee_course.course_id).first().courseTitle}}</td>
+                <td>{{_course.query.filter_by(idcourses=employee_course.course_id).first().endDate}}</td>
+                {% if  _answer.query.filter_by(course_id=employee_course.course_id, employee_id=employee_course.employee_id).first().feedback %}
                 <td><a href="/ViewFeedback/c_id={{employee_course.course_id}}">Feedback</td>
+                {% else %}
+                <td><a href="#">No Feedback</td>
               </tr>
               {% endif %}
-     
+              {% endif %}
             {% endfor %}
             </tbody>
           </table>
