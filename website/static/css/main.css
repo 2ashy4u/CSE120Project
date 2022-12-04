@@ -15,7 +15,7 @@
     padding: 3em;
     box-shadow: 0 0 40px rgba(0, 0, 0, 0.2);
     border-radius: 1em;
-    background-color:hsl(0, 1%, 27%);
+    background-color:hsl(0, 0%, 0%);
     animation: fadeIn 2s forwards;
     animation-delay: 1s;
     /* background-color: transparent; */
@@ -38,7 +38,7 @@
   padding: 20px;
   box-shadow: 0 0 40px rgba(0, 0, 0, 0.1);
   border-radius:1em;
-  background-color:hsl(0, 1%, 27%);
+  background-color:hsl(0, 0%, 0%);
   animation: fadeIn 2s forwards;
   opacity: 0;
 }
@@ -49,7 +49,7 @@
   height:auto;
   box-shadow: 0 0 40px rgba(0, 0, 0, 0.1);
   border-radius:1em;
-  background-color:hsl(0, 1%, 27%);
+  background-color:hsl(0, 0%, 0%);
   animation: fadeIn 2s forwards;
   opacity: 0;
 }
@@ -62,7 +62,7 @@
 }
 .addCourseDescription{
   padding: 2%;
-  background-color:hsl(0, 1%, 27%);
+  background-color:hsl(0, 0%, 0%);
 }
 .addCourseLink{
   padding: 2%;
@@ -117,7 +117,7 @@ margin-left: 40em;
   text-align: center;
   animation: fadeIn 2s forwards;
   opacity: 0;
-  color: white;
+  color: rgb(255, 255, 255);
   grid-template-columns: 1fr auto 1fr;
   grid-template-rows: 16px 0;
   grid-gap: 22px;
@@ -126,7 +126,7 @@ margin-left: 40em;
 
 .employeesTable{
   padding: 2%;
-  background-color:hsl(0, 1%, 27%);
+  background-color:hsl(0, 0%, 0%);
 }
 
 .check{
@@ -136,7 +136,7 @@ margin-left: 40em;
 .container-fluid{
   box-shadow: 0 0 40px rgba(56, 55, 55, 0.1);
   border-radius:1em;
-  background-color:hsl(0, 1%, 27%);
+  background-color:hsl(0, 0%, 0%);
   padding: auto;
   animation: fadeIn 2s forwards;
   opacity: 0;
@@ -145,78 +145,46 @@ margin-left: 40em;
 .startEndDate{
   float: right;
   padding: 1%;
+  color: black;
 }
 
 .list-group-item{
   background-color: rgb(63, 63, 63);
 }
 
-body {
-    margin: auto;
-    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-    overflow: auto;
-    background: linear-gradient(315deg, rgb(35, 35, 35) 3%, rgb(18, 18, 18) 38%, rgb(20, 20, 20) 68%, rgb(0, 0, 0) 98%);
-    animation: gradient 15s ease infinite;
-    background-size: 400% 400%;
-    background-attachment: fixed;
-}
+  body {
+    min-height: 100vh;
+    background: radial-gradient(ellipse at bottom, #013155 0%, #01162e 100%);
+  }
 
-@keyframes gradient {
+  .star {
+    position: absolute;
+    background: white;
+    animation: move;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+  }
+
+  .type-1 {
+    width: 1px;
+    height: 1px;
+  }
+
+  .type-2 {
+    width: 2px;
+    height: 2px;
+  }
+
+  .type-3 {
+    width: 3px;
+    height: 3px;
+  }
+
+  @keyframes move {
     0% {
-        background-position: 0% 0%;
-    }
-    50% {
-        background-position: 100% 100%;
+      transform: translateY(0);
     }
     100% {
-        background-position: 0% 0%;
+      transform: translateY(-1000px);
     }
-}
-
-.wave {
-    background: rgb(255 255 255 / 25%);
-    border-radius: 1000% 1000% 0 0;
-    position: fixed;
-    width: 200%;
-    height: 12em;
-    animation: wave 10s -3s linear infinite;
-    transform: translate3d(0, 0, 0);
-    opacity: 0.8;
-    bottom: 0;
-    left: 0;
-    z-index: -1;
-}
-
-.wave:nth-of-type(2) {
-    bottom: -1.25em;
-    animation: wave 18s linear reverse infinite;
-    opacity: 0.8;
-}
-
-.wave:nth-of-type(3) {
-    bottom: -2.5em;
-    animation: wave 20s -1s reverse infinite;
-    opacity: 0.9;
-}
-
-@keyframes wave {
-    2% {
-        transform: translateX(1);
-    }
-
-    25% {
-        transform: translateX(-25%);
-    }
-
-    50% {
-        transform: translateX(-50%);
-    }
-
-    75% {
-        transform: translateX(-25%);
-    }
-
-    100% {
-        transform: translateX(1);
-    }
-}
+  }
