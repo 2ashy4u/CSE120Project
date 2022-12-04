@@ -8,7 +8,7 @@
 /* Log in css */
 .container-login{
     width: 500px;
-    height: 500px;
+    height: 250px;
     margin: auto;
     padding: 3em;
     box-shadow: 0 0 40px rgba(0, 0, 0, 0.2);
@@ -290,3 +290,8 @@ body {
   float: right;
   padding: 1%;
 }
+
+p{
+  font-size: 20px;
+}
+

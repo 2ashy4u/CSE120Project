@@ -38,7 +38,7 @@
   {%endblock%} {% block content %} 
   </head>
   <body>
-      <h1 class="welcomeHeader">Welcome {{current_user.firstname}}!</h1>
+      <h1 class="welcomeHeader">Welcome <b>{{current_user.firstname}}</b>!</h1>
 
         <div class="courses-box">
           <table class="table align-middle mb-0 bg-white">
@@ -48,17 +48,19 @@
                 <th> CourseTitle </th>
                 <th> Start Date </th>
                 <th> Deadline </th>
-              </tr>
+              </tr> 
             </thead>
             <tbody>
               {% for employee_course in user.employee_courses %}
               {% if not _answer.query.filter_by(course_id=employee_course.course_id, employee_id=employee_course.employee_id).first().answer %}
+              {% if _course.query.filter_by(idcourses=employee_course.course_id).first().endDate %}
               {% if _course.query.filter_by(idcourses=employee_course.course_id).first().endDate >= todayDate and _course.query.filter_by(idcourses=employee_course.course_id).first().startDate <= todayDate %}
               <tr>
                 <td><a href="/CourseTest/id={{employee_course.course_id}}">{{_course.query.filter_by(idcourses=employee_course.course_id).first().courseTitle}}</td>
                 <td>{{_course.query.filter_by(idcourses=employee_course.course_id).first().startDate}}</td>
                 <td>{{_course.query.filter_by(idcourses=employee_course.course_id).first().endDate}} </td>
               </tr>
+              {% endif %}
               {% endif %}
               {% endif %}
             {% endfor %}
@@ -87,7 +89,7 @@
                 {% if  _answer.query.filter_by(course_id=employee_course.course_id, employee_id=employee_course.employee_id).first().feedback %}
                 <td><a href="/ViewFeedback/c_id={{employee_course.course_id}}">Feedback</td>
                 {% else %}
-                <td><a href="#">No Feedback</td>
+                <td>No Feedback</td>
               </tr>
               {% endif %}
               {% endif %}

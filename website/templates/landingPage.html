@@ -1,15 +1,18 @@
 {% extends "base.html" %} {% block title %}Landing Page{% endblock %} {%block
 navbar%}
+<head>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <button
-    class="navbar-toggler"
-    type="button"
-    data-toggler="collapse"
-    data-target="#navbar"
-  >
+  <img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Western_Digital_brand_mark.svg" width="50" height="25" class="d-inline-block align-top">
+  Western Digital 
+    </a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-toggler="collapse"
+      data-target="#navbar"
+    >
     <span class="navbar-toggler-icon"></span>
   </button>
-  <img src="../static/img/WesternDigital.png" alt="avatar" />
 
   <div class="collapse navbar-collapse" id="navbar">
     <!-- Navbar Buttons -->
@@ -30,4 +33,27 @@ navbar%}
     </div>
   </div>
 </nav>
-{%endblock%} {% block content %} {% endblock %}
+{%endblock%} {% block content %} 
+</head>
+<body>
+  <h1 align="middle"> <b> Western Digital Training Website </b> </h1>
+
+  <p align="middle"><iframe id="ytplayer" type="text/html" width="640" height="360"
+  src="https://www.youtube.com/embed/dfB4pKUnoWY?autoplay=1&origin=http://example.com"
+  frameborder="0"></iframe></p>
+
+  <h2 align="middle"> <b> Who Are We </b> </h2>
+  <p align="middle">
+    We thrive on the power and potential of diversity. As a global company, we believe that the most effective way to embrace the diversity of our customers and communities is to mirror it from within.
+  </p>
+  <h2 align="middle"> <b>What We Do</b> </h2>
+  <p align="middle">
+    Western Digital has long been at the forefront of game changing innovations. From the invention of the first hard drive to recent advancements in 3D NAND our journey of innovation continues to inspire those who dare to think big.
+  </p>
+  <h2 align="middle"> <b>Our Vision</b> </h2>
+  <p align="middle">
+    Wherever you are, Western Digital is with you every step of the way. We are always at the cusp of innovation, pushing the boundaries of technology to make what you thought was once impossible, possible.
+  </p>
+</body>
+
+{% endblock %}

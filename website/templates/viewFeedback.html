@@ -3,15 +3,14 @@
 navbar%}
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <a class="navbar-brand" href="/Home">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Western_Digital_brand_mark.svg" width="50" height="25" class="d-inline-block align-top">
+    <img
+      src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Western_Digital_brand_mark.svg"
+      width="50"
+      height="25"
+      class="d-inline-block align-top"
+    />
     Western Digital
   </a>
-  <button
-    class="navbar-toggler"
-    type="button"
-    data-toggler="collapse"
-    data-target="#navbar"
-  >
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="navbar">
@@ -40,10 +39,11 @@ navbar%}
 
 <!DOCTYPE html>
 <html>
-    <h1> {{course.courseTitle}}</h1>
-    <h1> Your Progress: {{EC.progress}}%</h1><br>
+  <div class="container-fluid">
+    <h1> <b>Course Title: </b> {{course.courseTitle}}</h1>
+    <h2> <b>Your Progress: </b> {{EC.progress}}%</h2><br>
     {% for q in course.questions %}
-      <h2> {{q.data}} </h2>
+      <h3> Question: {{q.data}} </h3>
       <h3> Your Answer </h3>
           <p>{{_answer.query.filter_by(question_id=q.questionId,employee_id=user.id).first().answer}}</p>
       <h3> Points </h3>
@@ -54,5 +54,6 @@ navbar%}
       {%endif%}
       <br>
     {%endfor%}
+  </div>
 </html>
 {% endblock %}
