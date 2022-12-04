@@ -84,6 +84,8 @@ def addCourse():
             flash("Course Title was not entered!", category='error')
         elif len(courseDes) < 1:
             flash("Course Question was not entered!", category='error')
+        elif (startDate > endDate):
+            flash("Dates entered incorrectly!", category='error')
         else:
             newcourse = Course(courseDes=courseDes, courseTime=now,
                                user_id=current_user.id, courseLink=courseLink, courseTitle=courseTitle, startDate=startDate, endDate=endDate)
@@ -236,6 +238,8 @@ def update(idForCourse):
         course_update.courseTitle = request.form.get("updateCourseTitle")
         course_update.courseDes = request.form.get("updateCourseDes")
         course_update.courseLink = request.form.get("updateCourseLink")
+        course_update.startDate = request.form.get("updateStart")
+        course_update.endDate = request.form.get("updateEnd")
         updateEmployeeAssigned = request.form.getlist('updateEmployee')
         # print( employee_update.updateEmployeeAssigned )
         # same as the AddCourse functionality, add additional employee to the employeeCourse with a interger list
@@ -243,7 +247,7 @@ def update(idForCourse):
         # if the manager does not add anyone flash the error alert
         if convertListToInt == []:
             print("error is here")
-            flash("Add the employee in the course!", category="error")
+            flash("No employees added to course!", category="error")
             return render_template("update_course.html", eC=employeeCourse, user=current_user, idForCourse=idForCourse, _course_update=course_update)
         for x in convertListToInt:
             newEC = employeeCourse(
@@ -278,7 +282,7 @@ def update(idForCourse):
                         employee_id=employee.id, course_id=idForCourse, question_id=question.questionId)
                     db.session.add(initAnswer)
         db.session.commit()
-        flash("Update was submited successfully!", category="success")
+        flash("Updated successfully!", category="success")
     return render_template("update_course.html", eC=employeeCourse, user=current_user, idForCourse=idForCourse, _course_update=course_update)
 
 
@@ -293,5 +297,5 @@ def delete(idForCourse):
     Course.query.filter_by(user_id=current_user.id,
                            idcourses=idForCourse).delete()
     db.session.commit()
-    flash("Successfully delete course")
+    flash("Successfully deleted course")
     return render_template("manager.html", user=current_user, idForCourse=idForCourse, _employee_course=employeeCourse)

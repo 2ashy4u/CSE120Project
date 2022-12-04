@@ -64,6 +64,7 @@
           </button>
         </div>
         {% endfor %} {% endif%} {% endwith %}
+        <div class="wrap">
 <div class ="container-fluid" id ="updateCourseBox">
   <div class="updateCourses">
     <div class="updateCourseTitle">
@@ -98,7 +99,20 @@
         id="updateCourseLink"
         value = {{_course_update.courseLink}}>
     </div>
-    
+    <div class="startEndDate">
+  <label for="updateStart">Start date:</label>
+    <input type="date" 
+    id="updateStart" 
+    name="updateStart"
+    value={{_course_update.updateStart}}>
+       
+          
+  <label for="updateEnd">End date:</label>
+    <input type="date" 
+    id="updateEnd" 
+    name="updateEnd"
+    value={{_course_update.updateEnd}}>
+</div>
     <div class = "employeesTable">
       <div class = "row">
         <div class = "col md-12">
@@ -134,17 +148,19 @@
               </tr>
               {% endfor %}
             </table>
+            
           </div>
         </div>
       </div> 
     </div>
 
     <!-- Employee Table list -->
-    <input type="submit" id = "submitButtonCourse" class="btn btn-primary"></button>
-    <a href="/UpdateCourse/id={{idForCourse}}/Questions" class="btn btn-primary">Update Questions</a>
+    <a href="/UpdateCourse/id={{idForCourse}}/Questions" class="btn btn-success mb-4">Add Questions</a>
 
-    </form>
   </div>
+</div>
+<input type="submit" id = "submitButtonCourse" class="btn btn-primary float-right mt-2"></button>
+</form>
   </body>
 </div>
 {% endblock %}

@@ -71,6 +71,7 @@
           </button>
         </div>
     {% endfor %} {% endif %} {% endwith %}
+    <div class="container-fluid">
     {% for question in course.questions %}
     <div class="addAnswer">
       <div class="question">
@@ -98,6 +99,7 @@
       </form>
     </div>
     {% endfor %}
+  </div>
   </body>
   {% endblock %}
   
