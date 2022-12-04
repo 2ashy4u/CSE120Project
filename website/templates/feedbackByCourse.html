@@ -1,18 +1,21 @@
-{% extends "base.html" %} {% block title %}Manager Feedback{% endblock %} {%block navbar%}
+{% extends "base.html" %} {% block title %}Feedback{% endblock %} {%block
+    navbar%}
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <a class="navbar-brand" href="/Home">
         <img
           src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Western_Digital_brand_mark.svg"
           width="50"
           height="25"
-          class="d-inline-block align-top"/>
+          class="d-inline-block align-top"
+        />
         Western Digital
       </a>
       <button
         class="navbar-toggler"
         type="button"
         data-toggler="collapse"
-        data-target="#navbar">
+        data-target="#navbar"
+      >
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbar">
@@ -47,7 +50,8 @@
                 type="button"
                 class="close"
                 data-dismiss="alert"
-                aria-label="Close">
+                aria-label="Close"
+              >
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
@@ -61,30 +65,22 @@
               type="button"
               class="close"
               data-dismiss="alert"
-              aria-label="Close">
+              aria-label="Close"
+            >
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
       {% endfor %} {% endif %} {% endwith %}
     
-      
+      {% for employee in user.employees %}
       <div class="addAnswer">
-        <h1>{{ course.courseTitle }}</h1>
-        <h3>{{employee.firstname}} {{employee.lastname}}'s Progress: {{ EC.progress }}%</h3>
-        <br>
-        {% for question in course.questions %}
         <div class="question">
-          <h2>Question</h2>
-            <p>{{ question.data }}</p>
-          <h2>Answer</h2>
-            <p>{{ _answer.query.filter_by(question_id=question.questionId, employee_id=idForEmp).first().answer }}</p>
+          <h1>Answer</h1>
+            <p>{{_employee_course.query.filter_by(course_id=id, employee_id=employee.id).first().answer}}</p>
         </div>
-        {% if _answer.query.filter_by(question_id=question.questionId, employee_id=idForEmp).first().feedback %}
+        {% if not _employee_course.query.filter_by(course_id=id, employee_id=employee.id).first().feedback == NULL %}
           <h2>Current Feedback</h2>
-           <p>{{_answer.query.filter_by(question_id=question.questionId, employee_id=idForEmp).first().feedback}}</p>
-        {% endif %}
-        {% if _answer.query.filter_by(question_id=question.questionId, employee_id=idForEmp).first().points %}
-           <p>Points given: {{_answer.query.filter_by(question_id=question.questionId, employee_id=idForEmp).first().points}}</p>
+           <p>{{_employee_course.query.filter_by(course_id=id, employee_id=employee.id).first().feedback}}</p>
         {% endif %}
         <div class = "addFeedback"> 
           <form action="#" method="POST">
@@ -96,24 +92,12 @@
               id="feedbackText"
               rows="3"
               placeholder="Enter your feedback here ..."></textarea>
+            <input name="employee" value="{{employee.id}}"></input>
         </div>
-        <div class = "addPoints"> 
-          <form action="#" method="POST">
-            <label for="addPoints">Points out of {{question.maxPoints}}:</label>
-            <textarea
-              type = "text"
-              class="form-control"
-              name = "pointText"
-              id="pointText"
-              rows="1"
-              placeholder="Enter the points here ..."></textarea>
-        </div>
-        {% endfor %}
-        <br>
         <input type="submit" id = "submitButtonCourse" class="btn btn-primary"></button>
         </form>
       </div>
-      <br><br><br>
+      {% endfor %}
+      
     </body>
     {% endblock %}
-    

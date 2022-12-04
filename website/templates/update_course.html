@@ -22,7 +22,9 @@
         <a class="nav-iten nav-link" id="home" href="/Home">Home</a>
         {% if user.isManager == 'Y' %}
         <a class="nav-iten nav-link" id="quiz" href="/Employees">Employees</a>
-        <a class="nav-iten nav-link" id="add_quiz" href="/AddCourses">Add Courses</a>
+        <a class="nav-iten nav-link" id="add_quiz" href="/AddCourses"
+          >Add Courses</a
+        >
         {% endif %}
         <a class="nav-item nav-link" id="logout" href="/logout">Logout</a>
         {% else %}
@@ -34,19 +36,19 @@
   {%endblock%} {% block content %} 
   </head>
   <body>
-      {% with message = get_flashed_messages(category_filter=["error"]) %}
-      {%if message %}
-        {% for message in get_flashed_messages() %}
-        <div class="alert alert-danger" role="alert">
-          {{ message }}
-          <button
-            type="button"
-            class="close"
-            data-dismiss="alert"
-            aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
+    {% with message = get_flashed_messages(category_filter=["error"]) %}
+    {%if message %}
+      {% for message in get_flashed_messages() %}
+      <div class="alert alert-danger" role="alert">
+        {{ message }}
+        <button
+          type="button"
+          class="close"
+          data-dismiss="alert"
+          aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
       {% endfor %} {% endif%} {% endwith %}
       {% with message = get_flashed_messages(category_filter=["success"]) %}
       {%if message %}
@@ -62,6 +64,7 @@
           </button>
         </div>
         {% endfor %} {% endif%} {% endwith %}
+<div class ="container-fluid" id ="updateCourseBox">
   <div class="updateCourses">
     <div class="updateCourseTitle">
       <form action="/UpdateCourse/c_id={{_course_update.idcourses}}" method="POST">
@@ -71,17 +74,18 @@
           class="form-control"
           name="updateCourseTitle"
           id="updateCourseTitle"
-          aria-describedby="updatecourseTitle">{{_course_update.courseTitle}}
+          aria-describedby="updatecourseTitle"
+          rows="3">{{_course_update.courseTitle}}
           </textarea>
     </div>
     
-    <div class="updateCourseQuestion">
-        <label for="courseQues">Update Course Question:</label>
+    <div class="updateCourseDescription">
+        <label for="courseDes">Update Course Question:</label>
         <textarea
         type="text"
         class="form-control"
-        name="updateCourseQues"
-        id="updateCourseQues">{{_course_update.courseQues}} 
+        name="updateCourseDes"
+        id="updateCourseDes">{{_course_update.courseDes}}
         </textarea>
     </div>
 
@@ -92,8 +96,7 @@
         class="form-control"
         name="updateCourseLink"
         id="updateCourseLink"
-        value = {{_course_update.courseLink}}
-        >
+        value = {{_course_update.courseLink}}>
     </div>
     
     <div class = "employeesTable">
@@ -108,7 +111,6 @@
                 <th>Email</th>
                 <th>EmployeeID</th>
                 <th>Add Employees</th>
-                
               </tr>
               {% for n_user in user.employees %}
               <tr>
@@ -139,8 +141,10 @@
 
     <!-- Employee Table list -->
     <input type="submit" id = "submitButtonCourse" class="btn btn-primary"></button>
+    <a href="/UpdateCourse/id={{idForCourse}}/Questions" class="btn btn-primary">Update Questions</a>
 
     </form>
   </div>
   </body>
+</div>
 {% endblock %}

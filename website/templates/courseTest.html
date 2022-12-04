@@ -28,7 +28,8 @@ navbar%}
       <a class="nav-iten nav-link" id="home" href="/Home">Home</a>
       {% if user.isManager == 'Y' %}
       <a class="nav-iten nav-link" id="quiz" href="/Employees">Employees</a>
-      <a class="nav-iten nav-link" id="add_quiz" href="/AddCourses">Add Courses</a>
+      <a class="nav-iten nav-link" id="add_quiz" href="/AddCourses"
+        >Add Courses</a>
       {% endif %}
       <a class="nav-item nav-link" id="logout" href="/logout">Logout</a>
       {% else %}
@@ -70,12 +71,23 @@ navbar%}
         </button>
       </div>
   {% endfor %} {% endif%} {% endwith %}
+  <div class="courseLink">
+    <h1> Course Link </h1>
+      <a href="{{mCourse.courseLink}}" target="_blank">{{mCourse.courseLink}}</a>
+  </div>
 
+  <h1>{{see}}</h1>
   <div class="addAnswer">
+    {% for _question in mCourse.questions %}
     <div class="question">
       <h1>Question</h1>
-        <p>{{_course.query.filter_by(idcourses=id).first().courseQues}}</p>
+        <p>{{_question.data}}</p>
     </div>
+
+    {% if ans.query.filter_by(employee_id=user.id, question_id=_question.questionId).first().answer %}
+      <h1>Your Answer</h1>
+      <p>{{ ans.query.filter_by(employee_id=user.id, question_id=_question.questionId).first().answer }}</p>
+    {% endif %}
 
     <div class = "addAnswerTheQuestion"> 
       <form action="#" method="POST">
@@ -86,9 +98,9 @@ navbar%}
           name = "answerText"
           id="answerText"
           rows="3"
-          placeholder="Enter the answer here ..."
-          ></textarea>
+          placeholder="Enter the answer here ..."></textarea>
     </div>
+    {% endfor %}
     <input type="submit" id = "submitButtonCourse" class="btn btn-primary"></button>
     </form>
   </div>

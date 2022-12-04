@@ -35,6 +35,7 @@
 
 <!DOCTYPE html>
 <html>
+<div class ="container-fluid">
 <form method="POST">
   <h1 align="center">Employees</h1>
   <div class="container">
@@ -49,25 +50,20 @@
               </tr>
               </thead>
               <tbody>
-              {%for user in user.employees%}
+                {%for user in user.employees%}
               <tr>
                 <th scope="row">{{user.id}}</th>
                 <td>{{user.firstname}}</td>
                 <td>{{user.lastname}}</td>
                 <td>{{user.email}}</td>
                 <td>{{user.manager}}</td>
-                <td><a href="#">View Progress</td>
+                <td><a href="/Progress/p_id=<pid>">View Progress</td>
               </tr>
               {% endfor %}
               </tbody>
 </table>
-    {%for user in user.employees %}
-      <li class = "list-group-item">Name:{{user.firstname}}
-      {{user.lastname}}
-      {{user.email}}
-      {{user.id}}</li>
-    {% endfor %}
     </div>
+  </div>
 
 </html>
 
