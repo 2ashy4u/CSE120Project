@@ -59,13 +59,13 @@ navbar%}
           <tr>
             <td>
               <ul>
-                <p> <b>Course Title: {{ course.courseTitle }}</b></p>
+                <p> <b>Course Title: </b><i>{{ course.courseTitle }}</i></p>
                 <!-- n_user instead of user because if we use user then it is a manager not the employee  -->
                 {% for n_user in user.employees %}
                 {% if _employee_course.query.filter_by(employee_id = n_user.id, course_id = course.idcourses).first().employee_id: %}
                   <ul>
                     <!-- since the route have two parameter, we have to passed the right paramater to access each individual employee correctly -->
-                    <li class = "list-group-item"><a href="/Feedback/e_id={{n_user.id}},c_id={{course.idcourses}}"> {{n_user.firstname}} {{n_user.lastname}} </li>
+                    <li class = "list-group-item"><a href="/Feedback/e_id={{n_user.id}},c_id={{course.idcourses}}">Enter Feedback: <i>{{n_user.firstname}} {{n_user.lastname}}</i> </li>
                   </ul>
                 </ul> 
                 {% endif %} 
@@ -81,8 +81,10 @@ navbar%}
           {% endfor %}
         </tbody>
       </table>
+      
     </form>
   </div>
+  
 
 </body>
 {% endif %} {% endblock %}

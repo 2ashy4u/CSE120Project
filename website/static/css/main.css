@@ -280,3 +280,17 @@ body {
 .check{
   float: left;
 }
+
+.container-fluid{
+  box-shadow: 0 0 40px rgba(0, 0, 0, 0.1);
+  border-radius:1em;
+  padding: auto;
+  background: white;
+  animation: fadeIn 2s forwards;
+  opacity: 0;
+}
+
+.startEndDate{
+  float: right;
+  padding: 1%;
+}

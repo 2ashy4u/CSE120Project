@@ -5,18 +5,23 @@ from . import db
 import json
 
 views = Blueprint('views', __name__)
-#route to home page
+# route to home page
+
+
 @views.route('/')
 def home():
     return render_template("landingPage.html", user=current_user)
 
+
 @views.route('/Employees')
 def employees():
     return render_template("employees.html", user=current_user)
-    
-@views.route('/UpdateCourse/id=<cid>/Questions', methods = ['GET', 'POST'])
+
+
+@views.route('/UpdateCourse/id=<cid>/Questions', methods=['GET', 'POST'])
 def addQuestions(cid):
-    course = Course.query.filter_by(user_id=current_user.id,idcourses=cid).first()
+    course = Course.query.filter_by(
+        user_id=current_user.id, idcourses=cid).first()
     see = 0
     if request.method == "POST":
         question = request.form.get('question')
@@ -30,24 +35,27 @@ def addQuestions(cid):
         if len(question) < 1:
             flash("Question was not entered!", category='error')
         elif not isInt == 1:
-            flash("Maximum points has to be an integer!", category = 'error')
+            flash("Maximum points has to be an integer!", category='error')
         elif int(points) < 0:
-            flash("Maximum points can't be negative!", category = 'error')
+            flash("Maximum points can't be negative!", category='error')
         else:
             newquestion = Question(
-                data=question, maxPoints=points, course_id=course.idcourses) #link=link,
+                data=question, maxPoints=points, course_id=course.idcourses)  # link=link,
             db.session.add(newquestion)
             db.session.commit()
 
             # flush wasn't working, so this line finds the last committed question to the course
-            obj = db.session.query(Question).order_by(Question.questionId.desc()).filter_by(course_id=cid).first()
+            obj = db.session.query(Question).order_by(
+                Question.questionId.desc()).filter_by(course_id=cid).first()
             for employee in current_user.employees:
-                if employeeCourse.query.filter_by(employee_id=employee.id,course_id=cid).first():
-                    initAnswer = Answer(employee_id=employee.id, course_id=cid, question_id = obj.questionId)
+                if employeeCourse.query.filter_by(employee_id=employee.id, course_id=cid).first():
+                    initAnswer = Answer(
+                        employee_id=employee.id, course_id=cid, question_id=obj.questionId)
                     db.session.add(initAnswer)
             db.session.commit()
             flash("Question added successfully!", category='success')
     return render_template("addQuestions.html", user=current_user, course=course)
+
 
 @views.route('/Delete/q_id=<qid>', methods=['GET', 'POST'])
 @login_required
@@ -61,3 +69,9 @@ def deleteQ(qid):
     db.session.commit()
     flash("Question deleted", category="success")
     return redirect(url_for("views.addQuestions", cid=cid))
+
+
+@views.route('/Progress/p_id=<pid>', methods=['GET', 'POST'])
+def progress(pid):
+    pid = User.query.filter_by(id=pid).first()
+    return render_template("progress.html", pid=pid, user=current_user)

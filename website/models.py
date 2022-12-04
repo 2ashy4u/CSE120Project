@@ -5,6 +5,7 @@ from flask_login import UserMixin
 
 # models the courses model
 
+
 class Course(db.Model, UserMixin):
     idcourses = db.Column(db.Integer, primary_key=True)
     courseTitle = db.Column(db.String(25))
@@ -12,6 +13,8 @@ class Course(db.Model, UserMixin):
     courseLink = db.Column(db.String(150))
     courseFeedback = db.Column(db.String(150))
     courseTime = db.Column(db.String(30))
+    startDate = db.Column(db.String(15))
+    endDate = db.Column(db.String(15))
     user_id = db.Column(db.Integer, db.ForeignKey('user.id', name='fk_user'))
     employees = db.relationship('employeeCourse')
     questions = db.relationship('Question')
@@ -32,6 +35,7 @@ class employeeCourse(db.Model, UserMixin):
     progress = db.Column(db.Float(11))
 # models the quesions table
 
+
 class Question(db.Model, UserMixin):
     questionId = db.Column(db.Integer, primary_key=True)
     data = db.Column(db.String(150))
@@ -42,6 +46,7 @@ class Question(db.Model, UserMixin):
     answers = db.relationship('Answer')
 
 # models the junction-table for employee courses and questions
+
 
 class Answer(db.Model, UserMixin):
     answer = db.Column(db.String(150))

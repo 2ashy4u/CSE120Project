@@ -238,6 +238,12 @@ ALTER TABLE `answer`
 --
 ALTER TABLE `course`
   ADD CONSTRAINT `course_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`);
+  
+--
+-- Add start and end date for course
+--
+ALTER TABLE `course` ADD startDate varchar(15),
+ADD endDate varchar(15);
 
 --
 -- Constraints for table `employee_course`
