@@ -60,6 +60,11 @@
               </tr>
               {% endif %}
               {% endif %}
+              {% else %}
+                <tr>
+                  <td><a href="/CourseTest/id={{employee_course.course_id}}">{{_course.query.filter_by(idcourses=employee_course.course_id).first().courseTitle}}</td>
+                  <td>{{_course.query.filter_by(idcourses=employee_course.course_id).first().endDate}} </td>
+                </tr>
               {% endif %}
             {% endfor %}
             </tbody>
