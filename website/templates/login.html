@@ -1,12 +1,42 @@
 {% extends "base.html" %} {% block title %}Login{% endblock %} {% block content %}
 <style>
   body {
-    background-image: url("static/img/company-careers.png.thumb.1280.1280.png");
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    background-size: cover;
+    min-height: 100vh;
+    background: radial-gradient(ellipse at bottom, #013155 0%, #01162e 100%);
   }
-  </style>
+
+  .star {
+    position: absolute;
+    background: white;
+    animation: move;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+  }
+
+  .type-1 {
+    width: 1px;
+    height: 1px;
+  }
+
+  .type-2 {
+    width: 2px;
+    height: 2px;
+  }
+
+  .type-3 {
+    width: 3px;
+    height: 3px;
+  }
+
+  @keyframes move {
+    0% {
+      transform: translateY(0);
+    }
+    100% {
+      transform: translateY(-1000px);
+    }
+  }
+</style>
 <body>
 <a class="navbar-brand" href="/Home">
     <img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Western_Digital_brand_mark.svg" width="50" height="25" class="d-inline-block align-top">
