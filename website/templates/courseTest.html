@@ -71,6 +71,7 @@ navbar%}
         </button>
       </div>
   {% endfor %} {% endif%} {% endwith %}
+<div class="container-fluid">
   <div class="courseLink">
     <h1> Course Link </h1>
       <a href="{{mCourse.courseLink}}" target="_blank">{{mCourse.courseLink}}</a>
@@ -98,11 +99,12 @@ navbar%}
           name = "answerText"
           id="answerText"
           rows="3"
-          placeholder="Enter the answer here ...">{{ ans.query.filter_by(employee_id=user.id, question_id=_question.questionId).first().answer }}</textarea>
+          placeholder="Enter the answer here ..."></textarea>
     </div>
     {% endfor %}
     <input type="submit" id = "submitButtonCourse" class="btn btn-primary"></button>
     </form>
   </div>
+</div>
 </body>
 {% endblock %}

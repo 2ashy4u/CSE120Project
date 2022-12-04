@@ -100,13 +100,27 @@
         placeholder="Enter Course Link Here..."
       />
       </div>
-      
-      <div class = "employeesTable">
+
+      <!-- Employee Table list -->
+      <div class = "container-fluid">
         <div class = "row">
           <div class = "col md-12">
-            <div class = "jumbotron p-3">
+            <div class = "jumbotron-dark p-3">
               <h2> <b>Employees<b> <button type ="button" class = "btn btn-success float-right" data-toggler="modal" data-target="#mymodal">Select All</button></h2>
-              <table class = "table table-hover">
+              <table class = "table table">
+                <!-- add setdate -->
+                <div class="startEndDate">
+                  <label for="start">Start date:</label>
+                    <input type="date" 
+                    id="start" 
+                    name="start">
+                        
+                  <label for="end">End date:</label>
+                    <input type="date" 
+                    id="end" 
+                    name="end">
+                </div>
+                <!-- employee table -->
                 <tr>
                   <th>FirstName</th>
                   <th>LastName</th>
@@ -137,13 +151,10 @@
             </div>
           </div>
         </div> 
-  
       </div>
-    
-      <!-- Employee Table list -->
-  
-      <input type="submit" id = "submitButtonCourse" class="btn btn-primary"></button>
+      <input type="submit" id = "submitButtonCourse" class="btn btn-primary mb-4 ml-4"></button>
     </form>
   </div>
+  
   </body>
   {% endblock %}

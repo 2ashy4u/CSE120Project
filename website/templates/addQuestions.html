@@ -66,23 +66,18 @@
           </button>
         </div>
         {% endfor %} {% endif%} {% endwith %}
-        <h2>{{ course.courseTitle }}</h2>
-        <h1>Questions</h1>
-        <u1 class="list-group list-group-flush" id="questions">
+        <h1>{{ see }}</h1>
         {% for question in course.questions %}
-          
-            <li class = "list-group-item">{{question.data}}
-                <a href="/Delete/q_id={{question.questionId}}" class="btn btn-danger btn-xs" 
-                  onclick="return confirm('Are you sure you want to delete this question? This will delete all answers and points related to the question.')"
-                  style="float: right">
-                  <span aria-hidden="true">Delete</span>
-                </a>
-            </li>
-          
+          <td>
+            <li class = "list-group-item">{{question.data}}</li>
+          </td>
+          <td>
+            <a href="/Delete/q_id={{question.questionId}}" class="btn btn-danger btn-xs" 
+                onclick="return confirm('Are you sure you want to delete this question? This will delete all answers and points related to the question.')">Delete</a>
+          </td>
         {% endfor %}
-        </u1>
 
-        <div class="addQuestions">
+        <div class="container-fluid mt-5 p-5">
           <div class="addQuestion">
           <form action="#" method="POST">
             <label for="addQuestion">Enter Question:</label>
@@ -96,14 +91,14 @@
               placeholder="Enter Question Here..."></textarea>
           </div>
     
-          <div class="addMaxPoints">
+          <div class="addMaxPoints mt-1">
             <label for="points">Enter Max Points:</label>
             <textarea
             type="text"
             class="form-control"
             name="points"
             id="points"
-            rows="1"
+            rows="3"
             placeholder="Enter Maximum Points Here..."></textarea>
           </div>
           <!-- not nessacry to have addLink since each course have only one link -->
@@ -118,8 +113,9 @@
             />
           </div> -->
 
-      <br><input type="submit" id = "submitButtonQuestion" class="btn btn-primary"></button>
+      <input type="submit" id = "submitButtonQuestion" class="btn btn-primary mt-2"></button>
     </form>
   </div>
+    <a class="nav-iten nav-link float-right" id="manager" href="/UpdateCourse/c_id={{course.idcourses}}">Go back</a>
   </body>
   {% endblock %}

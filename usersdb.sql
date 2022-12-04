@@ -157,7 +157,7 @@ INSERT INTO `user` (`id`, `firstname`, `lastname`, `email`, `isManager`, `isSupM
 (5, 'Wilfred', 'Yomba', 'wngongyomba@wdc.com', 'N', 'N', '1234', 2),
 (6, 'Gursagar', 'Singh', 'gsingh96@wdc.com', 'N', 'N', '1234', 2),
 (7, 'Socheata', 'Hour', 'shour@wdc.com', 'N', 'N', '1234', 3),
-(8, 'Sarah', 'Padilla', 'spadilla27@@wdc.com', 'N', 'N', '1234', 3),
+(8, 'Sarah', 'Padilla', 'spadilla27@wdc.com', 'N', 'N', '1234', 3),
 (9, 'Justin', 'Dumindin', 'jdumindin@wdc.com', 'N', 'N', '1234', 3);
 
 --
@@ -238,6 +238,12 @@ ALTER TABLE `answer`
 --
 ALTER TABLE `course`
   ADD CONSTRAINT `course_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`);
+  
+--
+-- Add start and end date for course
+--
+ALTER TABLE `course` ADD startDate varchar(15),
+ADD endDate varchar(15);
 
 --
 -- Constraints for table `employee_course`
