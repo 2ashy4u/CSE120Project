@@ -71,8 +71,7 @@ def deleteQ(qid):
     return redirect(url_for("views.addQuestions", cid=cid))
 
 
-@views.route('/Progress/p_id=<pid>', methods=['GET', 'POST'])
-def progress(pid):
-    User.query.filter_by(id=pid).first()
-    user = employeeCourse.query.filter_by(progress=progress).first()
-    return render_template("progress.html", user=current_user, pid=pid)
+@views.route('/Progress/e_id=<eid>', methods=['GET', 'POST'])
+def progress(eid):
+    EC = employeeCourse.query.filter_by(employee_id=eid).first()
+    return render_template("progress.html", eid=eid, user=current_user)

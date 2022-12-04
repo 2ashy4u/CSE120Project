@@ -38,8 +38,7 @@
 <div class ="container-fluid">
 <form method="POST">
   <h1 align="center">Employees</h1>
-  <div class="container">
-    <table class="table table-hover">
+    <table class="table">
       <thead>
         <tr>
                 <th scope="col">EmployeeID</th>
@@ -57,12 +56,11 @@
                 <td>{{user.lastname}}</td>
                 <td>{{user.email}}</td>
                 <td>{{user.manager}}</td>
-                <td><a href="/Progress/p_id=<user.id>">View Progress</td>
+                <td><a href="/Progress/e_id={{user.id}}">View Progress</td>
               </tr>
               {% endfor %}
               </tbody>
 </table>
-    </div>
   </div>
 
 </html>

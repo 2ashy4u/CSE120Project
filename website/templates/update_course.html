@@ -64,9 +64,9 @@
           </button>
         </div>
         {% endfor %} {% endif%} {% endwith %}
-        <div class="wrap">
 <div class ="container-fluid" id ="updateCourseBox">
   <div class="updateCourses">
+    <br>
     <div class="updateCourseTitle">
       <form action="/UpdateCourse/c_id={{_course_update.idcourses}}" method="POST">
           <label for="updateCourseTitle">Update Course title:</label>
@@ -99,26 +99,28 @@
         id="updateCourseLink"
         value = {{_course_update.courseLink}}>
     </div>
-    <div class="startEndDate">
-  <label for="updateStart">Start date:</label>
-    <input type="date" 
-    id="updateStart" 
-    name="updateStart"
-    value={{_course_update.updateStart}}>
-       
-          
-  <label for="updateEnd">End date:</label>
-    <input type="date" 
-    id="updateEnd" 
-    name="updateEnd"
-    value={{_course_update.updateEnd}}>
-</div>
+    
     <div class = "employeesTable">
       <div class = "row">
         <div class = "col md-12">
-          <div class = "jumbotron p-3">
+          <div class = "jumbotron-dark p-3">
             <h2> <b>Employees<b> <button type ="button" class = "btn btn-success float-right" data-toggler="modal" data-target="#mymodal">Select All</button></h2>
-            <table class = "table table-hover">
+            <table class = "table">
+               <!-- add setdate -->
+               <div class="startEndDate">
+                <label for="start">Start date:</label>
+                  <input type="date" 
+                  id="start" 
+                  name="start"
+                  value = {{_course_update.startDate}}>
+                      
+                <label for="end">End date:</label>
+                  <input type="date" 
+                  id="end" 
+                  name="end"
+                  value = {{_course_update.endDate}}>
+              </div>
+              <!-- employee table  -->
               <tr>
                 <th>FirstName</th>
                 <th>LastName</th>
@@ -148,16 +150,14 @@
               </tr>
               {% endfor %}
             </table>
-            
           </div>
         </div>
       </div> 
     </div>
 
     <!-- Employee Table list -->
-    <a href="/UpdateCourse/id={{idForCourse}}/Questions" class="btn btn-success mb-4">Add Questions</a>
-
-  </div>
+    <a href="/UpdateCourse/id={{idForCourse}}/Questions" class="btn btn-success mb-4">Add/Update Questions</a>
+  </div> 
 </div>
 <input type="submit" id = "submitButtonCourse" class="btn btn-primary float-right mt-2"></button>
 </form>
