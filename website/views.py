@@ -73,5 +73,6 @@ def deleteQ(qid):
 
 @views.route('/Progress/p_id=<pid>', methods=['GET', 'POST'])
 def progress(pid):
-    pid = User.query.filter_by(id=pid).first()
-    return render_template("progress.html", pid=pid, user=current_user)
+    User.query.filter_by(id=pid).first()
+    user = employeeCourse.query.filter_by(progress=progress).first()
+    return render_template("progress.html", user=current_user, pid=pid)

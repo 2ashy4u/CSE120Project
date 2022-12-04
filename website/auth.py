@@ -6,8 +6,8 @@ from datetime import datetime, date
 #from flask_security import roles_required
 now = datetime.now()
 today = date.today()
-
-
+td = today.strftime("%Y-%m-%d")
+print(td)
 auth = Blueprint('auth', __name__)
 # routes to different pages
 
@@ -50,7 +50,7 @@ def logout():
 @auth.route('/Home')
 @login_required
 def home():
-    return render_template("home.html", user=current_user, _course=Course, _answer=Answer)
+    return render_template("home.html", user=current_user, _course=Course, _answer=Answer, todayDate=td)
 
 
 @auth.route('/Manager')
