@@ -36,7 +36,7 @@ def create_app():
 
     # below requires existing database called 'userdb' / Connects to local Database using sqlalchemy
     app.config[
-        'SQLALCHEMY_DATABASE_URI'] = f'mysql://root:12345678@127.0.0.1:3306/{DB_NAME}'
+        'SQLALCHEMY_DATABASE_URI'] = f'mysql://root:@127.0.0.1:3306/{DB_NAME}'
 # initializes database with app
     db.init_app(app)
 # more improrts from different files
