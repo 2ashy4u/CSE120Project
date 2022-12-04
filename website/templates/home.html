@@ -38,23 +38,25 @@
   {%endblock%} {% block content %} 
   </head>
   <body>
-      <h1 class="welcomeHeader">Welcome {{current_user.firstname}}!</h1>
+      <h1 class="welcomeHeader">Welcome <b>{{current_user.firstname}}</b>!</h1>
 
         <div class="courses-box">
-          <table class="table align-middle mb-0 bg-white">
+          <table class="table align-middle mb-0 bg-dark">
             <thead class="bg-light">
               <thead><b> Incomplete Courses</b></thead>
               <tr>
-                <th>CourseTitle</th>
+                <th> CourseTitle </th>
+                <th> Start Date </th>
                 <th> Deadline </th>
               </tr>
             </thead>
             <tbody>
               {% for employee_course in user.employee_courses %}
               {% if not _answer.query.filter_by(course_id=employee_course.course_id, employee_id=employee_course.employee_id).first().answer %}
-              {% if _course.query.filter_by(idcourses=employee_course.course_id).first().endDate >= todayDate %}
+              {% if _course.query.filter_by(idcourses=employee_course.course_id).first().endDate >= todayDate and _course.query.filter_by(idcourses=employee_course.course_id).first().startDate <= todayDate %}
               <tr>
                 <td><a href="/CourseTest/id={{employee_course.course_id}}">{{_course.query.filter_by(idcourses=employee_course.course_id).first().courseTitle}}</td>
+                <td>{{_course.query.filter_by(idcourses=employee_course.course_id).first().startDate}}</td>
                 <td>{{_course.query.filter_by(idcourses=employee_course.course_id).first().endDate}} </td>
               </tr>
               {% endif %}
@@ -65,11 +67,12 @@
         </div>   
 
         <div class="courses-box">
-          <table class="table align-middle mb-0 bg-white">
+          <table class="table align-middle mb-0 bg-dark">
             <thead class="bg-light">
               <thead><b> Complete Courses</b></thead>
               <tr>
                 <th>CourseTitle</th>
+                <th>Start date</th>
                 <th>Deadline</th>
                 <th>Feedback</th>
               </tr>
@@ -79,6 +82,7 @@
               {% if _answer.query.filter_by(course_id=employee_course.course_id, employee_id=employee_course.employee_id).first().answer %}
               <tr>
                 <td><a href="/CourseTest/id={{employee_course.course_id}}">{{_course.query.filter_by(idcourses=employee_course.course_id).first().courseTitle}}</td>
+                <td>{{_course.query.filter_by(idcourses=employee_course.course_id).first().startDate}}</td>
                 <td>{{_course.query.filter_by(idcourses=employee_course.course_id).first().endDate}}</td>
                 {% if  _answer.query.filter_by(course_id=employee_course.course_id, employee_id=employee_course.employee_id).first().feedback %}
                 <td><a href="/ViewFeedback/c_id={{employee_course.course_id}}">Feedback</td>

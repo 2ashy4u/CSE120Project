@@ -100,7 +100,7 @@ def addCourse():
                 db.session.add(newEC)
                 db.session.commit()  # <---- commits to the database
             flash("Course was added successfully!", category="success")
-    return render_template("addCourse.html", user=current_user, date=today)
+    return render_template("addCourse.html", user=current_user, todayDate=today)
 
 
 # the route has id parameter because will create a unique page to each employee by their id with the same courseTest.html
@@ -232,14 +232,13 @@ def update(idForCourse):
     course_update = Course.query.filter_by(
         user_id=current_user.id, idcourses=idForCourse).first()
     # assigned a var to the employeeCourse table in the database so that we can update the assigned employee
-    employee_update = employeeCourse.query.filter_by(
-        course_id=idForCourse).first()
+    employee_update = employeeCourse.query.filter_by(course_id=idForCourse).first()
     if request.method == "POST":
         course_update.courseTitle = request.form.get("updateCourseTitle")
         course_update.courseDes = request.form.get("updateCourseDes")
         course_update.courseLink = request.form.get("updateCourseLink")
-        course_update.startDate = request.form.get("updateStart")
-        course_update.endDate = request.form.get("updateEnd")
+        course_update.startDate = request.form.get('start')
+        course_update.endDate = request.form.get('end')
         updateEmployeeAssigned = request.form.getlist('updateEmployee')
         # print( employee_update.updateEmployeeAssigned )
         # same as the AddCourse functionality, add additional employee to the employeeCourse with a interger list
@@ -247,11 +246,10 @@ def update(idForCourse):
         # if the manager does not add anyone flash the error alert
         if convertListToInt == []:
             print("error is here")
-            flash("No employees added to course!", category="error")
+            flash("Add the employee in the course!", category="error")
             return render_template("update_course.html", eC=employeeCourse, user=current_user, idForCourse=idForCourse, _course_update=course_update)
         for x in convertListToInt:
-            newEC = employeeCourse(
-                employee_id=x, course_id=idForCourse, manager_id=current_user.id)
+            newEC = employeeCourse(employee_id=x, course_id=idForCourse, manager_id=current_user.id)
             # merge is use to add the same employee again without any error
             db.session.merge(newEC)
         # current_user.employees is access the employee in that manager
@@ -282,7 +280,7 @@ def update(idForCourse):
                         employee_id=employee.id, course_id=idForCourse, question_id=question.questionId)
                     db.session.add(initAnswer)
         db.session.commit()
-        flash("Updated successfully!", category="success")
+        flash("Update was submited successfully!", category="success")
     return render_template("update_course.html", eC=employeeCourse, user=current_user, idForCourse=idForCourse, _course_update=course_update)
 
 
@@ -297,5 +295,5 @@ def delete(idForCourse):
     Course.query.filter_by(user_id=current_user.id,
                            idcourses=idForCourse).delete()
     db.session.commit()
-    flash("Successfully deleted course")
+    flash("Successfully delete course")
     return render_template("manager.html", user=current_user, idForCourse=idForCourse, _employee_course=employeeCourse)

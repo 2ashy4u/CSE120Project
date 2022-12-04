@@ -67,7 +67,7 @@
           </div>
       {% endfor %} {% endif %} {% endwith %}
     
-      
+      <div class="container-fluid">
       <div class="addAnswer">
         <h1>{{ course.courseTitle }}</h1>
         <h3>{{employee.firstname}} {{employee.lastname}}'s Progress: {{ EC.progress }}%</h3>
@@ -113,6 +113,7 @@
         <input type="submit" id = "submitButtonCourse" class="btn btn-primary"></button>
         </form>
       </div>
+    </div>
       <br><br><br>
     </body>
     {% endblock %}
