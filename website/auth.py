@@ -84,6 +84,8 @@ def addCourse():
             flash("Course Title was not entered!", category='error')
         elif len(courseDes) < 1:
             flash("Course Question was not entered!", category='error')
+        elif (startDate > endDate):
+            flash("Dates entered incorrectly!", category='error')
         else:
             newcourse = Course(courseDes=courseDes, courseTime=now,
                                user_id=current_user.id, courseLink=courseLink, courseTitle=courseTitle, startDate=startDate, endDate=endDate)
