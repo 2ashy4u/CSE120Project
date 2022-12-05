@@ -1,0 +1,69 @@
+{% extends "base.html" %} {% block title %}Quiz{% endblock %}
+{% block content %}
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Quiz Page</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"> 
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <h1>Welcome</h1>
+    <div class="dropdown">
+        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Sort By
+        <ul class="dropdown-menu">
+          <li><a href="#">Completed</a></li>
+          <li><a href="#">Incompleted</a></li>
+        </ul>
+    </div>
+        <div class="float-child">
+            <table class="table align-middle mb-0 bg-white">
+                <thead class="bg-light">
+                    <tr>
+                        <th>Quizes</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <a href="https://www.w3schools.com">Visit W3Schools.com!</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="float-child">
+            <div id="piechart"></div>
+            <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+            <script type="text/javascript">
+    
+            // Load google charts
+            google.charts.load('current', {'packages':['corechart']});
+            google.charts.setOnLoadCallback(drawChart);
+    
+            // Draw the chart and set the chart values
+            function drawChart() {
+            var data = google.visualization.arrayToDataTable([
+            ['Task', 'Hours per Day'],
+            ['Work', 8],
+            ['Eat', 2],
+            ['TV', 4],
+            ['Gym', 2],
+            ['Sleep', 8]
+            ]);
+    
+            // Optional; add a title and set the width and height of the chart
+            var options = {'title':'My Average Day', 'width':550, 'height':400};
+    
+            // Display the chart inside the <div> element with id="piechart"
+            var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+            chart.draw(data, options);
+            }
+            </script>
+        </div>    
+</body>
+</html>
+
+{% endblock %}

@@ -103,9 +103,9 @@
     <div class = "employeesTable">
       <div class = "row">
         <div class = "col md-12">
-          <div class = "jumbotron-dark p-3">
+          <div class = "jumbotron p-3">
             <h2> <b>Employees<b> <button type ="button" class = "btn btn-success float-right" data-toggler="modal" data-target="#mymodal">Select All</button></h2>
-            <table class = "table">
+            <table class = "table table-hover">
                <!-- add setdate -->
                <div class="startEndDate">
                 <label for="start">Start date:</label>
@@ -156,7 +156,7 @@
     </div>
 
     <!-- Employee Table list -->
-    <a href="/UpdateCourse/id={{idForCourse}}/Questions" class="btn btn-success mb-4">Add/Update Questions</a>
+    <a href="/UpdateCourse/id={{idForCourse}}/Questions" class="btn btn-success mb-4"><span class="spinner-grow spinner-grow-sm mb-1" role="status" aria-hidden="true"></span> Add/Update Questions</a>
   </div> 
 </div>
 <input type="submit" id = "submitButtonCourse" class="btn btn-primary float-right mt-2"></button>

@@ -1,6 +1,5 @@
 {% extends "base.html" %} {% block title %}Feedback{% endblock %} {%block
   navbar%}
-  <head>
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <a class="navbar-brand" href="/Home">
       <img
@@ -39,10 +38,9 @@
       </div>
     </div>
   </nav>
-  {%endblock%}{% block content %}
-</head>
-<body>
+  {%endblock%} {% block content %}
   
+  <body>
     {% with message = get_flashed_messages(category_filter=["error"]) %}
       {%if message %}
         {% for message in get_flashed_messages() %}
@@ -73,7 +71,6 @@
           </button>
         </div>
     {% endfor %} {% endif %} {% endwith %}
-  <div class="container-fluid">
     {% for question in course.questions %}
     <div class="addAnswer">
       <div class="question">
@@ -101,7 +98,6 @@
       </form>
     </div>
     {% endfor %}
-  </div>
   </body>
   {% endblock %}
   

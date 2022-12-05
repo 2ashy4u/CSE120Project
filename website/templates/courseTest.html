@@ -71,23 +71,19 @@ navbar%}
         </button>
       </div>
   {% endfor %} {% endif%} {% endwith %}
-<div class="container-fluid">
   <div class="courseLink">
     <h1> Course Link </h1>
       <a href="{{mCourse.courseLink}}" target="_blank">{{mCourse.courseLink}}</a>
   </div>
 
-  <h1>{{see}}</h1>
-  <div class="addAnswer">
+  <div class="courses-box">
     {% for _question in mCourse.questions %}
     <div class="question">
-      <h1>Question</h1>
-        <p>{{_question.data}}</p>
+      <h2>{{_question.data}}</h2>
     </div>
 
     {% if ans.query.filter_by(employee_id=user.id, question_id=_question.questionId).first().answer %}
-      <h1>Your Answer</h1>
-      <p>{{ ans.query.filter_by(employee_id=user.id, question_id=_question.questionId).first().answer }}</p>
+      <h4>Your Answer: {{ ans.query.filter_by(employee_id=user.id, question_id=_question.questionId).first().answer }}</h4>
     {% endif %}
 
     <div class = "addAnswerTheQuestion"> 
@@ -99,12 +95,11 @@ navbar%}
           name = "answerText"
           id="answerText"
           rows="3"
-          placeholder="Enter the answer here ..."></textarea>
-    </div>
+          placeholder="Enter the answer here ...">{% if ans.query.filter_by(employee_id=user.id, question_id=_question.questionId).first().answer %}{{ ans.query.filter_by(employee_id=user.id, question_id=_question.questionId).first().answer }}{%endif%}</textarea>
+    </div><br>
     {% endfor %}
-    <input type="submit" id = "submitButtonCourse" class="btn btn-primary"></button>
-    </form>
-  </div>
-</div>
+    <input type="submit" id = "submitButtonCourse" class="btn btn-primary" style="float: right"></button>
+    <br><br></form>
+  </div><br><br><br>
 </body>
 {% endblock %}

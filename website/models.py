@@ -38,7 +38,7 @@ class employeeCourse(db.Model, UserMixin):
 
 class Question(db.Model, UserMixin):
     questionId = db.Column(db.Integer, primary_key=True)
-    data = db.Column(db.String(150))
+    data = db.Column(db.String(500))
     maxPoints = db.Column(db.Integer)
     link = db.Column(db.String(150))
     course_id = db.Column(db.Integer, db.ForeignKey(

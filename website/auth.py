@@ -101,7 +101,7 @@ def addCourse():
                 db.session.commit()  # <---- commits to the database
             flash(Markup(
                 'Course sucessfully made!, please click <a href="/Manager" class="alert-link">here</a> to add questions!'), category='success')
-    return render_template("addCourse.html", user=current_user, date=today)
+    return render_template("addCourse.html", user=current_user, todayDate=today)
 
 
 # the route has id parameter because will create a unique page to each employee by their id with the same courseTest.html
