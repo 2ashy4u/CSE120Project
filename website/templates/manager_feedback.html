@@ -67,7 +67,7 @@
           </div>
       {% endfor %} {% endif %} {% endwith %}
     
-      <div class="container-fluid">
+      
       <div class="addAnswer">
         <h1>{{ course.courseTitle }}</h1>
         <h3>{{employee.firstname}} {{employee.lastname}}'s Progress: {{ EC.progress }}%</h3>
@@ -76,15 +76,15 @@
         <div class="question">
           <h2>Question</h2>
             <p>{{ question.data }}</p>
-          <h2>Answer</h2>
+          <h3>Answer</h3>
             <p>{{ _answer.query.filter_by(question_id=question.questionId, employee_id=idForEmp).first().answer }}</p>
         </div>
         {% if _answer.query.filter_by(question_id=question.questionId, employee_id=idForEmp).first().feedback %}
-          <h2>Current Feedback</h2>
+          <h3>Current Feedback</h3>
            <p>{{_answer.query.filter_by(question_id=question.questionId, employee_id=idForEmp).first().feedback}}</p>
         {% endif %}
         {% if _answer.query.filter_by(question_id=question.questionId, employee_id=idForEmp).first().points %}
-           <p>Points given: {{_answer.query.filter_by(question_id=question.questionId, employee_id=idForEmp).first().points}}</p>
+           <h4>Points given: {{_answer.query.filter_by(question_id=question.questionId, employee_id=idForEmp).first().points}}</h4>
         {% endif %}
         <div class = "addFeedback"> 
           <form action="#" method="POST">
@@ -95,7 +95,7 @@
               name = "feedbackText"
               id="feedbackText"
               rows="3"
-              placeholder="Enter your feedback here ..."></textarea>
+              placeholder="Enter your feedback here ...">{%if _answer.query.filter_by(question_id=question.questionId, employee_id=idForEmp).first().feedback%}{{_answer.query.filter_by(question_id=question.questionId, employee_id=idForEmp).first().feedback}}{%endif%}</textarea>
         </div>
         <div class = "addPoints"> 
           <form action="#" method="POST">
@@ -106,14 +106,13 @@
               name = "pointText"
               id="pointText"
               rows="1"
-              placeholder="Enter the points here ..."></textarea>
+              placeholder="Enter the points here ...">{%if _answer.query.filter_by(question_id=question.questionId, employee_id=idForEmp).first().points%}{{_answer.query.filter_by(question_id=question.questionId, employee_id=idForEmp).first().points}}{%endif%}</textarea>
         </div>
         {% endfor %}
         <br>
         <input type="submit" id = "submitButtonCourse" class="btn btn-primary"></button>
         </form>
       </div>
-    </div>
       <br><br><br>
     </body>
     {% endblock %}

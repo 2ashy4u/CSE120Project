@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 02, 2022 at 11:10 AM
+-- Generation Time: Dec 04, 2022 at 10:55 PM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `users`
+-- Database: `usersdb`
 --
 
 -- --------------------------------------------------------
@@ -44,12 +44,28 @@ INSERT INTO `answer` (`answer`, `points`, `feedback`, `employee_id`, `course_id`
 ('sdvgbgdfn', 0, 'wcwec', 4, 14, 64),
 ('asdce', 0, 'wefcwe', 4, 14, 65),
 ('saww', 0, 'wacef', 4, 14, 66),
+(NULL, NULL, NULL, 4, 14, 67),
+(NULL, NULL, NULL, 4, 14, 69),
+(NULL, NULL, NULL, 4, 14, 74),
+(NULL, NULL, NULL, 4, 14, 75),
+(NULL, NULL, NULL, 4, 15, 76),
+(NULL, NULL, NULL, 4, 15, 77),
 (NULL, NULL, NULL, 5, 14, 64),
 (NULL, NULL, NULL, 5, 14, 65),
 (NULL, NULL, NULL, 5, 14, 66),
+(NULL, NULL, NULL, 5, 14, 67),
+(NULL, NULL, NULL, 5, 14, 69),
+(NULL, NULL, NULL, 5, 14, 74),
+(NULL, NULL, NULL, 5, 14, 75),
 (NULL, NULL, NULL, 6, 14, 64),
 (NULL, NULL, NULL, 6, 14, 65),
-(NULL, NULL, NULL, 6, 14, 66);
+(NULL, NULL, NULL, 6, 14, 66),
+(NULL, NULL, NULL, 6, 14, 67),
+(NULL, NULL, NULL, 6, 14, 69),
+(NULL, NULL, NULL, 6, 14, 74),
+(NULL, NULL, NULL, 6, 14, 75),
+(NULL, NULL, NULL, 6, 15, 76),
+(NULL, NULL, NULL, 6, 15, 77);
 
 -- --------------------------------------------------------
 
@@ -64,20 +80,22 @@ CREATE TABLE `course` (
   `courseLink` varchar(50) DEFAULT NULL,
   `courseFeedback` varchar(150) DEFAULT NULL,
   `courseTime` varchar(30) DEFAULT NULL,
-  `user_id` int(11) DEFAULT NULL
+  `user_id` int(11) DEFAULT NULL,
+  `startDate` varchar(15) DEFAULT NULL,
+  `endDate` varchar(15) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `course`
 --
 
-INSERT INTO `course` (`idcourses`, `courseTitle`, `courseDes`, `courseLink`, `courseFeedback`, `courseTime`, `user_id`) VALUES
-(5, NULL, 'Is this a course?', NULL, NULL, 'now', 1),
-(6, NULL, 'hahahaha', NULL, NULL, 'now', 1),
-(7, 'asDqwd', '32e', 'dqwwddaSAd', NULL, '2022-11-07 15:09:38.97410', 1),
-(11, 'YL Curse Title', 'Does this work?', 'google.com', NULL, '2022-11-16 15:34:49.717901', 1),
-(14, 'saefwegv', '1', 'dsfvr', NULL, '2022-12-01 17:27:29.745754', 2),
-(15, 'fgrvri', 'svdv', 'dbtbymj', NULL, '2022-12-01 17:27:29.745754', 2);
+INSERT INTO `course` (`idcourses`, `courseTitle`, `courseDes`, `courseLink`, `courseFeedback`, `courseTime`, `user_id`, `startDate`, `endDate`) VALUES
+(5, NULL, 'Is this a course?', NULL, NULL, 'now', 1, NULL, NULL),
+(6, NULL, 'hahahaha', NULL, NULL, 'now', 1, NULL, NULL),
+(7, 'asDqwd', '32e', 'dqwwddaSAd', NULL, '2022-11-07 15:09:38.97410', 1, NULL, NULL),
+(11, 'YL Curse Title', 'Does this work?', 'google.com', NULL, '2022-11-16 15:34:49.717901', 1, NULL, NULL),
+(14, 'saefwegv', '1', 'dsfvr', NULL, '2022-12-01 17:27:29.745754', 2, NULL, NULL),
+(15, 'fgrvri', 'svdv', 'dbtbymj', NULL, '2022-12-01 17:27:29.745754', 2, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -113,7 +131,7 @@ INSERT INTO `employee_course` (`employee_id`, `course_id`, `manager_id`, `answer
 
 CREATE TABLE `question` (
   `questionId` int(11) NOT NULL,
-  `data` varchar(150) DEFAULT NULL,
+  `data` varchar(500) DEFAULT NULL,
   `maxPoints` int(11) DEFAULT NULL,
   `link` varchar(50) DEFAULT NULL,
   `course_id` int(11) DEFAULT NULL
@@ -126,7 +144,13 @@ CREATE TABLE `question` (
 INSERT INTO `question` (`questionId`, `data`, `maxPoints`, `link`, `course_id`) VALUES
 (64, 'sefcesiij', 1, 'svrsrth', 14),
 (65, 'wgrvftebt', 123, 'dfvbrb', 14),
-(66, 'wegfrb', 34, 'fvrb', 14);
+(66, 'wegfrb', 34, 'fvrb', 14),
+(67, '3rd question, what is the radius of the moon when a cow jumps over a cheese grater?', 100, NULL, 14),
+(69, 'REALLY LONG REALLY LONG REALLY LONG REALLY LONG REALLY LONG REALLY LONG REALLY LONG REALLY LONG REALLY LONG REALLY LONG REALLY LONG REALLY LONG REALLY', 20, NULL, 14),
+(74, 'REALLY LONG REALLY LONG REALLY LONG REALLY LONG REALLY LONG REALLY LONG REALLY LONG REALLY LONG REALLY LONG REALLY LONG REALLY LONG REALLY LONG REALLY LONG REALLY LONG REALLY LONG REALLY LONG REALLY LONG REALLY LONG REALLY LONG REALLY LONG REALLY LONG REALLY LONG REALLY LONG REALLY LONG REALLY LONG REALLY LONG REALLY LONG REALLY LONG REALLY LONG REALLY LONG ', 100, NULL, 14),
+(75, 'REALLY LONG REALLY LONG REALLY LONG REALLY LONG REALLY LONG REALLY LONG REALLY LONG REALLY LONG REALLY LONG REALLY LONG REALLY LONG REALLY LONG REALLY LONG REALLY LONG REALLY LONG REALLY LONG REALLY LONG REALLY LONG REALLY LONG REALLY LONG REALLY LONG REALLY LONG REALLY LONG REALLY LONG REALLY LONG REALLY LONG REALLY LONG REALLY LONG REALLY LONG REALLY LONG ', 100, NULL, 14),
+(76, 'new question', 42, NULL, 15),
+(77, 'A very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very long question', 100, NULL, 15);
 
 -- --------------------------------------------------------
 
@@ -215,7 +239,7 @@ ALTER TABLE `course`
 -- AUTO_INCREMENT for table `question`
 --
 ALTER TABLE `question`
-  MODIFY `questionId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=67;
+  MODIFY `questionId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=78;
 
 --
 -- AUTO_INCREMENT for table `user`
@@ -238,12 +262,6 @@ ALTER TABLE `answer`
 --
 ALTER TABLE `course`
   ADD CONSTRAINT `course_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`);
-  
---
--- Add start and end date for course
---
-ALTER TABLE `course` ADD startDate varchar(15),
-ADD endDate varchar(15);
 
 --
 -- Constraints for table `employee_course`
