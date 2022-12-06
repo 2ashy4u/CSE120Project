@@ -96,7 +96,7 @@ def addCourse():
             # for loop to add employee ids assigned
             for x in convertListToInt:
                 newEC = employeeCourse(
-                    employee_id=x, course_id=newcourse.idcourses, manager_id=current_user.id)
+                    employee_id=x, course_id=newcourse.idcourses, manager_id=current_user.id, progress=0)
                 db.session.add(newEC)
                 db.session.commit()  # <---- commits to the database
             flash(Markup(
@@ -251,7 +251,7 @@ def update(idForCourse):
         if convertListToInt == []:
             print("error is here")
             flash("Add the employee in the course!", category="error")
-            return render_template("update_course.html", eC=employeeCourse, user=current_user, idForCourse=idForCourse, _course_update=course_update)
+            return render_template("update_course.html", eC=employeeCourse, user=current_user, idForCourse=idForCourse, _course_update=course_update, progress=0)
         for x in convertListToInt:
             newEC = employeeCourse(
                 employee_id=x, course_id=idForCourse, manager_id=current_user.id)
