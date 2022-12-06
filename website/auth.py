@@ -63,16 +63,20 @@ def manager():
 @auth.route('/Employees')
 @login_required
 def coursesOverview():
-    # print("Employee is here now")
-    # employee = User.query.filter_by(manager_id=current_user.id).first()
-    # print(current_user.id)
-    # for user in current_user.employees:
-    #     print(user.id)
-   
-    # for eC in employee.employee_courses:
-    #     if current_user.employees:
-    #         print(eC.progress)
-    return render_template("employees.html", user=current_user, _course=Course)
+    print("Employee is here now")
+    employee = User.query.filter_by(manager_id=current_user.id).first()
+    numOfCompleted = 0 
+    total = 0
+    # find all the progress from one manager 
+    for x in current_user.manager_courses:
+        # print(x.progress)
+        total +=1
+        if int(x.progress) != 0:
+            numOfCompleted += 1
+    print(numOfCompleted)
+    print(total)
+
+    return render_template("employees.html", user=current_user, _course=Course, numOfCompleted=numOfCompleted, total=total)
 
 
 @auth.route('/AddCourses', methods=['GET', 'POST'])

@@ -71,6 +71,7 @@ def progress(eid):
     employee = User.query.filter_by(id=eid).first()
     numCompleted = 0
     total = 0
+    # find all progress from one employee 
     for eC in employee.employee_courses:
         total +=1
         if int(eC.progress) != 0:
