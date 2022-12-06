@@ -74,5 +74,5 @@ def deleteQ(qid):
 @views.route('/Progress/e_id=<eid>', methods=['GET', 'POST'])
 def progress(eid):
     EC = employeeCourse.query.filter_by(employee_id=eid).first()
-    # SELECTING COLUMN `first_name`, `last_name` WHERE `score > 80`
-    return render_template("progress.html", eid=eid, user=current_user, answer=Answer)
+    employee = User.query.filter_by(id=eid).first()
+    return render_template("progress.html", eid=eid, user=current_user, empCourse=employeeCourse, employee=employee)

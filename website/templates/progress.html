@@ -43,6 +43,10 @@ navbar%}
 
 <!DOCTYPE html>
 <html>
-  <body></body>
+  <body>
+  {% for x in employee.employee_courses %}
+  <p>{{ x.progress }}</p>
+  {% endfor %}
+  </body>
 </html>
 {% endblock %}
