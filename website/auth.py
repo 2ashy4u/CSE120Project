@@ -200,6 +200,8 @@ def feedback(idForEmp, idForCourse):
 
             # calculate total course progress for employee
             for q in mCourse.questions:
+                if not int(Answer.query.filter_by(question_id=q.questionId).first().points):
+                    Answer.query.filter_by(question_id=q.questionId).first().points = 0
                 totalPoints += int(q.maxPoints)
                 givenPoints += int(Answer.query.filter_by(
                     question_id=q.questionId).first().points)
