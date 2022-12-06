@@ -1,50 +1,103 @@
 {% extends "base.html" %} {% block title %}Progress{% endblock %} {%block
-  navbar%}
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" href="/Home">
-      <img
-        src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Western_Digital_brand_mark.svg"
-        width="50"
-        height="25"
-        class="d-inline-block align-top"
-      />
-      Western Digital
-    </a>
-    <button
-      class="navbar-toggler"
-      type="button"
-      data-toggler="collapse"
-      data-target="#navbar"
-    >
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbar">
-      <!-- Navbar Buttons -->
-      <div class="navbar-nav">
-        <!-- Add icons -->
-        {% if user.is_authenticated %} {% if user.isManager == 'Y' %}
-        <a class="nav-iten nav-link" id="manager" href="/Manager">Manager View</a>
-        {% endif %}
-        <a class="nav-iten nav-link" id="home" href="/Home">Home</a>
-        {% if user.isManager == 'Y' %}
-        <a class="nav-iten nav-link" id="quiz" href="/Employees">Employees</a>
-        <a class="nav-iten nav-link" id="add_quiz" href="/AddCourses"
-          >Add Courses</a
-        >
-        {% endif %}
-        <a class="nav-item nav-link" id="logout" href="/logout">Logout</a>
-        {% else %}
-        <a class="nav-iten nav-link" id="login" href="/Login">Login</a>
-        {% endif %}
-      </div>
+navbar%}
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand" href="/Home">
+    <img
+      src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Western_Digital_brand_mark.svg"
+      width="50"
+      height="25"
+      class="d-inline-block align-top"
+    />
+    Western Digital
+  </a>
+  <button
+    class="navbar-toggler"
+    type="button"
+    data-toggler="collapse"
+    data-target="#navbar"
+  >
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbar">
+    <!-- Navbar Buttons -->
+    <div class="navbar-nav">
+      <!-- Add icons -->
+      {% if user.is_authenticated %} {% if user.isManager == 'Y' %}
+      <a class="nav-iten nav-link" id="manager" href="/Manager">Manager View</a>
+      {% endif %}
+      <a class="nav-iten nav-link" id="home" href="/Home">Home</a>
+      {% if user.isManager == 'Y' %}
+      <a class="nav-iten nav-link" id="quiz" href="/Employees">Employees</a>
+      <a class="nav-iten nav-link" id="add_quiz" href="/AddCourses"
+        >Add Courses</a
+      >
+      {% endif %}
+      <a class="nav-item nav-link" id="logout" href="/logout">Logout</a>
+      {% else %}
+      <a class="nav-iten nav-link" id="login" href="/Login">Login</a>
+      {% endif %}
     </div>
-  </nav>
-  {%endblock%} {% block content %}
-  
-  <!DOCTYPE html>
-  <html>
-    <body>
-      <p>{{eid}}</p>
-    </body>
-  </html>
-  {% endblock %}
+  </div>
+</nav>
+{%endblock%} {% block content %}
+<!DOCTYPE html>
+<html>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <body>
+    <table class="table align-middle mb-0 bg-white">
+      <thead>
+        <th>  <h1><b>Employee Name: {{employee.firstname}} {{employee.lastname}}</b></h1> </th>
+      </thead>
+
+      <tbody>
+        {% for n_course in user.courses %}
+          <tr>
+            {% if _employee_course.query.filter_by(employee_id = employee.id, course_id = n_course.idcourses).first() %}
+            <td><b>Course Title: </b> {{n_course.courseTitle}}</td>
+            {%endif%}
+            {% for x in employee.employee_courses %}
+              {%if x.course_id == n_course.idcourses %}
+              <td><b>Grade: </b>{{ x.progress }} %</td>
+              {%endif%}
+            {% endfor %}
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    <h2> {{employee.firstname}} completed {{numCompleted}} out of {{total}} Courses</h2>
+  </body>
+
+  <!--employee list -->
+        
+  <div class="piechartDiv">
+    <div id="piechart"></div>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+
+    // Load google charts
+    google.charts.load('current', {'packages':['corechart']});
+    google.charts.setOnLoadCallback(drawChart);
+
+    // Draw the chart and set the chart values
+    function drawChart() {
+    var data = google.visualization.arrayToDataTable([
+    ['Number of Courses', 'Completion'],
+    ['Completed', {{numCompleted}}],
+    ['Inompleted', {{total}} - {{numCompleted}}],
+    ]);
+
+    // Optional; add a title and set the width and height of the chart
+    var options = {'title':'{{employee.firstname}} {{employee.lastname}} Progress', 'width':550, 'height':400};
+
+    // Display the chart inside the <div> element with id="piechart"
+    var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+    chart.draw(data, options);
+    }
+    </script>
+  </div>    
+
+</html>
+
+
+{% endblock %}

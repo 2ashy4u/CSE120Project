@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, flash, redirect, url_for
+from flask import Blueprint, render_template, request, flash, redirect, url_for, Markup
 from .models import User, Course, employeeCourse, Question, Answer
 from . import db
 from flask_login import login_user, logout_user, login_required, current_user
@@ -63,6 +63,15 @@ def manager():
 @auth.route('/Employees')
 @login_required
 def coursesOverview():
+    # print("Employee is here now")
+    # employee = User.query.filter_by(manager_id=current_user.id).first()
+    # print(current_user.id)
+    # for user in current_user.employees:
+    #     print(user.id)
+   
+    # for eC in employee.employee_courses:
+    #     if current_user.employees:
+    #         print(eC.progress)
     return render_template("employees.html", user=current_user, _course=Course)
 
 
@@ -96,10 +105,11 @@ def addCourse():
             # for loop to add employee ids assigned
             for x in convertListToInt:
                 newEC = employeeCourse(
-                    employee_id=x, course_id=newcourse.idcourses, manager_id=current_user.id)
+                    employee_id=x, course_id=newcourse.idcourses, manager_id=current_user.id, progress=0)
                 db.session.add(newEC)
                 db.session.commit()  # <---- commits to the database
-            flash("Course was added successfully!", category="success")
+            flash(Markup(
+                'Course sucessfully made!, please click <a href="/Manager" class="alert-link">here</a> to add questions!'), category='success')
     return render_template("addCourse.html", user=current_user, todayDate=today)
 
 
@@ -199,6 +209,8 @@ def feedback(idForEmp, idForCourse):
 
             # calculate total course progress for employee
             for q in mCourse.questions:
+                if not int(Answer.query.filter_by(question_id=q.questionId).first().points):
+                    Answer.query.filter_by(question_id=q.questionId).first().points = 0
                 totalPoints += int(q.maxPoints)
                 givenPoints += int(Answer.query.filter_by(
                     question_id=q.questionId).first().points)
@@ -232,7 +244,8 @@ def update(idForCourse):
     course_update = Course.query.filter_by(
         user_id=current_user.id, idcourses=idForCourse).first()
     # assigned a var to the employeeCourse table in the database so that we can update the assigned employee
-    employee_update = employeeCourse.query.filter_by(course_id=idForCourse).first()
+    employee_update = employeeCourse.query.filter_by(
+        course_id=idForCourse).first()
     if request.method == "POST":
         course_update.courseTitle = request.form.get("updateCourseTitle")
         course_update.courseDes = request.form.get("updateCourseDes")
@@ -247,9 +260,10 @@ def update(idForCourse):
         if convertListToInt == []:
             print("error is here")
             flash("Add the employee in the course!", category="error")
-            return render_template("update_course.html", eC=employeeCourse, user=current_user, idForCourse=idForCourse, _course_update=course_update)
+            return render_template("update_course.html", eC=employeeCourse, user=current_user, idForCourse=idForCourse, _course_update=course_update, progress=0)
         for x in convertListToInt:
-            newEC = employeeCourse(employee_id=x, course_id=idForCourse, manager_id=current_user.id)
+            newEC = employeeCourse(
+                employee_id=x, course_id=idForCourse, manager_id=current_user.id)
             # merge is use to add the same employee again without any error
             db.session.merge(newEC)
         # current_user.employees is access the employee in that manager

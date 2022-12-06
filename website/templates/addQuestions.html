@@ -66,16 +66,27 @@
           </button>
         </div>
         {% endfor %} {% endif%} {% endwith %}
-        <h1>{{ see }}</h1>
-        {% for question in course.questions %}
-          <td>
-            <li class = "list-group-item">{{question.data}}</li>
-          </td>
-          <td>
-            <a href="/Delete/q_id={{question.questionId}}" class="btn btn-danger btn-xs" 
-                onclick="return confirm('Are you sure you want to delete this question? This will delete all answers and points related to the question.')">Delete</a>
-          </td>
-        {% endfor %}
+        <h2>{{ course.courseTitle }}</h2>
+        <div class="courses-box">
+          <table class="table align-middle mb-0 bg-white">
+            <thead>
+              <th width = "80%">Questions</th>
+              <th>Max Points</th>
+              <th> </th>
+            </thead>
+            <tbody>
+              {% for question in course.questions %}
+                <tr>
+                  <td>{{question.data}}</td>
+                  <td>{{question.maxPoints}}<td>
+                  <td><a href="/Delete/q_id={{question.questionId}}" class="btn btn-danger btn-xs" 
+                    onclick="return confirm('Are you sure you want to delete this question? This will delete all answers and points related to the question.')"
+                    style="float: left">Delete
+                  </a></td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table><br><br>
 
         <div class="addQuestions">
           <div class="addQuestion">
@@ -112,7 +123,7 @@
               placeholder="Enter Link Here..."
             />
           </div> -->
-
+      <br>
       <input type="submit" id = "submitButtonQuestion" class="btn btn-primary"></button>
     </form>
   </div>

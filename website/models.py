@@ -9,7 +9,7 @@ from flask_login import UserMixin
 class Course(db.Model, UserMixin):
     idcourses = db.Column(db.Integer, primary_key=True)
     courseTitle = db.Column(db.String(25))
-    courseDes = db.Column(db.String(150))
+    courseDes = db.Column(db.String(300))
     courseLink = db.Column(db.String(150))
     courseFeedback = db.Column(db.String(150))
     courseTime = db.Column(db.String(30))
@@ -38,7 +38,7 @@ class employeeCourse(db.Model, UserMixin):
 
 class Question(db.Model, UserMixin):
     questionId = db.Column(db.Integer, primary_key=True)
-    data = db.Column(db.String(150))
+    data = db.Column(db.String(500))
     maxPoints = db.Column(db.Integer)
     link = db.Column(db.String(150))
     course_id = db.Column(db.Integer, db.ForeignKey(
@@ -72,6 +72,7 @@ class User(db.Model, UserMixin):
     isSupManager = db.Column(db.String(1))
     manager_id = db.Column(
         db.Integer, db.ForeignKey('user.id', name='fk_mngr'))
+    department = db.Column(db.String(50))
     employees = db.relationship('User')
     courses = db.relationship('Course')
     manager_courses = db.relationship(

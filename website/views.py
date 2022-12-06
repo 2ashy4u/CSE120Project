@@ -13,11 +13,6 @@ def home():
     return render_template("landingPage.html", user=current_user)
 
 
-@views.route('/Employees')
-def employees():
-    return render_template("employees.html", user=current_user)
-
-
 @views.route('/UpdateCourse/id=<cid>/Questions', methods=['GET', 'POST'])
 def addQuestions(cid):
     course = Course.query.filter_by(
@@ -73,5 +68,14 @@ def deleteQ(qid):
 
 @views.route('/Progress/e_id=<eid>', methods=['GET', 'POST'])
 def progress(eid):
-    EC = employeeCourse.query.filter_by(employee_id=eid).first()
-    return render_template("progress.html", eid=eid, user=current_user)
+    employee = User.query.filter_by(id=eid).first()
+    numCompleted = 0
+    total = 0
+    for eC in employee.employee_courses:
+        total +=1
+        if int(eC.progress) != 0:
+            numCompleted += 1
+    print("count", numCompleted)
+    print(total)
+
+    return render_template("progress.html", eid=eid, user=current_user,_course=Course, employee=employee, numCompleted=numCompleted, total=total, _employee_course=employeeCourse)
