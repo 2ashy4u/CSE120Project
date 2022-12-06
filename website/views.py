@@ -74,7 +74,7 @@ def progress(eid):
     # find all progress from one employee 
     for eC in employee.employee_courses:
         total +=1
-        if int(eC.progress) != 0:
+        if eC.progress:
             numCompleted += 1
     print("count", numCompleted)
     print(total)
