@@ -68,8 +68,7 @@
 
   
  
-<!--employee list -->
-        
+<!--overall employee completed-->     
 <div class="piechartDiv">
   <div id="piechart"></div>
   <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
@@ -83,8 +82,10 @@
   function drawChart() {
   var data = google.visualization.arrayToDataTable([
   ['Number of Employee', 'Progress'],
-  ['Number of employee completed', {{numOfCompleted}}],
-  ['Number of employee uncompleted', {{total}}-{{numOfCompleted}}]
+  ['Number of employee in {{user.department}} completed courses', {{numOfCompleted}}],
+  ['Number of employee in {{user.department}} uncompleted courses', {{total}}-{{numOfCompleted}}],
+  // ['Number of completed 100% grade in {{user.department}}', {{numOfFullyCom}}],
+  // ['Number of completed in {{user.department}}', {{complete}}],
   ]);
 
   // Optional; add a title and set the width and height of the chart
@@ -96,6 +97,7 @@
   }
   </script>
 </div>    
+
 </html>
 
 

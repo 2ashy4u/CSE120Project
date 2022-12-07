@@ -158,7 +158,7 @@ CREATE TABLE `question` (
   `questionId` int(11) NOT NULL,
   `data` varchar(500) DEFAULT NULL,
   `maxPoints` int(11) DEFAULT NULL,
-  `link` varchar(50) DEFAULT NULL,
+  `link` varchar(150) DEFAULT NULL,
   `course_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 

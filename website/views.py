@@ -21,7 +21,7 @@ def addQuestions(cid):
     if request.method == "POST":
         question = request.form.get('question')
         points = request.form.get('points')
-        # link = request.form.get('link')
+        link = request.form.get('link')
         isInt = 1
         try:
             points = int(points)
@@ -35,7 +35,7 @@ def addQuestions(cid):
             flash("Maximum points can't be negative!", category='error')
         else:
             newquestion = Question(
-                data=question, maxPoints=points, course_id=course.idcourses)  # link=link,
+                data=question, maxPoints=points, link=link, course_id=course.idcourses)  
             db.session.add(newquestion)
             db.session.commit()
 
@@ -74,6 +74,8 @@ def progress(eid):
     # find all progress from one employee 
     for eC in employee.employee_courses:
         total +=1
+        if not eC.progress:
+            eC.progress = 0
         if eC.progress:
             numCompleted += 1
     print("count", numCompleted)

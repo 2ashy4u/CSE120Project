@@ -79,7 +79,8 @@ navbar%}
   <div class="courses-box">
     {% for _question in mCourse.questions %}
     <div class="question">
-      <h2>{{_question.data}}</h2>
+      <h2>Question: {{_question.data}}</h2>
+      <p><a href="{{_question.link}}" target="_blank">{{_question.link}}</a></p>
     </div>
 
     {% if ans.query.filter_by(employee_id=user.id, question_id=_question.questionId).first().answer %}

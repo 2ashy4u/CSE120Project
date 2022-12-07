@@ -65,17 +65,37 @@ def manager():
 def coursesOverview():
     employee = User.query.filter_by(manager_id=current_user.id).first()
     numOfCompleted = 0 
+    numOfFullyCom = 0
+    incomplete = 9
+    complete = 0
+    fullycomplete = 0
     total = 0
     # find all the progress from one manager 
     for x in current_user.manager_courses:
-        print(x.progress)
         total +=1
         if x.progress:
             numOfCompleted += 1
+        else:
+            x.progress = 0
+        if x.progress == 100:
+            numOfFullyCom += 1
+    # for y in current_user.eAnswer:
+    #     if not y.answer:
+    #         incomplete+=1
+    for course in current_user.courses:
+        for EC in course.employees:
+            if EC.progress:
+                complete += 1
+            if EC.progress == 100:
+                fullycomplete += 1
+        
     print(numOfCompleted)
+    print(numOfFullyCom)
     print(total)
+    print(complete)
+    # print(incomplete)
 
-    return render_template("employees.html", user=current_user, _course=Course, numOfCompleted=numOfCompleted, total=total)
+    return render_template("employees.html", user=current_user, _course=Course, numOfCompleted=numOfCompleted, total=total, numOfFullyCom=numOfFullyCom, complete=complete)
 
 
 @auth.route('/AddCourses', methods=['GET', 'POST'])
@@ -212,7 +232,7 @@ def feedback(idForEmp, idForCourse):
 
             # calculate total course progress for employee
             for q in mCourse.questions:
-                if not int(Answer.query.filter_by(question_id=q.questionId).first().points):
+                if not Answer.query.filter_by(question_id=q.questionId).first().points:
                     Answer.query.filter_by(question_id=q.questionId).first().points = 0
                 totalPoints += int(q.maxPoints)
                 givenPoints += int(Answer.query.filter_by(
