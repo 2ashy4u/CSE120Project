@@ -73,9 +73,9 @@ def coursesOverview():
         # access to the employeeCourse database with that manager id 
         for employee in current_user.employees:
             boo = 1
-            totalCourse +=1
             # access the answer table with that employee id and manager id 
             for answer in Answer.query.filter_by(employee_id=employee.id,course_id=course.idcourses):
+                totalCourse +=1
                 if not answer.answer:
                     # print(answer.answer)
                     boo = 0
