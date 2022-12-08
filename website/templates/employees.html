@@ -81,8 +81,8 @@
   function drawChart() {
   var data = google.visualization.arrayToDataTable([
   ['Number of Employee', 'Progress'],
-  ['Number of completed courses in {{user.department}}', {{completed}}],
-  ['Number of incompleted courses in {{user.department}}', {{totalCourse}}-{{completed}}],
+  ['Number of employee completed courses in {{user.department}}', {{completed}}],
+  ['Number of employee incompleted courses in {{user.department}}', {{totalCourse}}-{{completed}}],
   ]);
 
   // Optional; add a title and set the width and height of the chart
