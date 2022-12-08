@@ -63,39 +63,29 @@ def manager():
 @auth.route('/Employees')
 @login_required
 def coursesOverview():
-    employee = User.query.filter_by(manager_id=current_user.id).first()
-    numOfCompleted = 0 
-    numOfFullyCom = 0
-    incomplete = 9
-    complete = 0
-    fullycomplete = 0
-    total = 0
-    # find all the progress from one manager 
-    for x in current_user.manager_courses:
-        total +=1
-        if x.progress:
-            numOfCompleted += 1
-        else:
-            x.progress = 0
-        if x.progress == 100:
-            numOfFullyCom += 1
-    # for y in current_user.eAnswer:
-    #     if not y.answer:
-    #         incomplete+=1
+    # employee = User.query.filter_by(manager_id=current_user.id).first()
+    completed = 0  
+    incompelete = 0
+    totalCourse = 0
+    # find all the course with that specific manager id 
     for course in current_user.courses:
-        for EC in course.employees:
-            if EC.progress:
-                complete += 1
-            if EC.progress == 100:
-                fullycomplete += 1
-        
-    print(numOfCompleted)
-    print(numOfFullyCom)
-    print(total)
-    print(complete)
-    # print(incomplete)
-
-    return render_template("employees.html", user=current_user, _course=Course, numOfCompleted=numOfCompleted, total=total, numOfFullyCom=numOfFullyCom, complete=complete)
+        print(course)
+        # access to the employeeCourse database with that manager id 
+        for employee in current_user.employees:
+            boo = 1
+            totalCourse +=1
+            # access the answer table with that employee id and manager id 
+            for answer in Answer.query.filter_by(employee_id=employee.id,course_id=course.idcourses):
+                if not answer.answer:
+                    # print(answer.answer)
+                    boo = 0
+                    incompelete +=1
+                    break
+                completed += boo
+    print("totalCourse", totalCourse)
+    print("complete", completed)
+    print("incomplete",incompelete)
+    return render_template("employees.html", user=current_user, _course=Course, completed=completed, totalCourse=totalCourse, incompelete=incompelete)
 
 
 @auth.route('/AddCourses', methods=['GET', 'POST'])
@@ -334,3 +324,30 @@ def delete(idForCourse):
     db.session.commit()
     flash("Successfully delete course")
     return render_template("manager.html", user=current_user, idForCourse=idForCourse, _employee_course=employeeCourse)
+
+
+
+@auth.route('/ProgressPieChart/c_id=<cid>', methods=['GET', 'POST'])
+def progressPieChart(cid):
+    course = Course.query.filter_by(idcourses=cid).first()
+    completed = 0
+    incompleted = 0
+    totalCourse = 0
+    print("cid",cid)
+
+    # access the answer table with that employee id and manager id 
+    for answer in Answer.query.filter_by(course_id=cid):
+        print(answer.answer)
+        totalCourse+=1
+        if answer.answer:
+            # print(answer.answer)
+            completed +=1
+        else:
+            incompleted +=1
+        # completed += boo
+    print("totalCourse", totalCourse)
+    print("complete", completed)
+    print("incomplete",incompleted)
+  
+        
+    return render_template("progressPieChart.html", cid=cid, user=current_user,course=course, totalCourse=totalCourse, completed=completed)

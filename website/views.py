@@ -69,16 +69,27 @@ def deleteQ(qid):
 @views.route('/Progress/e_id=<eid>', methods=['GET', 'POST'])
 def progress(eid):
     employee = User.query.filter_by(id=eid).first()
-    numCompleted = 0
-    total = 0
-    # find all progress from one employee 
-    for eC in employee.employee_courses:
-        total +=1
-        if not eC.progress:
-            eC.progress = 0
-        if eC.progress:
-            numCompleted += 1
-    print("count", numCompleted)
-    print(total)
+    print(employee)
+    completed = 0
+    incompeleted = 0
+    totalCourse = 0
 
-    return render_template("progress.html", eid=eid, user=current_user,_course=Course, employee=employee, numCompleted=numCompleted, total=total, _employee_course=employeeCourse)
+    # access to the employeeCourse database with that employee id 
+    # for e in current_user.employees:
+    #     # print(employee)
+    #     boo = 1
+        # access the answer table with that employee id and manager id 
+    for answer in Answer.query.filter_by(employee_id=eid):
+        print(answer.answer)
+        totalCourse +=1
+        if answer.answer:
+            # print(answer.answer)
+            completed +=1
+        else:
+            incompeleted+=1
+
+    print("totalCourse", totalCourse)
+    print("complete", completed)
+    print("incomplete",incompeleted)
+
+    return render_template("progress.html", eid=eid, user=current_user, employee=employee, _employee_course=employeeCourse, completed=completed, totalCourse=totalCourse, incompeleted=incompeleted)

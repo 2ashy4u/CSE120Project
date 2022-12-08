@@ -63,11 +63,10 @@ navbar%}
         {% endfor %}
       </tbody>
     </table>
-    <h2> {{employee.firstname}} completed {{numCompleted}} out of {{total}} Courses</h2>
+    <h2> {{employee.firstname}} completed {{completed}} / {{totalCourse}} courses</h2>
   </body>
 
   <!--progress piechart-->
-        
   <div class="piechartDiv">
     <div id="piechart"></div>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
@@ -81,8 +80,8 @@ navbar%}
     function drawChart() {
     var data = google.visualization.arrayToDataTable([
     ['Number of Courses', 'Completion'],
-    ['Completed', {{numCompleted}}],
-    ['Inompleted', {{total}} - {{numCompleted}}],
+    ['Completed Courses', {{completed}}],
+    ['Inompleted Courses', {{totalCourse}} - {{completed}}],
     ]);
 
     // Optional; add a title and set the width and height of the chart
@@ -96,6 +95,4 @@ navbar%}
   </div>    
 
 </html>
-
-
 {% endblock %}

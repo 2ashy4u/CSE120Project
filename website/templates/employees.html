@@ -30,11 +30,12 @@
     </div>
   </div>
 </nav>
-{%endblock%}
+{% endblock %}
 {% block content %}
 
 <!DOCTYPE html>
 <html>
+  <h1 class="welcomeHeader">Welcome <b>{{user.firstname}}</b>!</h1>
   <div class ="container-fluid">
     <form method="POST">
       <h1 align="center">Employees in {{user.department}}</h1>
@@ -66,8 +67,6 @@
     </form>
   </div>
 
-  
- 
 <!--overall employee completed-->     
 <div class="piechartDiv">
   <div id="piechart"></div>
@@ -82,22 +81,36 @@
   function drawChart() {
   var data = google.visualization.arrayToDataTable([
   ['Number of Employee', 'Progress'],
-  ['Number of employee in {{user.department}} completed courses', {{numOfCompleted}}],
-  ['Number of employee in {{user.department}} uncompleted courses', {{total}}-{{numOfCompleted}}],
-  // ['Number of completed 100% grade in {{user.department}}', {{numOfFullyCom}}],
-  // ['Number of completed in {{user.department}}', {{complete}}],
+  ['Number of completed courses in {{user.department}}', {{completed}}],
+  ['Number of incompleted courses in {{user.department}}', {{totalCourse}}-{{completed}}],
   ]);
 
   // Optional; add a title and set the width and height of the chart
-  var options = {'title':'Overall Courses Progress Pie Chart', 'width':800, 'height':500};
+  var options = {'title':'Overall {{user.firstname}} s Employee Progress Pie Chart', 'width':800, 'height':500};
 
   // Display the chart inside the <div> element with id="piechart"
   var chart = new google.visualization.PieChart(document.getElementById('piechart'));
   chart.draw(data, options);
   }
   </script>
-</div>    
+</div>   
+<br>
+<div class ="container-fluid">
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>Each course overall progress</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for course in current_user.courses%}
+      <tr>
+        <td><a href="/ProgressPieChart/c_id={{course.idcourses}}">{{course.courseTitle}} Progress</a></td>
+      </tr>
+      {%endfor%}
+    </tbody>
 
+</div>
 </html>
 
 
