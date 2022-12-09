@@ -67,6 +67,9 @@ def coursesOverview():
     completed = 0  
     incompelete = 0
     totalCourse = 0
+    totalManager = 0
+    for e in current_user.employees:
+        totalManager +=1
     # find all the course with that specific manager id 
     for course in current_user.courses:
         print(course)
@@ -85,7 +88,7 @@ def coursesOverview():
     print("totalCourse", totalCourse)
     print("complete", completed)
     print("incomplete",incompelete)
-    return render_template("employees.html", user=current_user, _course=Course, completed=completed, totalCourse=totalCourse, incompelete=incompelete)
+    return render_template("employees.html", user=current_user, _course=Course, completed=completed, totalCourse=totalCourse, incompelete=incompelete, totalManager=totalManager)
 
 
 @auth.route('/AddCourses', methods=['GET', 'POST'])
@@ -324,7 +327,6 @@ def delete(idForCourse):
     db.session.commit()
     flash("Successfully delete course")
     return render_template("manager.html", user=current_user, idForCourse=idForCourse, _employee_course=employeeCourse)
-
 
 
 @auth.route('/ProgressPieChart/c_id=<cid>', methods=['GET', 'POST'])

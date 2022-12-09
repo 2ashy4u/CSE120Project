@@ -47,7 +47,7 @@
               <th scope="col">First Name</th>
               <th scope="col">Last Name</th>
               <th scope="col">Email</th>
-              <th scope="col">Manager</th>
+              <th scope="col">View Progress</th>
             </tr>
             </thead>
             <tbody>
@@ -78,6 +78,14 @@
               {% endfor %}           
             {%endif%}
             </tbody>
+            {%if user.isSupManager == 'Y'%}
+            <tfoot>
+              <tr>
+                  <th colspan="1">Total Manager {{user.firstname}}'s train:</th>
+                  <td> {{totalManager}} managers </td>
+              </tr>
+            </tfoot>
+          {%endif%}
         </table>
       </div>
     </form>
@@ -125,7 +133,6 @@
       </tr>
       {%endfor%}
     </tbody>
-
 </div>
 </html>
 
