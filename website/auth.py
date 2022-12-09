@@ -348,6 +348,14 @@ def progressPieChart(cid):
     print("totalCourse", totalCourse)
     print("complete", completed)
     print("incomplete",incompleted)
-  
-        
     return render_template("progressPieChart.html", cid=cid, user=current_user,course=course, totalCourse=totalCourse, completed=completed)
+
+
+@auth.route('/EmployeeList/m_id=<mid>', methods=['GET', 'POST'])
+def employeeList(mid):
+    print(mid)
+    manager = User.query.filter_by(id=mid).first()
+    totalEmployee = 0
+    for e in manager.employees:
+        totalEmployee +=1
+    return render_template("employeeList.html", user=current_user, mid=mid, manager=manager, totalEmployee=totalEmployee)

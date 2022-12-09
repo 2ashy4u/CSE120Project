@@ -51,16 +51,32 @@
             </tr>
             </thead>
             <tbody>
+            <!-- Super Manager view  -->
+            {%if user.isSupManager == 'Y'%}
               {%for user in user.employees%}
-            <tr>
-              <th scope="row">{{user.id}}</th>
-              <td>{{user.firstname}}</td>
-              <td>{{user.lastname}}</td>
-              <td>{{user.email}}</td>
-              <td>{{user.manager}}</td>
-              <td><a href="/Progress/e_id={{user.id}}">View Progress</td>
-            </tr>
-            {% endfor %}
+              <tr>
+                <th scope="row">{{user.id}}</th>
+                <td><a href="/EmployeeList/m_id={{user.id}}">{{user.firstname}}</td> 
+                <td><a href="/EmployeeList/m_id={{user.id}}">{{user.lastname}}</td>
+                <td>{{user.email}}</td>
+                <td>{{user.manager}}</td>
+                <td><a href="/Progress/e_id={{user.id}}">View Progress</td>
+              </tr>
+              {% endfor %}  
+            {%endif%}
+            <!-- Manager view  -->
+            {%if user.isSupManager == 'N'%}
+              {%for user in user.employees%}
+              <tr>
+                <th scope="row">{{user.id}}</th>
+                <td>{{user.firstname}}</td>
+                <td>{{user.lastname}}</td>
+                <td>{{user.email}}</td>
+                <td>{{user.manager}}</td>
+                <td><a href="/Progress/e_id={{user.id}}">View Progress</td>
+              </tr>
+              {% endfor %}           
+            {%endif%}
             </tbody>
         </table>
       </div>
