@@ -1,6 +1,8 @@
 # CSE120Project
 Training App Capstone Project
 
-By default the SQL_ALCHEMY_URI is set to root:@127.0.0.1:3306
+pip install -r requirements.txt
 
-"/Employees" shows a list of the user's employees
+Flask SQLALCHEMY needs to be set up with the sql document provided
+
+This is the training monitoring website for Western Digital
