@@ -78,7 +78,7 @@
               {% endfor %}           
             {%endif%}
             </tbody>
-            {%if user.isSupManager == 'Y'%}
+            {%if user.isSupManager == 'Y' and user.isManager == 'Y'%}
             <tfoot>
               <tr>
                   <th colspan="1">Total Manager {{user.firstname}}'s train:</th>
@@ -86,6 +86,14 @@
               </tr>
             </tfoot>
           {%endif%}
+          {%if user.isSupManager == 'N' and user.isManager == 'Y'%}
+          <tfoot>
+            <tr>
+                <th colspan="1">Total Employee {{user.firstname}}'s train:</th>
+                <td> {{totalManager}} employees </td>
+            </tr>
+          </tfoot>
+        {%endif%}
         </table>
       </div>
     </form>
