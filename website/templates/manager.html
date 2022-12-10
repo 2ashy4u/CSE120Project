@@ -43,12 +43,13 @@ navbar%}
 </head>
 <body>
   <h1 class="welcomeHeader">Welcome <b>{{current_user.firstname}}</b>!</h1>
+  <h2 class="welcomeHeader"><b> Department: {{current_user.department}}</b></h2>
   <div class="courses-box">
     <form action="" method="POST">
       <table class="table align-middle mb-0 bg-white">
         <thead class="bg-light">
             <tr>
-                <th>Employee Answer</th>
+                <th>Courses</th>
                 <th>Action</th>
             </tr>
         </thead>
@@ -63,7 +64,7 @@ navbar%}
                 <p> <b>Start Date: </b><i>{{ course.startDate }}</i> <b>| End Date: </b><i>{{ course.endDate }}</i> </p>
                 <!-- n_user instead of user because if we use user then it is a manager not the employee  -->
                 {% for n_user in user.employees %}
-                {% if _employee_course.query.filter_by(employee_id = n_user.id, course_id = course.idcourses).first().employee_id: %}
+                {% if _employee_course.query.filter_by(employee_id = n_user.id, course_id = course.idcourses).first().employee_id %}
                   <ul>
                     <!-- since the route have two parameter, we have to passed the right paramater to access each individual employee correctly -->
                     <li class = "list-group-item"><a href="/Feedback/e_id={{n_user.id}},c_id={{course.idcourses}}">Enter Feedback: <i>{{n_user.firstname}} {{n_user.lastname}}</i> </li>

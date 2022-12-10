@@ -30,27 +30,43 @@
     </div>
   </div>
 </nav>
-{%endblock%}
+{% endblock %}
 {% block content %}
 
 <!DOCTYPE html>
 <html>
-<div class ="container-fluid">
-<form method="POST">
-  <h1 align="center">Employees</h1>
-  <div class="container">
-    <table class="table table-hover">
-      <thead>
-        <tr>
-                <th scope="col">EmployeeID</th>
-                <th scope="col">First Name</th>
-                <th scope="col">Last Name</th>
-                <th scope="col">Email</th>
-                <th scope="col">Manager</th>
+  <h1 class="welcomeHeader">Welcome <b>{{user.firstname}}</b>!</h1>
+  <div class ="container-fluid">
+    <form method="POST">
+      <h1 align="center">Employees in {{user.department}}</h1>
+      <div class="container">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th scope="col">EmployeeID</th>
+              <th scope="col">First Name</th>
+              <th scope="col">Last Name</th>
+              <th scope="col">Email</th>
+              <th scope="col">View Progress</th>
+            </tr>
+            </thead>
+            <tbody>
+            <!-- Super Manager view  -->
+            {%if user.isSupManager == 'Y'%}
+              {%for user in user.employees%}
+              <tr>
+                <th scope="row">{{user.id}}</th>
+                <td><a href="/EmployeeList/m_id={{user.id}}">{{user.firstname}}</td> 
+                <td><a href="/EmployeeList/m_id={{user.id}}">{{user.lastname}}</td>
+                <td>{{user.email}}</td>
+                <td>{{user.manager}}</td>
+                <td><a href="/Progress/e_id={{user.id}}">View Progress</td>
               </tr>
-              </thead>
-              <tbody>
-                {%for user in user.employees%}
+              {% endfor %}  
+            {%endif%}
+            <!-- Manager view  -->
+            {%if user.isSupManager == 'N'%}
+              {%for user in user.employees%}
               <tr>
                 <th scope="row">{{user.id}}</th>
                 <td>{{user.firstname}}</td>
@@ -59,12 +75,74 @@
                 <td>{{user.manager}}</td>
                 <td><a href="/Progress/e_id={{user.id}}">View Progress</td>
               </tr>
-              {% endfor %}
-              </tbody>
-</table>
-    </div>
+              {% endfor %}           
+            {%endif%}
+            </tbody>
+            {%if user.isSupManager == 'Y' and user.isManager == 'Y'%}
+            <tfoot>
+              <tr>
+                  <th colspan="1">Total employees: </th>
+                  <td> {{totalManager}} employees </td>
+              </tr>
+            </tfoot>
+          {%endif%}
+          {%if user.isSupManager == 'N' and user.isManager == 'Y'%}
+          <tfoot>
+            <tr>
+                <th colspan="1">Total Employees: </th>
+                <td> {{totalManager}} employees </td>
+            </tr>
+          </tfoot>
+        {%endif%}
+        </table>
+      </div>
+    </form>
   </div>
 
+<!--overall employee completed-->     
+<div class="piechartDiv">
+  <div id="piechart"></div>
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <script type="text/javascript">
+
+  // Load google charts
+  google.charts.load('current', {'packages':['corechart']});
+  google.charts.setOnLoadCallback(drawChart);
+
+  // Draw the chart and set the chart values
+  function drawChart() {
+  var data = google.visualization.arrayToDataTable([
+  ['Number of Employee', 'Progress'],
+  ['Courses Completed in {{user.department}}', {{completed}}],
+  ['Courses Incomplete in {{user.department}}', {{totalCourse}}-{{completed}}],
+  ]);
+
+  // Optional; add a title and set the width and height of the chart
+  var options = {'title':' {{user.firstname}}\'s Employees Progression Pie Chart', 'width':800, 'height':500};
+
+  // Display the chart inside the <div> element with id="piechart"
+  var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+  chart.draw(data, options);
+  }
+  </script>
+</div>   
+<br>
+<div class ="container-fluid">
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>All Courses</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for course in current_user.courses%}
+      <tr>
+        <td><a href="/ProgressPieChart/c_id={{course.idcourses}}">{{course.courseTitle}} Progress</a></td>
+      </tr>
+      {%endfor%}
+    </tbody>
+</div>
 </html>
+
 
 {% endblock %}
