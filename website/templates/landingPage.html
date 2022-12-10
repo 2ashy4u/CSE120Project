@@ -18,18 +18,20 @@ navbar%}
     <!-- Navbar Buttons -->
     <div class="navbar-nav">
       <!-- Add icons -->
-      {% if user.is_authenticated %} {% if user.isManager == 'Y' %}
-      <a class="nav-iten nav-link" id="manager" href="/Manager">Manager View</a>
-      {% endif %}
-      <a class="nav-iten nav-link" id="home" href="/Home">Home</a>
-      <a class="nav-iten nav-link" id="quiz" href="/Quiz">Quiz</a>
-      {% if user.isManager == 'Y' %}
-      <a class="nav-iten nav-link" id="add_quiz" href="/AddQuiz">AddQuiz</a>
-      {% endif %}
-      <a class="nav-item nav-link" id="logout" href="/logout">Logout</a>
-      {% else %}
-      <a class="nav-iten nav-link" id="login" href="/Login">Login</a>
-      {% endif %}
+        {% if user.is_authenticated %} {% if user.isManager == 'Y' %}
+        <a class="nav-iten nav-link" id="manager" href="/Manager">Manager View</a>
+        {% endif %}
+        <a class="nav-iten nav-link" id="home" href="/Home">Home</a>
+        {% if user.isManager == 'Y' %}
+        <a class="nav-iten nav-link" id="quiz" href="/Employees">Employees</a>
+        <a class="nav-iten nav-link" id="add_quiz" href="/AddCourses"
+          >Add Courses</a
+        >
+        {% endif %}
+        <a class="nav-item nav-link" id="logout" href="/logout">Logout</a>
+        {% else %}
+        <a class="nav-iten nav-link" id="login" href="/Login">Login</a>
+        {% endif %}
     </div>
   </div>
 </nav>
@@ -41,6 +43,9 @@ navbar%}
   <p align="middle"><iframe id="ytplayer" type="text/html" width="640" height="360"
   src="https://www.youtube.com/embed/dfB4pKUnoWY?autoplay=1&origin=http://example.com"
   frameborder="0"></iframe></p>
+
+  <h2 align="middle"> <b> About this website </b> </h2>
+  <p align="middle"> We hope this website will enable Western Digital employee understanding of the material, prepare for their job position, and further allow the company to thrive.</p>
 
   <h2 align="middle"> <b> Who Are We </b> </h2>
   <p align="middle">

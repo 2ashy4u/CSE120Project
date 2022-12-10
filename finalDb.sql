@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 11, 2022 at 05:50 AM
+-- Generation Time: Dec 08, 2022 at 03:20 AM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -18,8 +18,23 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `users`
+-- Database: `usersdb`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `answer`
+--
+
+CREATE TABLE `answer` (
+  `answer` varchar(150) DEFAULT NULL,
+  `points` int(11) DEFAULT NULL,
+  `feedback` varchar(150) DEFAULT NULL,
+  `employee_id` int(11) NOT NULL,
+  `course_id` int(11) NOT NULL,
+  `question_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -30,21 +45,14 @@ SET time_zone = "+00:00";
 CREATE TABLE `course` (
   `idcourses` int(11) NOT NULL,
   `courseTitle` varchar(25) DEFAULT NULL,
-  `courseQues` varchar(150) DEFAULT NULL,
-  `courseLink` varchar(50) DEFAULT NULL,
+  `courseDes` varchar(300) DEFAULT NULL,
+  `courseLink` varchar(150) DEFAULT NULL,
   `courseFeedback` varchar(150) DEFAULT NULL,
   `courseTime` varchar(30) DEFAULT NULL,
-  `user_id` int(11) DEFAULT NULL
+  `user_id` int(11) DEFAULT NULL,
+  `startDate` varchar(15) DEFAULT NULL,
+  `endDate` varchar(15) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `course`
---
-
-INSERT INTO `course` (`idcourses`, `courseTitle`, `courseQues`, `courseLink`, `courseFeedback`, `courseTime`, `user_id`) VALUES
-(5, NULL, 'Is this a course?', NULL, NULL, 'now', 1),
-(6, NULL, 'hahahaha', NULL, NULL, 'now', 1),
-(7, 'asDqwd', '32e', 'dqwwddaSAd', NULL, '2022-11-07 15:09:38.97410', 1);
 
 -- --------------------------------------------------------
 
@@ -55,9 +63,24 @@ INSERT INTO `course` (`idcourses`, `courseTitle`, `courseQues`, `courseLink`, `c
 CREATE TABLE `employee_course` (
   `employee_id` int(11) NOT NULL,
   `course_id` int(11) NOT NULL,
-  `manager_id` int(11) NOT NULL,
+  `manager_id` int(11) DEFAULT NULL,
   `answer` varchar(150) DEFAULT NULL,
-  `feedback` varchar(150) DEFAULT NULL
+  `feedback` varchar(150) DEFAULT NULL,
+  `progress` decimal(5,2) DEFAULT 0.00
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `question`
+--
+
+CREATE TABLE `question` (
+  `questionId` int(11) NOT NULL,
+  `data` varchar(500) DEFAULT NULL,
+  `maxPoints` int(11) DEFAULT NULL,
+  `link` varchar(150) DEFAULT NULL,
+  `course_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -74,27 +97,36 @@ CREATE TABLE `user` (
   `isManager` char(1) NOT NULL,
   `isSupManager` char(1) NOT NULL,
   `password` varchar(40) NOT NULL,
-  `manager_id` int(11) DEFAULT NULL
+  `manager_id` int(11) DEFAULT NULL,
+  `department` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`id`, `firstname`, `lastname`, `email`, `isManager`, `isSupManager`, `password`, `manager_id`) VALUES
-(1, 'Yan', 'Li', 'YAN.LI@wdc.com', 'Y', 'Y', '1234', NULL),
-(2, 'Shirley', 'Liu', 'Shirleu.Liu@wdc.com', 'Y', 'Y', '1234', 1),
-(3, 'Mike', 'Langberg', 'Mike.Langberg@wdc.com', 'Y', 'N', '1234', 1),
-(4, 'Ashmir', 'Moni', 'amoni@wdc.com', 'N', 'N', '1234', 2),
-(5, 'Wilfred', 'Yomba', 'wngongyomba@wdc.com', 'N', 'N', '1234', 2),
-(6, 'Gursagar', 'Singh', 'gsingh96@wdc.com', 'N', 'N', '1234', 2),
-(7, 'Socheata', 'Hour', 'shour@wdc.com', 'N', 'N', '1234', 3),
-(8, 'Sarah', 'Padilla', 'spadilla27@@wdc.com', 'N', 'N', '1234', 3),
-(9, 'Justin', 'Dumindin', 'jdumindin@wdc.com', 'N', 'N', '1234', 3);
+INSERT INTO `user` (`id`, `firstname`, `lastname`, `email`, `isManager`, `isSupManager`, `password`, `manager_id`, `department`) VALUES
+(1, 'Clark', 'Super', 'supermanager@wdc.com', 'Y', 'Y', '1234', NULL, ''),
+(2, 'Jane', 'Manager', 'manager1@wdc.com', 'Y', 'Y', '1234', 1, 'department 1'),
+(3, 'John', 'Trainer', 'manager2@wdc.com', 'Y', 'N', '1234', 1, 'department 2'),
+(4, 'Alan', 'Employee', 'employee1@wdc.com', 'N', 'N', '1234', 2, 'department 1'),
+(5, 'William', 'Trainee', 'employee2@wdc.com', 'N', 'N', '1234', 2, 'department 1'),
+(6, 'Gary', 'Recruit', 'employee3@wdc.com', 'N', 'N', '1234', 2, 'department 1'),
+(7, 'Rose', 'Student', 'employee4@wdc.com', 'N', 'N', '1234', 3, 'department 2'),
+(8, 'Mary', 'Newhire', 'employee5@wdc.com', 'N', 'N', '1234', 3, 'department 2'),
+(9, 'Noah', 'Intern', 'employee6@wdc.com', 'N', 'N', '1234', 3, 'department 2');
 
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `answer`
+--
+ALTER TABLE `answer`
+  ADD PRIMARY KEY (`employee_id`,`course_id`,`question_id`),
+  ADD KEY `course_id` (`course_id`),
+  ADD KEY `question_id` (`question_id`);
 
 --
 -- Indexes for table `course`
@@ -107,9 +139,16 @@ ALTER TABLE `course`
 -- Indexes for table `employee_course`
 --
 ALTER TABLE `employee_course`
-  ADD PRIMARY KEY (`employee_id`,`course_id`,`manager_id`),
+  ADD PRIMARY KEY (`employee_id`,`course_id`),
   ADD KEY `course_id` (`course_id`),
   ADD KEY `manager_id` (`manager_id`);
+
+--
+-- Indexes for table `question`
+--
+ALTER TABLE `question`
+  ADD PRIMARY KEY (`questionId`),
+  ADD KEY `course_id` (`course_id`);
 
 --
 -- Indexes for table `user`
@@ -126,7 +165,13 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `course`
 --
 ALTER TABLE `course`
-  MODIFY `idcourses` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `idcourses` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+
+--
+-- AUTO_INCREMENT for table `question`
+--
+ALTER TABLE `question`
+  MODIFY `questionId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=83;
 
 --
 -- AUTO_INCREMENT for table `user`
@@ -137,6 +182,12 @@ ALTER TABLE `user`
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `answer`
+--
+ALTER TABLE `answer`
+  ADD CONSTRAINT `answer_ibfk_2` FOREIGN KEY (`employee_id`) REFERENCES `user` (`id`);
 
 --
 -- Constraints for table `course`
@@ -151,6 +202,12 @@ ALTER TABLE `employee_course`
   ADD CONSTRAINT `employee_course_ibfk_1` FOREIGN KEY (`employee_id`) REFERENCES `user` (`id`),
   ADD CONSTRAINT `employee_course_ibfk_2` FOREIGN KEY (`course_id`) REFERENCES `course` (`idcourses`),
   ADD CONSTRAINT `employee_course_ibfk_3` FOREIGN KEY (`manager_id`) REFERENCES `user` (`id`);
+
+--
+-- Constraints for table `question`
+--
+ALTER TABLE `question`
+  ADD CONSTRAINT `question_ibfk_1` FOREIGN KEY (`course_id`) REFERENCES `course` (`idcourses`);
 
 --
 -- Constraints for table `user`

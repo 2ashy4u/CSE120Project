@@ -13,11 +13,6 @@ def home():
     return render_template("landingPage.html", user=current_user)
 
 
-@views.route('/Employees')
-def employees():
-    return render_template("employees.html", user=current_user)
-
-
 @views.route('/UpdateCourse/id=<cid>/Questions', methods=['GET', 'POST'])
 def addQuestions(cid):
     course = Course.query.filter_by(
@@ -26,7 +21,7 @@ def addQuestions(cid):
     if request.method == "POST":
         question = request.form.get('question')
         points = request.form.get('points')
-        # link = request.form.get('link')
+        link = request.form.get('link')
         isInt = 1
         try:
             points = int(points)
@@ -40,7 +35,7 @@ def addQuestions(cid):
             flash("Maximum points can't be negative!", category='error')
         else:
             newquestion = Question(
-                data=question, maxPoints=points, course_id=course.idcourses)  # link=link,
+                data=question, maxPoints=points, link=link, course_id=course.idcourses)  
             db.session.add(newquestion)
             db.session.commit()
 
@@ -73,6 +68,28 @@ def deleteQ(qid):
 
 @views.route('/Progress/e_id=<eid>', methods=['GET', 'POST'])
 def progress(eid):
-    EC = employeeCourse.query.filter_by(employee_id=eid).first()
     employee = User.query.filter_by(id=eid).first()
-    return render_template("progress.html", eid=eid, user=current_user, empCourse=employeeCourse, employee=employee)
+    print(employee)
+    completed = 0
+    incompeleted = 0
+    totalCourse = 0
+
+    # access to the employeeCourse database with that employee id 
+    # for e in current_user.employees:
+    #     # print(employee)
+    #     boo = 1
+        # access the answer table with that employee id and manager id 
+    for answer in Answer.query.filter_by(employee_id=eid):
+        print(answer.answer)
+        totalCourse +=1
+        if answer.answer:
+            # print(answer.answer)
+            completed +=1
+        else:
+            incompeleted+=1
+
+    print("totalCourse", totalCourse)
+    print("complete", completed)
+    print("incomplete",incompeleted)
+
+    return render_template("progress.html", eid=eid, user=current_user, employee=employee, _employee_course=employeeCourse, completed=completed, totalCourse=totalCourse, incompeleted=incompeleted)
