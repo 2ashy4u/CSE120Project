@@ -50,7 +50,15 @@ def logout():
 @auth.route('/Home')
 @login_required
 def home():
-    return render_template("home.html", user=current_user, _course=Course, _answer=Answer, todayDate=td)
+    numOfAnswer = 0
+    totalAnswer = 0
+    for answers in Answer.query.all():
+        totalAnswer +=1
+        if answers.answer:
+            numOfAnswer += 1
+    print(numOfAnswer)
+    print(totalAnswer)
+    return render_template("home.html", user=current_user, _course=Course, _answer=Answer, todayDate=td, totalAnswer=totalAnswer,numOfAnswer=numOfAnswer)
 
 
 @auth.route('/Manager')
@@ -87,7 +95,7 @@ def coursesOverview():
                 completed += boo
     print("totalCourse", totalCourse)
     print("complete", completed)
-    print("incomplete",incompelete)
+    print("incomplete", incompelete)
     return render_template("employees.html", user=current_user, _course=Course, completed=completed, totalCourse=totalCourse, incompelete=incompelete, totalManager=totalManager)
 
 
